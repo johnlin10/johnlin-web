@@ -1,0 +1,235 @@
+@import '../../styles/_mixins.scss';
+
+.createProject {
+  @include flexbox(column, center, center);
+  padding: 24px;
+  padding-top: 72px;
+  width: 100%;
+  height: 100%;
+
+  > form {
+    @include flexbox(column, start, start);
+    width: 100%;
+    max-width: 540px;
+    max-height: 100%;
+    padding: 24px;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 28px;
+    overflow-y: auto;
+
+    > input,
+    > textarea {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 12px;
+      background-color: var(--background-secondary-color);
+      border: 1px solid var(--border-color);
+      border-radius: 9px;
+      font-size: 1rem;
+
+      &.name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 0;
+      }
+
+      &.description {
+        min-height: 100px;
+        resize: none;
+      }
+    }
+
+    > textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+    > .detailsItem {
+      @include flexbox(row, space-between, center);
+      width: 100%;
+      margin-bottom: 16px;
+
+      > .private {
+        @include flexbox(row, start, center);
+
+        > p {
+          margin-right: 12px;
+        }
+
+        > input[type='checkbox'] {
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      > .date {
+        @include flexbox(row, end, center);
+        gap: 12px;
+
+        > input[type='date'] {
+          padding: 6px 12px;
+          border: 1px solid var(--border-color);
+          border-radius: 9px;
+        }
+      }
+    }
+
+    > .fieldGroup {
+      width: 100%;
+      margin-bottom: 16px;
+
+      > h3 {
+        margin-bottom: 8px;
+      }
+
+      > div {
+        @include flexbox(row, space-between, center);
+        margin-bottom: 8px;
+
+        > input {
+          flex-grow: 1;
+          margin-right: 8px;
+          padding: 8px;
+          background-color: var(--background-secondary-color);
+          border: 1px solid var(--border-color);
+          border-radius: 9px;
+        }
+
+        > button {
+          padding: 8px 12px;
+          background-color: var(--warning-background-color);
+          color: var(--text-always-white);
+          border: none;
+          border-radius: 9px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
+      > button {
+        margin-top: 8px;
+        padding: 8px 12px;
+        background-color: var(--link-hover-color);
+        color: var(--text-always-white);
+        border: none;
+        border-radius: 9px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    > .fileUpload {
+      @include flexbox(column, start, start);
+      width: 100%;
+      margin-bottom: 16px;
+
+      > select {
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 8px;
+        background-color: var(--background-secondary-color);
+        border: 1px solid var(--border-color);
+        border-radius: 9px;
+      }
+
+      > input[type='file'] {
+        width: 100%;
+      }
+    }
+
+    > .websiteInput {
+      @include flexbox(column, start, start);
+      width: 100%;
+      margin-bottom: 16px;
+
+      > input {
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 8px;
+        background-color: var(--background-secondary-color);
+        border: 1px solid var(--border-color);
+        border-radius: 9px;
+      }
+
+      > button {
+        padding: 8px 12px;
+        background-color: var(--link-hover-color);
+        color: var(--text-always-white);
+        border: none;
+        border-radius: 9px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+
+    > .addedFiles {
+      width: 100%;
+      margin-bottom: 16px;
+
+      > h4 {
+        margin-bottom: 8px;
+      }
+
+      > .fileItem {
+        @include flexbox(row, space-between, center);
+        width: 100%;
+        margin-bottom: 8px;
+        padding: 8px;
+        background-color: var(--background-secondary-color);
+        border: 1px solid var(--border-color);
+        border-radius: 9px;
+
+        > .fileInfo {
+          @include flexbox(row, start, center);
+
+          > span {
+            margin-right: 8px;
+          }
+        }
+
+        > button {
+          padding: 4px 8px;
+          background-color: var(--warning-background-color);
+          color: var(--text-always-white);
+          border: none;
+          border-radius: 6px;
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+
+    > button[type='submit'] {
+      width: 100%;
+      margin-top: 16px;
+      padding: 12px;
+      background-color: var(--link-hover-color);
+      color: var(--text-always-white);
+      border: none;
+      border-radius: 9px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}

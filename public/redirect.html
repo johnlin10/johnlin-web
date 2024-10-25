@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Redirecting...</title>
+</head>
+
+<body>
+  <p>Redirecting...</p>
+  <script type="module">
+    import firebaseConfig from './firebaseConfig.js'
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js"
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js"
+
+    const app = initializeApp(firebaseConfig)
+    const db = getFirestore(app)
+    const shortCode = window.location.pathname.split('/')[2]
+
+    async function redirectToOriginalUrl () {
+      try {
+        const docRef = doc(db, "shortUrls", shortCode)
+        const docSnap = await getDoc(docRef)
+
+        if (docSnap.exists()) {
+          window.location.href = docSnap.data().originalUrl
+        } else {
+          document.body.innerHTML = 'Short url not found'
+        }
+      } catch (error) {
+        console.error('get short url error', error)
+        document.body.innerHTML = 'get short url error'
+      }
+    }
+
+    redirectToOriginalUrl();
+  </script>
+</body>
+
+</html>

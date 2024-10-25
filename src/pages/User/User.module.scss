@@ -1,0 +1,105 @@
+@import '../../styles/_mixins.scss';
+
+.userContainer {
+  @include flexbox(column);
+  padding: 24px;
+  padding-top: 60px;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+
+  @include respond-to('phone') {
+    padding: 12px;
+    padding-top: 60px;
+  }
+
+  @include respond-to('desktop') {
+    height: 100%;
+  }
+
+  > .userContent {
+    @include flexbox(column, start, center);
+    position: relative;
+    padding: 24px;
+    width: 100%;
+    height: fit-content;
+    max-height: 100%;
+    max-width: 480px;
+    background-color: var(--background-secondary-color);
+    border: 1px solid var(--border-color);
+
+    // User Info
+    > .userInfo {
+      @include flexbox(column, center, center);
+      width: 100%;
+      margin-bottom: 24px;
+
+      > img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 12px;
+      }
+
+      > h2 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+
+      > p {
+        margin: 6px 0;
+        color: var(--text-secondary-color);
+      }
+    }
+
+    // User Actions
+    > .userActions {
+      @include flexbox(column, center, stretch);
+      width: 100%;
+
+      > h2 {
+        margin: 0;
+        margin-bottom: 12px;
+        font-size: 1.5rem;
+      }
+
+      > button {
+        @include flexbox(row, center, center);
+        padding: 12px 24px;
+        background-color: var(--background-secondary-color);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        border-radius: 9px;
+        font-weight: 500;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:not(:last-child) {
+          margin-bottom: 12px;
+        }
+
+        &:hover {
+          color: var(--text-always-white);
+          background-color: var(--link-hover-color);
+
+          &.logoutButton {
+            background-color: var(--warning-background-color);
+          }
+
+          svg > path {
+            color: var(--text-always-white) !important;
+          }
+        }
+
+        svg {
+          margin-right: 8px;
+        }
+      }
+    }
+    border-radius: 28px;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    -ms-border-radius: 28px;
+    -o-border-radius: 28px;
+  }
+}

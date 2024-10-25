@@ -1,0 +1,23 @@
+@import '../../styles/_mixins.scss';
+
+.home_container {
+  @include flexbox(column);
+  height: 100vh;
+
+  > .home_content {
+    @include flexbox(column, start, start);
+    padding: 0 24px;
+    width: 100%;
+    max-width: 480px;
+
+    > .top_content {
+      @include flexbox(column, start, start);
+
+      > code {
+        margin: 0;
+        font-size: 1rem;
+        color: var(--text-color);
+      }
+    }
+  }
+}

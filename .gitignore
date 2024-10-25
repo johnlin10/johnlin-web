@@ -11,8 +11,19 @@
 # production
 /build
 
+# firebase
+/.firebase
+.firebaserc
+firebase.json
+database.rules.json
+firestore.indexes.json
+firestore.rules
+storage.rules
+
 # misc
+/.github
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
