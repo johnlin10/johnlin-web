@@ -21,6 +21,7 @@ import {
   faArrowRotateRight,
   faArrowRotateLeft,
   faTrash,
+  faLock,
 } from '@fortawesome/free-solid-svg-icons'
 import { faPython, faSquareJs } from '@fortawesome/free-brands-svg-icons'
 import { db } from '../../firebase'
@@ -35,14 +36,18 @@ import { storage } from '../../firebase'
 import { ref, deleteObject, listAll } from 'firebase/storage'
 import useAuth from '../../hooks/useAuth'
 
-function SchoolProject() {
+import { isYouTubeUrl, getYouTubeEmbedUrl } from '../../utils/helpers'
+
+function Project() {
   const { projectId } = useParams()
   const { isAdmin } = useAuth()
   const [projects, setProjects] = useState([])
   const [currentProject, setCurrentProject] = useState(null)
+  const [hasVideo, setHasVideo] = useState(false)
 
-  // 修改这个 useEffect
+  // fetch projects from firestore
   useEffect(() => {
+    // fetch projects once
     const fetchProjects = async () => {
       const projectsCollection = collection(db, 'projects')
       const projectSnapshot = await getDocs(projectsCollection)
@@ -52,10 +57,9 @@ function SchoolProject() {
       }))
       setProjects(projectList)
     }
-
     fetchProjects()
 
-    // 设置实时监听
+    // set projects realtime listener
     const projectsCollection = collection(db, 'projects')
     const unsubscribe = onSnapshot(projectsCollection, (snapshot) => {
       const updatedProjects = snapshot.docs.map((doc) => ({
@@ -64,114 +68,19 @@ function SchoolProject() {
       }))
       setProjects(updatedProjects)
     })
-
-    // 清理函数
     return () => unsubscribe()
   }, [])
 
-  // 在有 projectId 時，設定 currentProject
+  // if have projectId, set currentProject
   useEffect(() => {
-    setCurrentProject(projects.find((p) => p.id === projectId))
+    const project = projects.find((p) => p.id === projectId)
+    setCurrentProject(project)
+    // if have web_video, set hasVideo to true
+    setHasVideo(project?.files.some((file) => file.type === 'web_video'))
   }, [projectId, projects])
 
-  // const projects = [
-  //   {
-  //     id: '20241021001',
-  //     name: '社群媒體上機實作考（一）',
-  //     description: '於 10/21 社群媒體製作課程上的小考成品',
-  //     publishDate: '2024-10-21',
-  //     creationDate: '2024-10-21',
-  //     author: '林昌龍',
-  //     private: true,
-  //     media: [
-  //       {
-  //         type: 'web_video',
-  //         name: 'F11308063_林昌龍_社群媒體上機實作考（一）.mov',
-  //         url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fschool_project%2Fvideo%2FF11308063_林昌龍_社群媒體上機實作考（一）.mov?alt=media&token=a7c34f94-d199-45f2-ae5f-27b0851f8388',
-  //       },
-  //       {
-  //         type: 'audio',
-  //         name: 'F11308063_林昌龍_社群媒體上機實作考（一）.AAC',
-  //         url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2F20241021001%2FF11308063_林昌龍_社群媒體上機實作考（一）.AAC?alt=media&token=ef59d938-b3eb-43c5-a460-41e93c7b04eb',
-  //       },
-  //       {
-  //         type: 'pdf',
-  //         name: '社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).pdf',
-  //         url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2F20241021001%2F社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).pdf?alt=media&token=95d4ed7d-f551-4194-8015-3b3dc6cbf29b',
-  //       },
-  //       {
-  //         type: 'file',
-  //         name: '社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).doc',
-  //         url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2F20241021001%2F社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).doc?alt=media&token=9449e778-77d6-4bc6-abce-adaba3e73a72',
-  //       },
-  //       {
-  //         type: 'website',
-  //         name: 'SafeChat',
-  //         url: 'https://safechat.com/post/3285821948192095054',
-  //       },
-  //     ],
-  //   },
-  //   // {
-  //   //   id: 'test-project',
-  //   //   name: 'Test Project',
-  //   //   description: 'Test Description',
-  //   //   publishDate: '2024-10-22',
-  //   //   creationDate: '2024-10-22',
-  //   //   author: 'John Lin',
-  //   //   media: [
-  //   //     {
-  //   //       type: 'web_video',
-  //   //       name: '',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fschool_project%2Fvideo%2FF11308063_林昌龍_社群媒體上機實作考（一）.mov?alt=media&token=a7c34f94-d199-45f2-ae5f-27b0851f8388',
-  //   //     },
-  //   //     {
-  //   //       type: 'file',
-  //   //       name: 'test.doc',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2F20241021001%2F社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).doc?alt=media&token=9449e778-77d6-4bc6-abce-adaba3e73a72',
-  //   //     },
-  //   //     {
-  //   //       type: 'file',
-  //   //       name: 'test.zip',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2F1021_實作題材料(1).zip?alt=media&token=f6eeaf66-98d0-41df-b43b-bd2e6db2e431',
-  //   //     },
-  //   //     {
-  //   //       type: 'audio',
-  //   //       name: 'test.m4a',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2F有形的翅膀.m4a?alt=media&token=d5fac707-dff1-4013-8f2f-07dd4029bed0',
-  //   //     },
-  //   //     {
-  //   //       type: 'file',
-  //   //       name: 'test.js',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2Fmain.cf94dd57.js?alt=media&token=45be6891-924f-4934-aa1b-0de7df317c2b',
-  //   //     },
-  //   //     {
-  //   //       type: 'pdf',
-  //   //       name: 'test.pdf',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2F20241021001%2F社群媒體_(1021_小影片)_作業單_(班級_FM1A_座號_20_姓名_林昌龍).pdf?alt=media&token=95d4ed7d-f551-4194-8015-3b3dc6cbf29b',
-  //   //     },
-  //   //     {
-  //   //       type: 'pdf',
-  //   //       name: 'test.jpg',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2Fistockphoto-467367026-612x612.jpg?alt=media&token=65c5722c-337c-4705-a1b5-cb19b4cad85a',
-  //   //     },
-  //   //     {
-  //   //       type: 'pdf',
-  //   //       name: 'test.pptx',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2F我們這一班系語新知簡報.pptx?alt=media&token=2e4342c5-150d-42eb-ab06-dad3818d44f6',
-  //   //     },
-  //   //     {
-  //   //       type: 'pdf',
-  //   //       name: 'test.xlsx',
-  //   //       url: 'https://firebasestorage.googleapis.com/v0/b/johnlin10-web.appspot.com/o/assets%2Fproject%2Ftest-project%2F113-1資管系_fm1a_LINE群組核對名單.xlsx?alt=media&token=098a622e-e448-467a-89cf-b0fc4e737d0d',
-  //   //     },
-  //   //   ],
-  //   // },
-  // ]
-
-  // find project
-
   // handle pdf click
-  const handleFileClick = (url, type) => {
+  const handleFileClick = (url) => {
     window.open(url, '_blank')
   }
 
@@ -238,7 +147,7 @@ function SchoolProject() {
               height="315"
               src={item.url}
               title="YouTube video player"
-              frameBorder="0"
+              style={{ border: 'none' }}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>
@@ -265,11 +174,24 @@ function SchoolProject() {
                 onClick={() => handleFileClick(item.url, item.type)}
               >
                 <FontAwesomeIcon icon={getFileIcon(item.name)} />
-                <p>{item.name || '未命名文件'}</p>
+                <p>{item.name || 'Untitled File'}</p>
               </div>
             </div>
           ) : null
         case 'website':
+          if (isYouTubeUrl(item.url)) {
+            console.log(item.url)
+            return (
+              <iframe
+                key={item.id}
+                src={getYouTubeEmbedUrl(item.url)}
+                title="YouTube video player"
+                style={{ border: 'none' }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            )
+          }
           return (
             <div className={style.fileContainer} title={item.name || item.url}>
               <a
@@ -303,21 +225,22 @@ function SchoolProject() {
     )
   }
   if (!currentProject) {
-    // 如果正在尋找中，顯示 loading
     return <FontAwesomeIcon icon={faSpinner} />
   }
   if (!currentProject) {
     return (
       <div className={style.notFoundProject}>
         <FontAwesomeIcon icon={faCircleExclamation} />
-        <h1>未找到項目</h1>
+        <h1>Project Not Found</h1>
       </div>
     )
   }
 
   return (
     <div className={style.projectContainer}>
-      <div className={style.projectContent}>
+      <div
+        className={`${style.projectContent} ${hasVideo ? style.hasVideo : ''}`}
+      >
         <div className={style.mediaContainer}>{renderMedia()}</div>
         <div className={style.mediaInfo}>
           <div className={style.mediaInfoHeader}>
@@ -369,10 +292,10 @@ function ProjectList({ isAdmin, projects, setProjects }) {
       )
     ) {
       try {
-        // 删除 Firestore 中的项目文档
+        // delete project document in firestore
         await deleteDoc(doc(db, 'projects', projectId))
 
-        // 删除 Storage 中的所有相关文件
+        // delete all related files in storage
         const storageRef = ref(storage, `projects/${projectId}`)
         const fileList = await listAll(storageRef)
         const deletePromises = fileList.items.map((fileRef) =>
@@ -380,7 +303,7 @@ function ProjectList({ isAdmin, projects, setProjects }) {
         )
         await Promise.all(deletePromises)
 
-        // 更新本地状态
+        // update local state
         setProjects(projects.filter((project) => project.id !== projectId))
 
         alert('Project deleted successfully')
@@ -400,9 +323,15 @@ function ProjectList({ isAdmin, projects, setProjects }) {
               return null
             }
             return (
-              <li key={project.id}>
+              <li
+                key={project.id}
+                className={project.private ? style.private : ''}
+              >
                 <Link to={`/project/${project.id}`}>
-                  <h3>{project.name}</h3>
+                  <h3>
+                    {project.private ? <FontAwesomeIcon icon={faLock} /> : ''}
+                    {project.name}
+                  </h3>
                   <p className={style.description}>{project.description}</p>
                   <p className={style.publishDate}>
                     {project.createdAt?.toDate().toLocaleDateString()}
@@ -437,6 +366,7 @@ const AudioPlayer = ({ src, name }) => {
   const [duration, setDuration] = useState(0)
   const audioRef = useRef(null)
 
+  // set audio duration and current time
   useEffect(() => {
     const audio = audioRef.current
     audio.addEventListener('loadedmetadata', () => setDuration(audio.duration))
@@ -515,4 +445,4 @@ const AudioPlayer = ({ src, name }) => {
     </div>
   )
 }
-export default SchoolProject
+export default Project

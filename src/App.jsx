@@ -5,7 +5,7 @@ import './App.scss'
 // pages
 import Home from './pages/Home/Home'
 import Posts from './pages/Posts/Posts'
-import SchoolProject from './pages/Project/Project'
+import Project from './pages/Project/Project'
 import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
 import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
@@ -93,8 +93,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/user" element={<User />} />
         <Route path="/posts" element={<Posts />} />
-        <Route path="/project" element={<SchoolProject />} />
-        <Route path="/project/:projectId" element={<SchoolProject />} />
+        <Route path="/project" element={<Project />} />
+        <Route path="/project/:projectId" element={<Project />} />
         <Route path="/create-project" element={<CreateProject />} />
         <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
       </Routes>

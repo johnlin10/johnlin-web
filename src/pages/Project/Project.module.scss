@@ -54,6 +54,10 @@
           margin-bottom: 0;
         }
 
+        &.private {
+          // border: 1px solid var(--border-color);
+        }
+
         > a {
           @include flexbox(column, start, start);
           padding: 12px 15px;
@@ -62,8 +66,18 @@
           color: inherit;
 
           > h3 {
+            @include flexbox(row, start, center);
             margin: 0;
             font-size: 1.2rem;
+
+            > svg {
+              margin-top: 2px;
+              margin-right: 6px;
+              font-size: 0.8rem;
+              > path {
+                color: var(--text-secondary-color);
+              }
+            }
           }
           > p {
             margin: 0;
@@ -80,17 +94,17 @@
           @include flexbox(row, center, center);
           position: absolute;
           padding: 6px 9px;
-          top: 6px;
-          right: 6px;
+          top: 12px;
+          right: 12px;
           cursor: pointer;
           background-color: var(--background-secondary-color);
-          border: none;
+          border: 1px solid var(--border-color);
           color: var(--text-secondary-color);
-          border-radius: 12px;
-          -webkit-border-radius: 12px;
-          -moz-border-radius: 12px;
-          -ms-border-radius: 12px;
-          -o-border-radius: 12px;
+          border-radius: 9px;
+          -webkit-border-radius: 9px;
+          -moz-border-radius: 9px;
+          -ms-border-radius: 9px;
+          -o-border-radius: 9px;
         }
 
         border-radius: 18px;
@@ -123,15 +137,15 @@
 // single project
 .projectContainer {
   @include flexbox(column);
-  padding: 12px;
-  padding-top: 72px;
+  padding: 24px;
+  padding-top: 84px;
   width: 100%;
   height: 100%;
   margin: 0 auto;
 
-  @include respond-to('tablet') {
-    padding: 24px;
-    padding-top: 84px;
+  @include respond-to('phone') {
+    padding: 12px;
+    padding-top: 72px;
   }
   @include respond-to('desktop') {
     height: 100%;
@@ -154,6 +168,23 @@
       border: 1px solid var(--border-color);
       overflow: hidden;
       // box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.2);
+
+      &.hasVideo {
+        max-width: 1200px;
+
+        > .mediaContainer {
+          @include respond-to('desktop') {
+            width: 100%;
+          }
+        }
+
+        > .mediaInfo {
+          @include respond-to('desktop') {
+            width: 30%;
+            min-width: 360px;
+          }
+        }
+      }
     }
 
     // 媒體展示區塊
@@ -161,6 +192,7 @@
       @include flexbox(column, start, center);
       width: 100%;
       // max-height: 70%;
+
       height: min-content;
       padding: 12px;
       overflow: hidden;
@@ -175,8 +207,9 @@
       }
 
       @include respond-to('desktop') {
-        width: 50%;
+        width: 60%;
         padding: 12px;
+        height: 100%;
         max-height: 100%;
         background-color: var(--background-secondary-color);
         border: none;
@@ -478,7 +511,7 @@
 
       @include respond-to('desktop') {
         @include flexbox(column, space-between, start);
-        width: 50%;
+        width: 40%;
         height: 100%;
         max-height: none;
         padding: 36px 24px 24px 24px;
