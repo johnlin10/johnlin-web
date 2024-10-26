@@ -75,8 +75,14 @@ function Project() {
   useEffect(() => {
     const project = projects.find((p) => p.id === projectId)
     setCurrentProject(project)
-    // if have web_video, set hasVideo to true
-    setHasVideo(project?.files.some((file) => file.type === 'web_video'))
+
+    // fix: set hasVideo to true when youtube video is found
+    const hasWebVideo = project?.files.some((file) => file.type === 'web_video')
+    const hasYouTubeVideo = project?.files.some((file) =>
+      isYouTubeUrl(file.url)
+    )
+
+    setHasVideo(hasWebVideo || hasYouTubeVideo)
   }, [projectId, projects])
 
   // handle pdf click
@@ -180,7 +186,6 @@ function Project() {
           ) : null
         case 'website':
           if (isYouTubeUrl(item.url)) {
-            console.log(item.url)
             return (
               <iframe
                 key={item.id}
