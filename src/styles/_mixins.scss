@@ -7,11 +7,15 @@
 
 @mixin respond-to($breakpoint) {
   @if $breakpoint == 'phone' {
-    @media (max-width: 767px) {
+    @media (max-width: 600px) and (min-height: 600px) {
+      @content;
+    }
+  } @else if $breakpoint == 'phone-landscape' {
+    @media (min-width: 600px) and (max-height: 600px) and (orientation: landscape) {
       @content;
     }
   } @else if $breakpoint == 'tablet' {
-    @media (min-width: 768px) and (max-width: 1024px) {
+    @media ((min-width: 600px) and (max-width: 1024px)) {
       @content;
     }
   } @else if $breakpoint == 'desktop' {
@@ -19,4 +23,15 @@
       @content;
     }
   }
+}
+
+// page container
+@mixin page-container {
+  @include flexbox(column, start, center);
+  padding: 0;
+  padding-top: calc(var(--header-height) + var(--space));
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: scroll;
 }

@@ -1,8 +1,7 @@
 @import '../../styles/_mixins.scss';
 
 .home_container {
-  @include flexbox(column);
-  height: 100vh;
+  @include page-container;
 
   > .home_content {
     @include flexbox(column, start, start);
@@ -11,7 +10,10 @@
     max-width: 480px;
 
     > .top_content {
-      @include flexbox(column, start, start);
+      @include flexbox(column, center, start);
+      width: 100%;
+      height: calc(100vh - var(--header-height) - var(--space));
+      padding-bottom: var(--header-height);
 
       > code {
         margin: 0;

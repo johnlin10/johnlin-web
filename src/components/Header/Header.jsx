@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
 function Header({ title, center, right }) {
   const [clickCount, setClickCount] = useState(0)
   const navigate = useNavigate()
-
+  const { t } = useTranslation()
   const refresh = () => {
     window.location.reload(true)
   }
@@ -33,7 +34,7 @@ function Header({ title, center, right }) {
           refresh()
         }}
       >
-        <h1>{title || 'John Lin'}</h1>
+        <h1>{title || t('header.title')}</h1>
       </div>
       <div
         className={style.center_navigation}

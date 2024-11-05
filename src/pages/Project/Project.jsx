@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import style from './Project.module.scss'
 import { useParams, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +16,7 @@ import {
   faHeadphones,
   faPlay,
   faPause,
-  faPlus,
+  faPenToSquare,
   faLink,
   faSpinner,
   faArrowRotateRight,
@@ -39,6 +40,7 @@ import useAuth from '../../hooks/useAuth'
 import { isYouTubeUrl, getYouTubeEmbedUrl } from '../../utils/helpers'
 
 function Project() {
+  const { t } = useTranslation()
   const { projectId } = useParams()
   const { isAdmin } = useAuth()
   const [projects, setProjects] = useState([])
@@ -236,7 +238,7 @@ function Project() {
     return (
       <div className={style.notFoundProject}>
         <FontAwesomeIcon icon={faCircleExclamation} />
-        <h1>Project Not Found</h1>
+        <h1>{t('project.projectNotFound')}</h1>
       </div>
     )
   }
@@ -249,34 +251,37 @@ function Project() {
         <div className={style.mediaContainer}>{renderMedia()}</div>
         <div className={style.mediaInfo}>
           <div className={style.mediaInfoHeader}>
-            <h2>{currentProject?.name}</h2>
+            <h3>{currentProject?.name}</h3>
             <p className={style.description}>{currentProject?.description}</p>
           </div>
           <div className={style.details}>
             <div className={style.detailsItem}>
-              <p>Authors</p>
-              <p>{currentProject?.authors?.join(', ') || '未署名作者'}</p>
+              <p>{t('project.detail.author')}</p>
+              <p>
+                {currentProject?.authors?.join(', ') ||
+                  t('project.detail.anonymous')}
+              </p>
             </div>
             <div className={style.detailsItem}>
-              <p>Start Date</p>
+              <p>{t('project.detail.startDate')}</p>
               <p>{currentProject?.startDate || '--'}</p>
             </div>
             <div className={style.detailsItem}>
-              <p>End Date</p>
+              <p>{t('project.detail.endDate')}</p>
               <p>{currentProject?.endDate || '--'}</p>
             </div>
             <div className={style.detailsItem}>
-              <p>Tags</p>
+              <p>{t('project.detail.tags')}</p>
               <p>{currentProject?.tags?.join(', ') || '--'}</p>
             </div>
             {currentProject?.customFields?.map((field, index) => (
               <div key={index} className={style.detailsItem}>
-                <p>{field.key}</p>
+                <p>{t(`project.detail.${field.key}`)}</p>
                 <p>{field.value || '--'}</p>
               </div>
             ))}
             <div className={style.detailsItem}>
-              <p>Created At</p>
+              <p>{t('project.detail.createdAt')}</p>
               <p>
                 {currentProject?.createdAt?.toDate().toLocaleDateString() ||
                   '--'}
@@ -323,42 +328,43 @@ function ProjectList({ isAdmin, projects, setProjects }) {
     <div className={style.projectList}>
       <div className={style.projectListContent}>
         <ul>
-          {projects?.map((project) => {
-            if (project.private && !isAdmin) {
-              return null
-            }
-            return (
-              <li
-                key={project.id}
-                className={project.private ? style.private : ''}
-              >
-                <Link to={`/project/${project.id}`}>
-                  <h3>
-                    {project.private ? <FontAwesomeIcon icon={faLock} /> : ''}
-                    {project.name}
-                  </h3>
-                  <p className={style.description}>{project.description}</p>
-                  <p className={style.publishDate}>
-                    {project.createdAt?.toDate().toLocaleDateString()}
-                  </p>
-                </Link>
-                {isAdmin && (
-                  <button
-                    className={style.deleteButton}
-                    onClick={() => handleDelete(project.id)}
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
-                )}
-              </li>
-            )
-          })}
+          {projects
+            ?.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate())
+            .map((project) => {
+              if (project.private && !isAdmin) {
+                return null
+              }
+              return (
+                <li
+                  key={project.id}
+                  className={project.private ? style.private : ''}
+                >
+                  <Link to={`/project/${project.id}`}>
+                    <h3>
+                      {project.private ? <FontAwesomeIcon icon={faLock} /> : ''}
+                      {project.name}
+                    </h3>
+                    <p className={style.description}>{project.description}</p>
+                    <p className={style.publishDate}>
+                      {project.createdAt?.toDate().toLocaleDateString()}
+                    </p>
+                  </Link>
+                  {isAdmin && (
+                    <button
+                      className={style.deleteButton}
+                      onClick={() => handleDelete(project.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrash} />
+                    </button>
+                  )}
+                </li>
+              )
+            })}
         </ul>
       </div>
       {isAdmin && (
         <Link to="/create-project" className={style.createProject}>
-          <FontAwesomeIcon icon={faPlus} />
-          Create New Project
+          <FontAwesomeIcon icon={faPenToSquare} />
         </Link>
       )}
     </div>

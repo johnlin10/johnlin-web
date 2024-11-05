@@ -1,3 +1,5 @@
+import './i18n/i18n'
+import { useTranslation } from 'react-i18next'
 import React, { useState, useEffect } from 'react'
 import { Routes, Route, useLocation, Link } from 'react-router-dom'
 import './App.scss'
@@ -12,19 +14,30 @@ import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenera
 
 // components
 import Header from './components/Header/Header'
+import FloatLabel from './components/FloatLabel/FloatLabel'
 // import ProtectedRoute from './utils/ProtectedRoute'
 
 // fontawesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faHouse,
-  faFolder,
-  faArrowLeft,
+  faLayerGroup,
+  faLanguage,
   faCircleHalfStroke,
+  faGear,
 } from '@fortawesome/free-solid-svg-icons'
 
 function App() {
+  const { t, i18n } = useTranslation()
   const { pathname } = useLocation()
+  const [isOpenSetting, setIsOpenSetting] = useState(false)
+
+  //* Language
+  const toggleLanguage = () => {
+    const currentLang = i18n.language
+    const newLang = currentLang === 'zh-TW' ? 'en-US' : 'zh-TW'
+    i18n.changeLanguage(newLang)
+  }
 
   //* Theme
   const [theme, setTheme] = useState(() => {
@@ -49,10 +62,10 @@ function App() {
 
   //* Header
   const getHeaderTitle = () => {
-    if (pathname === '/') return 'John Lin'
-    if (pathname === '/posts') return 'Posts'
-    if (pathname.startsWith('/project')) return 'Project'
-    return 'John Lin'
+    if (pathname === '/') return t('header.title')
+    if (pathname === '/posts') return t('header.posts')
+    if (pathname.startsWith('/project')) return t('header.project')
+    return t('header.title')
   }
   const getHeaderCenter = () => {
     return null
@@ -68,15 +81,41 @@ function App() {
             to="/project"
             className={pathname.startsWith('/project') ? 'active' : ''}
           >
-            <FontAwesomeIcon icon={faFolder} />
-            {pathname.startsWith('/project/') && (
-              <FontAwesomeIcon icon={faArrowLeft} className="back" />
-            )}
+            <FontAwesomeIcon icon={faLayerGroup} />
           </Link>
 
-          <button onClick={toggleTheme}>
-            <FontAwesomeIcon icon={faCircleHalfStroke} />{' '}
-          </button>
+          <div className={`actions-container ${isOpenSetting ? 'active' : ''}`}>
+            <button onClick={() => setIsOpenSetting(!isOpenSetting)}>
+              <FontAwesomeIcon
+                icon={faGear}
+                rotation={isOpenSetting ? 90 : 0}
+              />
+            </button>
+            <div className={`actions ${isOpenSetting ? 'active' : ''}`}>
+              <button onClick={toggleTheme}>
+                <FontAwesomeIcon icon={faCircleHalfStroke} />
+                <FloatLabel
+                  label={`${t('settings.theme.title')} - ${
+                    theme === 'light'
+                      ? t('settings.theme.light')
+                      : t('settings.theme.dark')
+                  }`}
+                  position="left"
+                ></FloatLabel>
+              </button>
+              <button onClick={toggleLanguage}>
+                <FontAwesomeIcon icon={faLanguage} />
+                <FloatLabel
+                  label={`${t('settings.language.title')} - ${
+                    i18n.language === 'zh-TW'
+                      ? t('settings.language.zh-TW')
+                      : t('settings.language.en-US')
+                  }`}
+                  position="left"
+                ></FloatLabel>
+              </button>
+            </div>
+          </div>
         </>
       )
     }

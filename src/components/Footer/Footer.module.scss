@@ -2,4 +2,16 @@
 
 .footer {
   @include flexbox(column, center, center);
+  height: fit-content;
+  padding: var(--space-2x) 0;
+  width: 100%;
+  background-color: var(--background-secondary-color);
+
+  > h2 {
+    color: var(--text-secondary-color);
+  }
+
+  > p {
+    color: var(--text-secondary-color);
+  }
 }

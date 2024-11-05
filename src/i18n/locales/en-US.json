@@ -1,0 +1,45 @@
+{
+  "header": {
+    "title": "John Lin",
+    "home": "Home",
+    "posts": "Posts",
+    "project": "Project"
+  },
+  "home": {
+    "top-content": {
+      "p1": "Hi!",
+      "p2": "I'm John Lin",
+      "p3": "A full stack web developer.",
+      "p4": "There's nothing here yet.",
+      "p5": "Coming soon..."
+    }
+  },
+  "project": {
+    "title": "Project",
+    "detail": {
+      "author": "Author",
+      "anonymous": "Anonymous",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "tags": "Tags",
+      "Video Resolution": "Video Resolution",
+      "Subject": "Subject",
+      "Exam Time": "Exam Time",
+      "createdAt": "Created At"
+    },
+    "projectNotFound": "Project Not Found"
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": {
+      "title": "Theme",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "title": "Language",
+      "en-US": "English",
+      "zh-TW": "Chinese (Taiwan)"
+    }
+  }
+}

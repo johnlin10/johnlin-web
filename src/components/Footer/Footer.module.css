@@ -1,1 +1,1 @@
-.footer{display:flex;flex-direction:column;justify-content:center;align-items:center}
+.footer{display:flex;flex-direction:column;justify-content:center;align-items:center;height:-moz-fit-content;height:fit-content;padding:var(--space-2x) 0;width:100%;background-color:var(--background-secondary-color)}.footer>h2{color:var(--text-secondary-color)}.footer>p{color:var(--text-secondary-color)}
