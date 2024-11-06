@@ -6,6 +6,7 @@
   padding: var(--space-2x) 0;
   width: 100%;
   background-color: var(--background-secondary-color);
+  scroll-snap-align: end;
 
   > h2 {
     color: var(--text-secondary-color);

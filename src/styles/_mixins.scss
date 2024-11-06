@@ -35,3 +35,11 @@
   overflow: hidden;
   overflow-y: scroll;
 }
+
+@mixin float-label {
+  position: relative;
+
+  &:hover > :global(.label) {
+    opacity: 1;
+  }
+}

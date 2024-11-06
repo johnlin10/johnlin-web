@@ -2,23 +2,48 @@
 
 .home_container {
   @include page-container;
+  scroll-snap-type: y mandatory;
+  scroll-padding-top: calc(var(--header-height) + var(--space));
+  scroll-behavior: smooth;
 
   > .home_content {
     @include flexbox(column, start, start);
     padding: 0 24px;
     width: 100%;
-    max-width: 480px;
+    max-width: 540px;
 
-    > .top_content {
+    > div {
       @include flexbox(column, center, start);
-      width: 100%;
       height: calc(100vh - var(--header-height) - var(--space));
-      padding-bottom: var(--header-height);
+      scroll-snap-align: start;
 
-      > code {
-        margin: 0;
-        font-size: 1rem;
-        color: var(--text-color);
+      &.top_content {
+        width: 100%;
+        padding-bottom: var(--header-height);
+
+        > p {
+          margin: 0;
+          font-size: 0.9rem;
+          color: var(--text-color);
+        }
+      }
+
+      &.page_content {
+        width: 100%;
+
+        > .who_am_i {
+          width: 100%;
+
+          > .text_content {
+            > h2 {
+              margin-bottom: var(--space);
+            }
+            > p {
+              font-size: 0.9rem;
+              margin: var(--space) 0;
+            }
+          }
+        }
       }
     }
   }

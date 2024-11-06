@@ -74,18 +74,33 @@ function App() {
     if (true) {
       return (
         <>
-          <Link to="/" className={pathname === '/' ? 'active' : ''}>
+          <Link
+            to="/"
+            className={pathname === '/' ? 'active' : ''}
+            onClick={() => {
+              setIsOpenSetting(false)
+            }}
+          >
             <FontAwesomeIcon icon={faHouse} />
+            <FloatLabel label={t('header.home')} position="bottom"></FloatLabel>
           </Link>
           <Link
             to="/project"
             className={pathname.startsWith('/project') ? 'active' : ''}
+            onClick={() => {
+              setIsOpenSetting(false)
+            }}
           >
             <FontAwesomeIcon icon={faLayerGroup} />
           </Link>
 
           <div className={`actions-container ${isOpenSetting ? 'active' : ''}`}>
-            <button onClick={() => setIsOpenSetting(!isOpenSetting)}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsOpenSetting(!isOpenSetting)
+              }}
+            >
               <FontAwesomeIcon
                 icon={faGear}
                 rotation={isOpenSetting ? 90 : 0}
@@ -120,6 +135,19 @@ function App() {
       )
     }
   }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const container = document.querySelector('.actions-container')
+      if (container && !container.contains(event.target) && isOpenSetting) {
+        setIsOpenSetting(false)
+      }
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [isOpenSetting])
 
   return (
     <div className="App">
@@ -127,6 +155,7 @@ function App() {
         title={getHeaderTitle()}
         center={getHeaderCenter()}
         right={getHeaderRight()}
+        setIsOpenSetting={setIsOpenSetting}
       />
       <Routes>
         <Route path="/" element={<Home />} />

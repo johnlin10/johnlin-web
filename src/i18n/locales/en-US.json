@@ -9,14 +9,21 @@
     "top-content": {
       "p1": "Hi!",
       "p2": "I'm John Lin",
-      "p3": "A full stack web developer.",
-      "p4": "There's nothing here yet.",
-      "p5": "Coming soon..."
+      "p3": "Content is being prepared.",
+      "p4": "Coming soon..."
+    },
+    "who_am_i": {
+      "title": "Who am I?",
+      "p1": "I am John Lin.",
+      "p2": "A web designer and React developer who pursues creative freedom, enjoying the infusion of minimalist aesthetics and dynamic effects in interfaces.",
+      "p3": "I hold a critical view of the education system, believing in the value of creativity and independent thinking. I hope to break through existing frameworks to create more space for self-directed exploration for the next generation.",
+      "p4": "I aspire to find a balance between work and life, integrating my interests into my daily life to realize my sense of self-worth."
     }
   },
   "project": {
     "title": "Project",
     "detail": {
+      "": "",
       "author": "Author",
       "anonymous": "Anonymous",
       "startDate": "Start Date",

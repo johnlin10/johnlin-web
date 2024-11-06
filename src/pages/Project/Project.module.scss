@@ -56,7 +56,7 @@
 
         > a {
           @include flexbox(column, start, start);
-          padding: 12px 15px;
+          padding: 15px 18px;
           width: 100%;
           text-decoration: none;
           color: inherit;
@@ -92,6 +92,9 @@
           position: absolute;
           top: 12px;
           right: 12px;
+          height: 24px;
+          width: 24px;
+          font-size: 12px;
           cursor: pointer;
           background-color: var(--background-secondary-color);
           border: 1px solid var(--border-color);
@@ -102,12 +105,11 @@
           -ms-border-radius: 12px;
           -o-border-radius: 12px;
         }
-
-        border-radius: 18px;
-        -webkit-border-radius: 18px;
-        -moz-border-radius: 18px;
-        -ms-border-radius: 18px;
-        -o-border-radius: 18px;
+        border-radius: 24px;
+        -webkit-border-radius: 24px;
+        -moz-border-radius: 24px;
+        -ms-border-radius: 24px;
+        -o-border-radius: 24px;
       }
     }
   }

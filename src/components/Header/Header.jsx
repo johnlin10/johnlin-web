@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
-function Header({ title, center, right }) {
+function Header({ title, center, right, setIsOpenSetting }) {
   const [clickCount, setClickCount] = useState(0)
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -14,6 +14,7 @@ function Header({ title, center, right }) {
   const handleHeaderClick = (e) => {
     e.stopPropagation()
     setClickCount((prevCount) => prevCount + 1)
+    setIsOpenSetting(false)
   }
 
   useEffect(() => {
