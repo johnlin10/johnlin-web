@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { useDispatch } from 'react-redux'
+import { openViewer } from '../../redux/viewerSlice'
 import { useTranslation } from 'react-i18next'
 import style from './Project.module.scss'
 import { useParams, Link } from 'react-router-dom'
@@ -40,6 +42,7 @@ import useAuth from '../../hooks/useAuth'
 import { isYouTubeUrl, getYouTubeEmbedUrl } from '../../utils/helpers'
 
 function Project() {
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const { projectId } = useParams()
   const { isAdmin } = useAuth()
@@ -213,7 +216,22 @@ function Project() {
             </div>
           )
         case 'image':
-          return <img src={item.url} alt={item.name} />
+          return (
+            <div
+              key={index}
+              className={style.img}
+              onClick={() =>
+                dispatch(
+                  openViewer({
+                    src: item.url,
+                    fileName: item.name,
+                  })
+                )
+              }
+            >
+              <img src={item.url} alt={item.name} />
+            </div>
+          )
         case 'audio':
           return <AudioPlayer src={item.url} name={item.name} />
         default:

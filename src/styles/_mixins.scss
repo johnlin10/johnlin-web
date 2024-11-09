@@ -32,8 +32,8 @@
   padding-top: calc(var(--header-height) + var(--space));
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 @mixin float-label {
@@ -41,5 +41,25 @@
 
   &:hover > :global(.label) {
     opacity: 1;
+  }
+}
+
+@mixin hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@mixin custom-scrollbar {
+  // 滾動軌道
+  &::-webkit-scrollbar-track {
+    background-color: var(--background-secondary-color);
+  }
+
+  // 滾動條
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
   }
 }

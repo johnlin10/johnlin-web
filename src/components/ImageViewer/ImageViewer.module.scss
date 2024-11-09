@@ -1,0 +1,151 @@
+@import '../../styles/_mixins.scss';
+
+.imageViewer {
+  @include flexbox(column, center, center);
+  z-index: 2000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: var(--background-color);
+  overflow: hidden;
+
+  > .topBar {
+    @include flexbox(row, space-between, center);
+    z-index: 10;
+    width: 100%;
+    height: var(--header-height);
+    min-height: var(--header-height);
+    padding: var(--space);
+    padding-left: 18px;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+
+    > button {
+      @include flexbox(row, center, center);
+      border: none;
+      padding: 0;
+      min-width: 36px;
+      font-size: 18px;
+    }
+
+    > span {
+      font-size: 1rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  > .imageContainer {
+    @include flexbox(column, center, center);
+    padding-bottom: calc(var(--header-height));
+    width: 100%;
+    height: calc(100% - var(--header-height));
+    // max-height: calc(100% - var(--header-height));
+
+    @include respond-to('phone-landscape') {
+      padding-bottom: 0;
+    }
+
+    > img {
+      width: min-content;
+      max-width: 100%;
+      height: min-content;
+      max-height: 100%;
+      object-fit: contain;
+      //border: 1px solid var(--border-color);
+      pointer-events: none;
+      user-select: none;
+      transition: 0;
+      -webkit-transition: 0;
+      -moz-transition: 0;
+      -ms-transition: 0;
+      -o-transition: 0;
+    }
+  }
+
+  > .zoomControls {
+    @include flexbox(row, center, center);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding-bottom: var(--space-2x);
+    height: calc(var(--header-height) + var(--space-2x));
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--background-color);
+    opacity: 1;
+
+    @include respond-to('phone-landscape') {
+      @include flexbox(column, center, center);
+      position: absolute;
+      left: initial;
+      right: 0;
+      bottom: 0;
+      height: calc(100% - var(--header-height));
+      width: var(--header-height);
+      border-top: none;
+      border-left: 1px solid var(--border-color);
+    }
+
+    @include respond-to('desktop') {
+      padding-bottom: 0;
+      height: var(--header-height);
+    }
+
+    > p {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: var(--header-height);
+      cursor: pointer;
+
+      @include respond-to('phone-landscape') {
+        width: var(--header-height);
+        height: var(--header-height);
+      }
+    }
+
+    > button {
+      border: none;
+      width: var(--header-height);
+
+      @include respond-to('phone-landscape') {
+        width: var(--header-height);
+        height: var(--header-height);
+      }
+
+      &.reset {
+        position: absolute;
+        right: var(--space);
+        padding: 3px;
+        width: calc(var(--header-height) - var(--space-2x));
+        height: calc(var(--header-height) - var(--space-2x));
+        border: 1px solid var(--border-color);
+
+        @include respond-to('phone-landscape') {
+          bottom: var(--space);
+        }
+        border-radius: var(--space);
+        -webkit-border-radius: var(--space);
+        -moz-border-radius: var(--space);
+        -ms-border-radius: var(--space);
+        -o-border-radius: var(--space);
+      }
+    }
+    // transform: translateX(-50%);
+    // -webkit-transform: translateX(-50%);
+    // -moz-transform: translateX(-50%);
+    // -ms-transform: translateX(-50%);
+    // -o-transform: translateX(-50%);
+    // border-radius: var(--space-2x);
+    // -webkit-border-radius: var(--space-2x);
+    // -moz-border-radius: var(--space-2x);
+    // -ms-border-radius: var(--space-2x);
+    // -o-border-radius: var(--space-2x);
+  }
+}

@@ -12,6 +12,25 @@
     color: var(--text-secondary-color);
   }
 
+  > .social {
+    @include flexbox(row, center, center);
+    gap: var(--space);
+
+    > a {
+      font-size: 1.25rem;
+
+      &:hover {
+        * {
+          color: var(--text-color);
+        }
+      }
+
+      * {
+        color: var(--text-secondary-color);
+      }
+    }
+  }
+
   > p {
     color: var(--text-secondary-color);
   }

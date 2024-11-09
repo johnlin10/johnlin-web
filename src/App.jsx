@@ -15,6 +15,7 @@ import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenera
 // components
 import Header from './components/Header/Header'
 import FloatLabel from './components/FloatLabel/FloatLabel'
+import ImageViewer from './components/ImageViewer/ImageViewer'
 // import ProtectedRoute from './utils/ProtectedRoute'
 
 // fontawesome icons
@@ -82,7 +83,11 @@ function App() {
             }}
           >
             <FontAwesomeIcon icon={faHouse} />
-            <FloatLabel label={t('header.home')} position="bottom"></FloatLabel>
+            <FloatLabel
+              label={t('header.home')}
+              size="small"
+              position="bottom"
+            ></FloatLabel>
           </Link>
           <Link
             to="/project"
@@ -92,6 +97,11 @@ function App() {
             }}
           >
             <FontAwesomeIcon icon={faLayerGroup} />
+            <FloatLabel
+              label={t('header.project')}
+              size="small"
+              position="bottom"
+            ></FloatLabel>
           </Link>
 
           <div className={`actions-container ${isOpenSetting ? 'active' : ''}`}>
@@ -105,6 +115,12 @@ function App() {
                 icon={faGear}
                 rotation={isOpenSetting ? 90 : 0}
               />
+              <FloatLabel
+                label={t('header.setting')}
+                size="small"
+                position={isOpenSetting ? 'left' : 'bottom'}
+                align={isOpenSetting ? 'top' : 'right'}
+              ></FloatLabel>
             </button>
             <div className={`actions ${isOpenSetting ? 'active' : ''}`}>
               <button onClick={toggleTheme}>
@@ -166,6 +182,7 @@ function App() {
         <Route path="/create-project" element={<CreateProject />} />
         <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
       </Routes>
+      <ImageViewer />
     </div>
   )
 }

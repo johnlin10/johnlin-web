@@ -3,7 +3,11 @@
     "title": "John Lin",
     "home": "Home",
     "posts": "Posts",
-    "project": "Project"
+    "project": "Project",
+    "setting": "Setting"
+  },
+  "footer": {
+    "copyright": "All rights reserved."
   },
   "home": {
     "top-content": {
@@ -15,9 +19,12 @@
     "who_am_i": {
       "title": "Who am I?",
       "p1": "I am John Lin.",
-      "p2": "A web designer and React developer who pursues creative freedom, enjoying the infusion of minimalist aesthetics and dynamic effects in interfaces.",
-      "p3": "I hold a critical view of the education system, believing in the value of creativity and independent thinking. I hope to break through existing frameworks to create more space for self-directed exploration for the next generation.",
-      "p4": "I aspire to find a balance between work and life, integrating my interests into my daily life to realize my sense of self-worth."
+      "title_1": "Web Designer",
+      "text_1": "A web designer and React developer who pursues creative freedom, enjoying the infusion of minimalist aesthetics and dynamic effects in interfaces.",
+      "title_2": "What I believe",
+      "text_2": "I hold a critical view of the education system, believing in the value of creativity and independent thinking. I hope to break through existing frameworks to create more space for self-directed exploration for the next generation.",
+      "title_3": "What I aspire to",
+      "text_3": "I aspire to find a balance between work and life, integrating my interests into my daily life to realize my sense of self-worth."
     }
   },
   "project": {
@@ -48,5 +55,10 @@
       "en-US": "English",
       "zh-TW": "Chinese (Taiwan)"
     }
+  },
+  "imageViewer": {
+    "zoomIn": "Zoom In",
+    "zoomOut": "Zoom Out",
+    "reset": "Reset"
   }
 }

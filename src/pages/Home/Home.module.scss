@@ -2,15 +2,15 @@
 
 .home_container {
   @include page-container;
-  scroll-snap-type: y mandatory;
-  scroll-padding-top: calc(var(--header-height) + var(--space));
-  scroll-behavior: smooth;
+  // scroll-snap-type: y mandatory;
+  // scroll-padding-top: calc(var(--header-height) + var(--space));
+  // scroll-behavior: smooth;
 
   > .home_content {
     @include flexbox(column, start, start);
-    padding: 0 24px;
+    padding: 0 var(--space-2x);
     width: 100%;
-    max-width: 540px;
+    max-width: 720px;
 
     > div {
       @include flexbox(column, center, start);
@@ -23,24 +23,112 @@
 
         > p {
           margin: 0;
-          font-size: 0.9rem;
           color: var(--text-color);
         }
       }
 
       &.page_content {
+        height: fit-content;
         width: 100%;
 
         > .who_am_i {
+          @include flexbox(row, center, start);
           width: 100%;
 
-          > .text_content {
+          @include respond-to('phone') {
+            @include flexbox(column, center, start);
+          }
+
+          > .image_content {
+            @include flexbox(column, center, start);
+            width: fit-content;
+            border-radius: 12px;
+            margin-right: var(--space-2x);
+
+            @include respond-to('phone') {
+              width: 100%;
+            }
+
+            > img {
+              width: 128px;
+              height: 128px;
+              object-fit: cover;
+              user-select: none;
+              pointer-events: none;
+
+              @include respond-to('phone') {
+                width: 96px;
+                height: 96px;
+              }
+              border-radius: 50%;
+              -webkit-border-radius: 50%;
+              -moz-border-radius: 50%;
+              -ms-border-radius: 50%;
+              -o-border-radius: 50%;
+            }
+          }
+
+          > .intro_content {
+            width: 100%;
+
+            @include respond-to('phone') {
+              margin-top: var(--space-2x);
+            }
+
             > h2 {
               margin-bottom: var(--space);
             }
             > p {
-              font-size: 0.9rem;
               margin: var(--space) 0;
+            }
+
+            > .h_scroll {
+              @include flexbox(row, start, start);
+              flex-wrap: wrap;
+              padding-bottom: var(--space);
+              margin: 0 var(--space-2x);
+              width: 100%;
+              overflow: hidden;
+
+              @include respond-to('phone') {
+                @include flexbox(row, start, stretch);
+                flex-wrap: nowrap;
+                padding: 0 var(--space-2x);
+                padding-bottom: var(--space);
+                margin: var(--space-2x) 0;
+                width: calc(100% + var(--space-4x));
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+              }
+
+              > .h_block {
+                z-index: 100;
+                @include flexbox(column, start, start);
+                padding: var(--space-2x) calc(var(--space-2x) + 3px);
+                margin: var(--space) 0;
+                min-width: calc(100% - var(--space-8x));
+                border: 1px solid var(--border-color);
+                scroll-snap-align: center;
+
+                @include respond-to('phone') {
+                  margin: 0;
+                  margin-right: var(--space-2x);
+
+                  &:last-child {
+                    margin-right: 0;
+                  }
+                }
+                border-radius: 24px;
+                -webkit-border-radius: 24px;
+                -moz-border-radius: 24px;
+                -ms-border-radius: 24px;
+                -o-border-radius: 24px;
+              }
+              transform: translateX(calc(0px - var(--space-2x)));
+              -webkit-transform: translateX(calc(0px - var(--space-2x)));
+              -moz-transform: translateX(calc(0px - var(--space-2x)));
+              -ms-transform: translateX(calc(0px - var(--space-2x)));
+              -o-transform: translateX(calc(0px - var(--space-2x)));
             }
           }
         }
