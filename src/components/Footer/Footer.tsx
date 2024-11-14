@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './Footer.module.scss'
 import { useTranslation } from 'react-i18next'
 
@@ -10,12 +11,11 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons'
 
-function Footer() {
+function Footer(): JSX.Element {
   const { t } = useTranslation()
 
   return (
     <div className={style.footer}>
-      {/* <h2>Footer</h2> */}
       <div className={style.social}>
         <a href="https://github.com/johnlin10" target="_blank" rel="noreferrer">
           <FontAwesomeIcon icon={faGithub} />

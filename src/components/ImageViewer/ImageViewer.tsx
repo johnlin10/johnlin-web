@@ -1,4 +1,5 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useCallback, useEffect } from 'react'
+import { RootState } from '../../redux/store'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeViewer } from '../../redux/viewerSlice'
@@ -11,10 +12,12 @@ import {
   faMaximize,
 } from '@fortawesome/free-solid-svg-icons'
 
-function ImageViewer() {
+function ImageViewer(): JSX.Element {
   const dispatch = useDispatch()
   const { t } = useTranslation('imageViewer')
-  const { isViewerOpen, currentImage } = useSelector((state) => state.viewer)
+  const { isViewerOpen, currentImage } = useSelector(
+    (state: RootState) => state.viewer
+  )
   const [scale, setScale] = useState(1)
   const [isDragging, setIsDragging] = useState(false)
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -24,8 +27,8 @@ function ImageViewer() {
     initialDistance: 0,
     initialScale: 1,
     lastCenter: { x: 0, y: 0 },
-    lastScale: 1, // 新增：記錄上一次的縮放值
-    lastTime: 0, // 新增：記錄上一次更新時間
+    lastScale: 1,
+    lastTime: 0,
   })
 
   useEffect(() => {
@@ -34,11 +37,13 @@ function ImageViewer() {
         initialDistance: 0,
         initialScale: 1,
         lastCenter: { x: 0, y: 0 },
+        lastScale: 1,
+        lastTime: 0,
       }
     }
   }, [])
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsDragging(true)
     setStartPos({
       x: e.clientX - position.x * scale,
@@ -46,7 +51,7 @@ function ImageViewer() {
     })
   }
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDragging) return
     setPosition({
       x: (e.clientX - startPos.x) / scale,
@@ -59,7 +64,7 @@ function ImageViewer() {
   }
 
   const handleTouchStart = useCallback(
-    (e) => {
+    (e: React.TouchEvent<HTMLDivElement>) => {
       if (e.touches.length === 1) {
         const touch = e.touches[0]
         setIsDragging(true)
@@ -83,6 +88,8 @@ function ImageViewer() {
           initialDistance: distance,
           initialScale: scale,
           lastCenter: { x: centerX, y: centerY },
+          lastScale: scale,
+          lastTime: Date.now(),
         }
       }
     },
@@ -90,7 +97,7 @@ function ImageViewer() {
   )
 
   const handleTouchMove = useCallback(
-    (e) => {
+    (e: React.TouchEvent<HTMLDivElement>) => {
       if (e.touches.length === 1 && isDragging) {
         const touch = e.touches[0]
         setPosition({
@@ -143,16 +150,18 @@ function ImageViewer() {
     [isDragging, scale, startPos]
   )
 
-  const handleTouchEnd = useCallback(() => {
+  const handleTouchEnd = useCallback((): void => {
     setIsDragging(false)
     touchInfoRef.current = {
       initialDistance: 0,
       initialScale: 1,
       lastCenter: { x: 0, y: 0 },
+      lastScale: 1,
+      lastTime: 0,
     }
   }, [])
 
-  const handleZoom = (zoomIn) => {
+  const handleZoom = (zoomIn: boolean): void => {
     setScale((prevScale) => {
       const newScale = zoomIn ? prevScale + 0.2 : prevScale - 0.2
       return Math.min(Math.max(0.1, newScale), 5)
@@ -162,15 +171,34 @@ function ImageViewer() {
   useEffect(() => {
     const imageContainer = document.querySelector(`.${style.imageContainer}`)
     if (imageContainer) {
-      imageContainer.addEventListener('wheel', handleWheel, { passive: false })
+      const wheelHandler = (e: WheelEvent) => {
+        e.preventDefault()
+        const resistance = 10
+        const zoomDelta = 0.3 / resistance
+
+        setScale((prevScale) => {
+          if (prevScale <= 1 && e.deltaY > 0) return prevScale
+          const newScale =
+            e.deltaY < 0 ? prevScale + zoomDelta : prevScale - zoomDelta
+          return Math.min(Math.max(0.1, newScale), 5)
+        })
+      }
+
+      imageContainer.addEventListener('wheel', wheelHandler as EventListener, {
+        passive: false,
+      })
+
       return () => {
-        imageContainer.removeEventListener('wheel', handleWheel)
+        imageContainer.removeEventListener(
+          'wheel',
+          wheelHandler as EventListener
+        )
       }
     }
   }, [])
 
   // 修改 handleWheel 的實作方式，移除 onWheel 綁定
-  const handleWheel = useCallback((e) => {
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLElement>): void => {
     e.preventDefault()
     const resistance = 10
     const zoomDelta = 0.3 / resistance
@@ -186,7 +214,7 @@ function ImageViewer() {
   }, [])
 
   // 如果檢視器未開啟，不渲染任何內容
-  if (!isViewerOpen) return null
+  if (!isViewerOpen) return <></>
 
   return (
     <div className={style.imageViewer}>
@@ -208,7 +236,7 @@ function ImageViewer() {
 
       <div
         className={style.imageContainer}
-        // onWheel={handleWheel}
+        onWheel={handleWheel}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -249,7 +277,7 @@ function ImageViewer() {
             setStartPos({ x: 0, y: 0 })
           }}
           title={t('reset')}
-          disabled={scale === 1}
+          disabled={scale === 1 && (position.x === 0 || position.y === 0)}
         >
           <FontAwesomeIcon icon={faMaximize} />
         </button>

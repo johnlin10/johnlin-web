@@ -20,6 +20,8 @@ import ImageViewer from './components/ImageViewer/ImageViewer'
 
 // fontawesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Transform, type IconProp } from '@fortawesome/fontawesome-svg-core'
+import { type RotateProp } from '@fortawesome/fontawesome-svg-core'
 import {
   faHouse,
   faLayerGroup,
@@ -28,21 +30,40 @@ import {
   faGear,
 } from '@fortawesome/free-solid-svg-icons'
 
-function App() {
+// theme
+type Theme = 'light' | 'dark'
+
+function App(): JSX.Element {
   const { t, i18n } = useTranslation()
   const { pathname } = useLocation()
-  const [isOpenSetting, setIsOpenSetting] = useState(false)
+  const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
+
+  //* Icon
+  const SETTING_ICON_TRANSFORM: Record<
+    'open' | 'closed',
+    { transform: Transform }
+  > = {
+    open: { transform: { rotate: 90 } },
+    closed: { transform: { rotate: 0 } },
+  } as const
+  const icons: Record<string, IconProp> = {
+    home: faHouse,
+    project: faLayerGroup,
+    language: faLanguage,
+    theme: faCircleHalfStroke,
+    settings: faGear,
+  } as const
 
   //* Language
-  const toggleLanguage = () => {
+  const toggleLanguage = (): void => {
     const currentLang = i18n.language
     const newLang = currentLang === 'zh-TW' ? 'en-US' : 'zh-TW'
     i18n.changeLanguage(newLang)
   }
 
   //* Theme
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('theme') || 'light'
+  const [theme, setTheme] = useState<Theme>(() => {
+    return (localStorage.getItem('theme') as Theme) || 'light'
   })
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -57,21 +78,21 @@ function App() {
       )
     }
   }, [theme])
-  const toggleTheme = () => {
+  const toggleTheme = (): void => {
     setTheme(theme === 'light' ? 'dark' : 'light')
   }
 
   //* Header
-  const getHeaderTitle = () => {
+  const getHeaderTitle = (): string => {
     if (pathname === '/') return t('header.title')
     if (pathname === '/posts') return t('header.posts')
     if (pathname.startsWith('/project')) return t('header.project')
     return t('header.title')
   }
-  const getHeaderCenter = () => {
+  const getHeaderCenter = (): null => {
     return null
   }
-  const getHeaderRight = () => {
+  const getHeaderRight = (): JSX.Element | null => {
     if (true) {
       return (
         <>
@@ -82,7 +103,7 @@ function App() {
               setIsOpenSetting(false)
             }}
           >
-            <FontAwesomeIcon icon={faHouse} />
+            <FontAwesomeIcon icon={icons.home} />
             <FloatLabel
               label={t('header.home')}
               size="small"
@@ -96,7 +117,7 @@ function App() {
               setIsOpenSetting(false)
             }}
           >
-            <FontAwesomeIcon icon={faLayerGroup} />
+            <FontAwesomeIcon icon={icons.project} />
             <FloatLabel
               label={t('header.project')}
               size="small"
@@ -112,8 +133,8 @@ function App() {
               }}
             >
               <FontAwesomeIcon
-                icon={faGear}
-                rotation={isOpenSetting ? 90 : 0}
+                icon={icons.settings}
+                {...SETTING_ICON_TRANSFORM[isOpenSetting ? 'open' : 'closed']}
               />
               <FloatLabel
                 label={t('header.setting')}
@@ -124,7 +145,7 @@ function App() {
             </button>
             <div className={`actions ${isOpenSetting ? 'active' : ''}`}>
               <button onClick={toggleTheme}>
-                <FontAwesomeIcon icon={faCircleHalfStroke} />
+                <FontAwesomeIcon icon={icons.theme} />
                 <FloatLabel
                   label={`${t('settings.theme.title')} - ${
                     theme === 'light'
@@ -135,7 +156,7 @@ function App() {
                 ></FloatLabel>
               </button>
               <button onClick={toggleLanguage}>
-                <FontAwesomeIcon icon={faLanguage} />
+                <FontAwesomeIcon icon={icons.language} />
                 <FloatLabel
                   label={`${t('settings.language.title')} - ${
                     i18n.language === 'zh-TW'
@@ -152,9 +173,13 @@ function App() {
     }
   }
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent): void => {
       const container = document.querySelector('.actions-container')
-      if (container && !container.contains(event.target) && isOpenSetting) {
+      if (
+        container &&
+        !container.contains(event.target as Node) &&
+        isOpenSetting
+      ) {
         setIsOpenSetting(false)
       }
     }
@@ -176,7 +201,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user" element={<User />} />
-        <Route path="/posts" element={<Posts />} />
+        {/* <Route path="/posts" element={<Posts />} /> */}
         <Route path="/project" element={<Project />} />
         <Route path="/project/:projectId" element={<Project />} />
         <Route path="/create-project" element={<CreateProject />} />
