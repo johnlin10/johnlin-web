@@ -29,14 +29,14 @@
         ]
       },
       "interest": {
-        "title": "興趣",
+        "title": "Interests",
         "contents": [
           "I’m passionate about design and development, especially web design. React.js is my go-to framework due to its flexibility, allowing me to bring various interface ideas to life. For me, design is not only about solving problems but also a form of expression. I aim to create work that conveys my appreciation for detail in a simple and elegant way.",
           "Beyond technical interests, I’m also drawn to reflecting on social phenomena, like personal beliefs, societal expectations, and the impact of education. I observe the people and events around me to gain a deeper understanding of the world, always searching for a lifestyle and values I truly resonate with."
         ]
       },
       "skills": {
-        "title": "專長",
+        "title": "Skills",
         "contents": [
           "My main strengths lie in web and graphic design, especially in UI and presentation design. I’m particularly sensitive to the “breathing” and “harmony” of a design, and even without delving deeply into design theory, I naturally find balance within my layouts. When it comes to branding projects, I can tailor presentations, promotional posters, or visuals that truly embody the brand’s spirit, making sure they resonate with its unique essence."
         ]
