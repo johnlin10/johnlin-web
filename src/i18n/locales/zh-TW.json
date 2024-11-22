@@ -17,8 +17,8 @@
       "p4": "快要來了！"
     },
     "who_am_i": {
-      "title": "我是誰？",
-      "p1": "我是林昌龍。",
+      "title": "嗨～我是林昌龍。",
+      "p1": "全新版面正在準備中...",
       "personality": {
         "title": "性格",
         "contents": [
@@ -71,9 +71,16 @@
       "Video Resolution": "影片解析度",
       "Subject": "科目",
       "Exam Time": "考試時間",
+      "Photo Resolution": "照片解析度",
+      "Shooting Time": "拍攝時間",
+      "Copyright": "版權",
       "createdAt": "建立時間"
     },
     "projectNotFound": "專案不存在"
+  },
+  "posts": {
+    "title": "文章",
+    "content": "內容籌備中..."
   },
   "settings": {
     "title": "設定",

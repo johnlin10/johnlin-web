@@ -12,6 +12,10 @@ import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
 import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
 
+// redux
+import { RootState } from './redux/store'
+import { useSelector } from 'react-redux'
+
 // components
 import Header from './components/Header/Header'
 import FloatLabel from './components/FloatLabel/FloatLabel'
@@ -21,13 +25,13 @@ import ImageViewer from './components/ImageViewer/ImageViewer'
 // fontawesome icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Transform, type IconProp } from '@fortawesome/fontawesome-svg-core'
-import { type RotateProp } from '@fortawesome/fontawesome-svg-core'
 import {
   faHouse,
   faLayerGroup,
   faLanguage,
   faCircleHalfStroke,
   faGear,
+  faBook,
 } from '@fortawesome/free-solid-svg-icons'
 
 // theme
@@ -35,6 +39,7 @@ type Theme = 'light' | 'dark'
 
 function App(): JSX.Element {
   const { t, i18n } = useTranslation()
+  const { isViewerOpen } = useSelector((state: RootState) => state.viewer)
   const { pathname } = useLocation()
   const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
 
@@ -52,6 +57,7 @@ function App(): JSX.Element {
     language: faLanguage,
     theme: faCircleHalfStroke,
     settings: faGear,
+    book: faBook,
   } as const
 
   //* Language
@@ -120,6 +126,20 @@ function App(): JSX.Element {
             <FontAwesomeIcon icon={icons.project} />
             <FloatLabel
               label={t('header.project')}
+              size="small"
+              position="bottom"
+            ></FloatLabel>
+          </Link>
+          <Link
+            to="/posts"
+            className={pathname.startsWith('/posts') ? 'active' : ''}
+            onClick={() => {
+              setIsOpenSetting(false)
+            }}
+          >
+            <FontAwesomeIcon icon={icons.book} />
+            <FloatLabel
+              label={t('header.posts')}
               size="small"
               position="bottom"
             ></FloatLabel>
@@ -201,13 +221,13 @@ function App(): JSX.Element {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user" element={<User />} />
-        {/* <Route path="/posts" element={<Posts />} /> */}
+        <Route path="/posts" element={<Posts />} />
         <Route path="/project" element={<Project />} />
         <Route path="/project/:projectId" element={<Project />} />
         <Route path="/create-project" element={<CreateProject />} />
         <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
       </Routes>
-      <ImageViewer />
+      {isViewerOpen && <ImageViewer />}
     </div>
   )
 }

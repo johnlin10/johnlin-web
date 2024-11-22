@@ -12,6 +12,8 @@ import {
   faMaximize,
 } from '@fortawesome/free-solid-svg-icons'
 
+import { useSpring, animated } from '@react-spring/web'
+
 function ImageViewer(): JSX.Element {
   const dispatch = useDispatch()
   const { t } = useTranslation('imageViewer')
@@ -29,6 +31,21 @@ function ImageViewer(): JSX.Element {
     lastCenter: { x: 0, y: 0 },
     lastScale: 1,
     lastTime: 0,
+  })
+
+  // animation
+  const _spring_image_container = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 100 },
+  })
+  const _spring_header = useSpring({
+    from: { transform: 'translateY(-100%)' },
+    to: { transform: 'translateY(0)' },
+  })
+  const _spring_zoom_controls = useSpring({
+    from: { transform: 'translateY(100%)' },
+    to: { transform: 'translateY(0)' },
   })
 
   useEffect(() => {
@@ -123,7 +140,7 @@ function ImageViewer(): JSX.Element {
           1,
           Math.min(
             Math.max(1, (currentDistance / initialDistance) * initialScale),
-            5
+            10
           )
         )
 
@@ -164,38 +181,38 @@ function ImageViewer(): JSX.Element {
   const handleZoom = (zoomIn: boolean): void => {
     setScale((prevScale) => {
       const newScale = zoomIn ? prevScale + 0.2 : prevScale - 0.2
-      return Math.min(Math.max(0.1, newScale), 5)
+      return Math.min(Math.max(0.1, newScale), 10)
     })
   }
 
-  useEffect(() => {
-    const imageContainer = document.querySelector(`.${style.imageContainer}`)
-    if (imageContainer) {
-      const wheelHandler = (e: WheelEvent) => {
-        e.preventDefault()
-        const resistance = 10
-        const zoomDelta = 0.3 / resistance
+  // useEffect(() => {
+  //   const imageContainer = document.querySelector(`.${style.imageContainer}`)
+  //   if (imageContainer) {
+  //     const wheelHandler = (e: WheelEvent) => {
+  //       e.preventDefault()
+  //       const resistance = 10
+  //       const zoomDelta = 0.3 / resistance
 
-        setScale((prevScale) => {
-          if (prevScale <= 1 && e.deltaY > 0) return prevScale
-          const newScale =
-            e.deltaY < 0 ? prevScale + zoomDelta : prevScale - zoomDelta
-          return Math.min(Math.max(0.1, newScale), 5)
-        })
-      }
+  //       setScale((prevScale) => {
+  //         if (prevScale <= 1 && e.deltaY > 0) return prevScale
+  //         const newScale =
+  //           e.deltaY < 0 ? prevScale + zoomDelta : prevScale - zoomDelta
+  //         return Math.min(Math.max(0.1, newScale), 5)
+  //       })
+  //     }
 
-      imageContainer.addEventListener('wheel', wheelHandler as EventListener, {
-        passive: false,
-      })
+  //     imageContainer.addEventListener('wheel', wheelHandler as EventListener, {
+  //       passive: false,
+  //     })
 
-      return () => {
-        imageContainer.removeEventListener(
-          'wheel',
-          wheelHandler as EventListener
-        )
-      }
-    }
-  }, [])
+  //     return () => {
+  //       imageContainer.removeEventListener(
+  //         'wheel',
+  //         wheelHandler as EventListener
+  //       )
+  //     }
+  //   }
+  // }, [])
 
   // 修改 handleWheel 的實作方式，移除 onWheel 綁定
   const handleWheel = useCallback((e: React.WheelEvent<HTMLElement>): void => {
@@ -209,7 +226,7 @@ function ImageViewer(): JSX.Element {
       }
       const newScale =
         e.deltaY < 0 ? prevScale + zoomDelta : prevScale - zoomDelta
-      return Math.min(Math.max(0.1, newScale), 5)
+      return Math.min(Math.max(0.1, newScale), 10)
     })
   }, [])
 
@@ -217,8 +234,8 @@ function ImageViewer(): JSX.Element {
   if (!isViewerOpen) return <></>
 
   return (
-    <div className={style.imageViewer}>
-      <div className={style.topBar}>
+    <animated.div className={style.imageViewer} style={_spring_image_container}>
+      <animated.div className={style.topBar} style={_spring_header}>
         <span className={style.fileName}>{currentImage.fileName}</span>
         <button
           className={style.closeButton}
@@ -232,11 +249,14 @@ function ImageViewer(): JSX.Element {
         >
           <FontAwesomeIcon icon={faXmark} />
         </button>
-      </div>
+      </animated.div>
 
       <div
         className={style.imageContainer}
-        onWheel={handleWheel}
+        onWheel={(e) => {
+          e.preventDefault()
+          handleWheel(e)
+        }}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -245,7 +265,7 @@ function ImageViewer(): JSX.Element {
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       >
-        <img
+        <animated.img
           src={currentImage.src}
           alt={currentImage.fileName}
           style={{
@@ -256,7 +276,10 @@ function ImageViewer(): JSX.Element {
         />
       </div>
 
-      <div className={style.zoomControls}>
+      <animated.div
+        className={style.zoomControls}
+        style={_spring_zoom_controls}
+      >
         <button onClick={() => handleZoom(true)} title={t('zoomIn')}>
           <FontAwesomeIcon icon={faPlus} />
         </button>
@@ -281,8 +304,8 @@ function ImageViewer(): JSX.Element {
         >
           <FontAwesomeIcon icon={faMaximize} />
         </button>
-      </div>
-    </div>
+      </animated.div>
+    </animated.div>
   )
 }
 

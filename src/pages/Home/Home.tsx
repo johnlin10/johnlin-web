@@ -3,21 +3,63 @@ import style from './Home.module.scss'
 import Footer from '../../components/Footer/Footer'
 import { useTranslation } from 'react-i18next'
 
+import { animated, useSpring, useSprings } from '@react-spring/web'
+
 function Home(): JSX.Element {
   const { t } = useTranslation()
+
+  const intro_blocks = [
+    {
+      title: 'personality',
+      content_count: 4,
+    },
+    {
+      title: 'interest',
+      content_count: 2,
+    },
+    {
+      title: 'skills',
+      content_count: 1,
+    },
+    {
+      title: 'beliefs_and_values',
+      content_count: 4,
+    },
+    {
+      title: 'dreams',
+      content_count: 2,
+    },
+  ]
+
+  //* animation
+  const _spring_who_am_i = useSpring({
+    from: { opacity: 0, transform: 'translateY(15%)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+  })
+  const _spring_avatar = useSpring({
+    from: { opacity: 0, transform: 'scale(0.8)' },
+    to: { opacity: 1, transform: 'scale(1)' },
+  })
+  const _springs_intro_block = useSprings(
+    intro_blocks.length,
+    intro_blocks.map((_, index) => ({
+      from: { opacity: 0, transform: 'translateY(15%)' },
+      to: { opacity: 1, transform: 'translateY(0)' },
+      delay: 100 * index,
+    }))
+  )
   return (
     <div className={style.home_container}>
       <div className={style.home_content}>
-        <div className={style.top_content}>
-          <p>{t('home.top-content.p1')}</p>
-          <p>{t('home.top-content.p2')}</p>
-          <p>{t('home.top-content.p3')}</p>
-          <p>{t('home.top-content.p4')}</p>
-        </div>
+        {/* <div className={style.top_content}>
+          <p>{t('home.top-content.1')}</p>
+          <p>{t('home.top-content.2')}</p>
+        </div> */}
         <div className={style.page_content}>
-          <div className={style.who_am_i}>
+          <animated.div className={style.who_am_i} style={_spring_who_am_i}>
             <div className={style.image_content}>
-              <img
+              <animated.img
+                style={_spring_avatar}
                 src={process.env.PUBLIC_URL + '/assets/images/johnlin.jpeg'}
                 alt="who am i"
               />
@@ -27,37 +69,29 @@ function Home(): JSX.Element {
               <p>{t('home.who_am_i.p1')}</p>
 
               <div className={style.h_scroll}>
-                <div className={style.h_block}>
-                  <h3>{t('home.who_am_i.personality.title')}</h3>
-                  <p>{t('home.who_am_i.personality.contents.0')}</p>
-                  <p>{t('home.who_am_i.personality.contents.1')}</p>
-                  <p>{t('home.who_am_i.personality.contents.2')}</p>
-                  <p>{t('home.who_am_i.personality.contents.3')}</p>
-                </div>
-                <div className={style.h_block}>
-                  <h3>{t('home.who_am_i.interest.title')}</h3>
-                  <p>{t('home.who_am_i.interest.contents.0')}</p>
-                  <p>{t('home.who_am_i.interest.contents.1')}</p>
-                </div>
-                <div className={style.h_block}>
-                  <h3>{t('home.who_am_i.skills.title')}</h3>
-                  <p>{t('home.who_am_i.skills.contents.0')}</p>
-                </div>
-                <div className={style.h_block}>
-                  <h3>{t('home.who_am_i.beliefs_and_values.title')}</h3>
-                  <p>{t('home.who_am_i.beliefs_and_values.contents.0')}</p>
-                  <p>{t('home.who_am_i.beliefs_and_values.contents.1')}</p>
-                  <p>{t('home.who_am_i.beliefs_and_values.contents.2')}</p>
-                  <p>{t('home.who_am_i.beliefs_and_values.contents.3')}</p>
-                </div>
-                <div className={style.h_block}>
-                  <h3>{t('home.who_am_i.dreams.title')}</h3>
-                  <p>{t('home.who_am_i.dreams.contents.0')}</p>
-                  <p>{t('home.who_am_i.dreams.contents.1')}</p>
-                </div>
+                {_springs_intro_block.map((spring, index) => (
+                  <animated.div
+                    className={style.h_block}
+                    style={spring}
+                    key={index}
+                  >
+                    <h3>
+                      {t(`home.who_am_i.${intro_blocks[index].title}.title`)}
+                    </h3>
+                    {Array.from({
+                      length: intro_blocks[index].content_count,
+                    }).map((_, content_index) => (
+                      <p key={content_index}>
+                        {t(
+                          `home.who_am_i.${intro_blocks[index].title}.contents.${content_index}`
+                        )}
+                      </p>
+                    ))}
+                  </animated.div>
+                ))}
               </div>
             </div>
-          </div>
+          </animated.div>
         </div>
       </div>
       <Footer />

@@ -10,15 +10,14 @@
     "copyright": "All rights reserved."
   },
   "home": {
-    "top-content": {
-      "p1": "Hi!",
-      "p2": "I'm John Lin",
-      "p3": "Content is being prepared.",
-      "p4": "Coming soon..."
-    },
+    "top-content": [
+      "Hi! I'm John Lin",
+      "Content is being prepared.",
+      "Coming soon..."
+    ],
     "who_am_i": {
-      "title": "Who am I?",
-      "p1": "I am John Lin.",
+      "title": "Hi! I am John Lin.",
+      "p1": "New design is being prepared...",
       "personality": {
         "title": "Personality",
         "contents": [
@@ -69,11 +68,18 @@
       "endDate": "End Date",
       "tags": "Tags",
       "Video Resolution": "Video Resolution",
+      "Photo Resolution": "Photo Resolution",
+      "Shooting Time": "Shooting Time",
+      "Copyright": "Copyright",
       "Subject": "Subject",
       "Exam Time": "Exam Time",
       "createdAt": "Created At"
     },
     "projectNotFound": "Project Not Found"
+  },
+  "posts": {
+    "title": "Posts",
+    "content": "Content is being prepared..."
   },
   "settings": {
     "title": "Settings",

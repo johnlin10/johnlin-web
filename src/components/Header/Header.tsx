@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
+import { animated, useSpring } from '@react-spring/web'
+
 interface HeaderProps {
   title: string
   center: React.ReactNode
@@ -23,6 +25,13 @@ function Header({
     window.location.reload()
   }
 
+  // animation
+  const _spring_header = useSpring({
+    from: { opacity: 0, transform: 'translateY(-100%)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+    delay: 1000,
+  })
+
   const handleHeaderClick = (e: React.MouseEvent): void => {
     e.stopPropagation()
     setClickCount((prevCount) => prevCount + 1)
@@ -39,7 +48,11 @@ function Header({
   }, [clickCount, navigate])
 
   return (
-    <header className={style.header} onClick={handleHeaderClick}>
+    <animated.header
+      className={style.header}
+      style={_spring_header}
+      onClick={handleHeaderClick}
+    >
       <div
         className={style.title}
         onClick={(e) => {
@@ -58,7 +71,7 @@ function Header({
       <div className={style.right_action} onClick={(e) => e.stopPropagation()}>
         {right}
       </div>
-    </header>
+    </animated.header>
   )
 }
 
