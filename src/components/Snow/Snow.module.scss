@@ -1,0 +1,103 @@
+@import '../../styles/_mixins.scss';
+
+.snow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.controls {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: var(--christmas-red);
+  border: 1px solid #ffffff5f;
+  border-radius: var(--border-radius-l);
+  padding: 24px;
+  z-index: 1001;
+  min-width: 300px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  @include transform-container(translate(-50%, calc(-50% + 50px)));
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    @include transform-container(translate(-50%, -50%));
+  }
+
+  .controlsHeader {
+    @include flexbox(row, space-between, center);
+    margin-bottom: 20px;
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--text-always-white);
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: var(--text-secondary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: var(--text-always-white);
+      }
+    }
+  }
+
+  .controlsContent {
+    .controlGroup {
+      margin-bottom: 16px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--text-always-white);
+        font-size: 0.9rem;
+        opacity: 0.75;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 8px;
+
+        button {
+          flex: 1;
+          padding: 6px 12px;
+          color: var(--text-secondary-color);
+          background-color: var(--background-always-white);
+          border: 1px solid #0000003f;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          @include border-radius(var(--border-radius-m));
+
+          &.active {
+            border: 1px solid #ffffff3f;
+            background-color: var(--christmas-green);
+            color: var(--text-always-white);
+          }
+        }
+      }
+    }
+  }
+}

@@ -20,6 +20,9 @@ import { useSelector } from 'react-redux'
 import Header from './components/Header/Header'
 import FloatLabel from './components/FloatLabel/FloatLabel'
 import ImageViewer from './components/ImageViewer/ImageViewer'
+import CreatePost from './pages/Posts/ui/CreatePost/CreatePost'
+import DisplayWithEditor from './pages/Posts/components/DisplayWithEditor/DisplayWithEditor'
+import Snow from './components/Snow/Snow'
 // import ProtectedRoute from './utils/ProtectedRoute'
 
 // fontawesome icons
@@ -32,6 +35,7 @@ import {
   faCircleHalfStroke,
   faGear,
   faBook,
+  faSnowflake,
 } from '@fortawesome/free-solid-svg-icons'
 
 // theme
@@ -42,6 +46,7 @@ function App(): JSX.Element {
   const { isViewerOpen } = useSelector((state: RootState) => state.viewer)
   const { pathname } = useLocation()
   const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
+  const [showSnowControls, setShowSnowControls] = useState<boolean>(false)
 
   //* Icon
   const SETTING_ICON_TRANSFORM: Record<
@@ -69,7 +74,7 @@ function App(): JSX.Element {
 
   //* Theme
   const [theme, setTheme] = useState<Theme>(() => {
-    return (localStorage.getItem('theme') as Theme) || 'light'
+    return (localStorage.getItem('theme') as Theme) || 'dark'
   })
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
@@ -91,7 +96,7 @@ function App(): JSX.Element {
   //* Header
   const getHeaderTitle = (): string => {
     if (pathname === '/') return t('header.title')
-    if (pathname === '/posts') return t('header.posts')
+    if (pathname.startsWith('/posts')) return t('header.posts')
     if (pathname.startsWith('/project')) return t('header.project')
     return t('header.title')
   }
@@ -186,6 +191,13 @@ function App(): JSX.Element {
                   position="left"
                 ></FloatLabel>
               </button>
+              <button onClick={() => setShowSnowControls(!showSnowControls)}>
+                <FontAwesomeIcon icon={faSnowflake} />
+                <FloatLabel
+                  label={t('settings.snow.title')}
+                  position="left"
+                ></FloatLabel>
+              </button>
             </div>
           </div>
         </>
@@ -218,10 +230,17 @@ function App(): JSX.Element {
         right={getHeaderRight()}
         setIsOpenSetting={setIsOpenSetting}
       />
+      <Snow
+        showControls={showSnowControls}
+        onCloseControls={() => setShowSnowControls(false)}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user" element={<User />} />
         <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:postId" element={<Posts />} />
+        <Route path="/posts/test" element={<DisplayWithEditor />} />
+        <Route path="/posts/create" element={<CreatePost />} />
         <Route path="/project" element={<Project />} />
         <Route path="/project/:projectId" element={<Project />} />
         <Route path="/create-project" element={<CreateProject />} />
