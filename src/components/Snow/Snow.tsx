@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import Matter, { Engine, Render, Bodies, World, Runner } from 'matter-js'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faXmark, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 
 interface SnowProps {
   density?: number
@@ -20,13 +20,16 @@ interface Snowflake {
   y: number
   size: number
   speedY: number
-  speedX: number
+  baseSpeedX: number
+  opacity: number
+  scale: number
+  isSpecial: boolean
 }
 
 interface SnowSettings {
   density: 'light' | 'medium' | 'heavy'
   speed: 'slow' | 'medium' | 'fast'
-  accumulate: boolean
+  wind: number
 }
 
 const DENSITY_MAP = {
@@ -50,13 +53,12 @@ function Snow({
   const [settings, setSettings] = useState<SnowSettings>({
     density: 'medium',
     speed: 'medium',
-    accumulate: true,
+    wind: -0.3,
   })
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const snowflakesRef = useRef<Snowflake[]>([])
   const animationFrameRef = useRef<number>()
-  const accumulatedSnowRef = useRef<Snowflake[]>([])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -75,13 +77,21 @@ function Snow({
     const initSnowflakes = () => {
       snowflakesRef.current = Array.from(
         { length: DENSITY_MAP[settings.density] },
-        () => ({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 3 + 2,
-          speedY: (Math.random() * 1 + 0.5) * SPEED_MAP[settings.speed],
-          speedX: Math.random() * wind - wind / 2,
-        })
+        () => {
+          const isSpecial = Math.random() < 0.15
+          const size = isSpecial ? Math.random() * 2 + 1 : Math.random() * 3 + 2
+
+          return {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size,
+            speedY: (Math.random() * 1 + 0.5) * SPEED_MAP[settings.speed],
+            baseSpeedX: Math.random() * 0.4 - 0.2,
+            scale: 1,
+            opacity: 1,
+            isSpecial,
+          }
+        }
       )
     }
     initSnowflakes()
@@ -93,52 +103,63 @@ function Snow({
       const snowColor = getComputedStyle(
         document.documentElement
       ).getPropertyValue('--snow-color')
-      ctx.fillStyle = snowColor
-
-      // 繪製已堆積的雪
-      if (settings.accumulate) {
-        accumulatedSnowRef.current.forEach((snow) => {
-          ctx.beginPath()
-          ctx.arc(snow.x, snow.y, snow.size, 0, Math.PI * 2)
-          ctx.fill()
-        })
-      }
 
       snowflakesRef.current.forEach((snowflake) => {
-        ctx.beginPath()
-        ctx.arc(snowflake.x, snowflake.y, snowflake.size, 0, Math.PI * 2)
-        ctx.fill()
+        ctx.globalAlpha = snowflake.opacity
+
+        // 根據雪花大小計算風力影響
+        const windEffect = settings.wind * (1 - snowflake.size * 1.25) // 越大的雪花受風力影響越小
+        snowflake.x +=
+          snowflake.baseSpeedX + windEffect * SPEED_MAP[settings.speed]
+
+        if (snowflake.isSpecial) {
+          ctx.save()
+          ctx.translate(snowflake.x, snowflake.y)
+          const scale = snowflake.size * 0.015 * snowflake.scale // 調整大小比例
+          ctx.scale(scale, scale)
+          ctx.translate(-256, -256) // faSnowflake 的中心點
+
+          const path = new Path2D(faSnowflake.icon[4] as string)
+          ctx.fillStyle = snowColor
+          ctx.fill(path)
+          ctx.restore()
+        } else {
+          ctx.beginPath()
+          ctx.arc(
+            snowflake.x,
+            snowflake.y,
+            snowflake.size * snowflake.scale,
+            0,
+            Math.PI * 2
+          )
+          ctx.fillStyle = snowColor
+          ctx.fill()
+        }
+
+        ctx.globalAlpha = 1
 
         snowflake.y += snowflake.speedY
-        snowflake.x += snowflake.speedX
+        snowflake.x += snowflake.baseSpeedX
 
-        if (settings.accumulate) {
-          // 檢查是否觸底或碰到已堆積的雪
-          const hitBottom = snowflake.y > canvas.height - snowflake.size / 2
-          const hitAccumulated = accumulatedSnowRef.current.some((snow) => {
-            const dx = snow.x - snowflake.x
-            const dy = snow.y - snowflake.y
-            const distance = Math.sqrt(dx * dx + dy * dy)
-            return distance < (snow.size + snowflake.size) * 0.8 // 允許80%重疊
-          })
+        // 根據雪花在畫面中的位置更新縮放和透明度
+        const fadeStartPoint = canvas.height * 0
+        if (snowflake.y > fadeStartPoint) {
+          const progress =
+            (snowflake.y - fadeStartPoint) / (canvas.height - fadeStartPoint)
+          const fadeOutDuration = snowflake.size / 1.5
+          snowflake.scale = Math.max(1 - progress * fadeOutDuration, 0)
+          snowflake.opacity = Math.max(1 - progress * fadeOutDuration, 0)
+        }
 
-          if (hitBottom || hitAccumulated) {
-            // 將雪花加入堆積數組
-            accumulatedSnowRef.current.push({
-              ...snowflake,
-              speedX: 0,
-              speedY: 0,
-            })
-            // 重置雪花位置
-            snowflake.y = -snowflake.size
-            snowflake.x = Math.random() * canvas.width
-          }
-        } else {
-          // 原有的重置邏輯
-          if (snowflake.y > canvas.height + snowflake.size) {
-            snowflake.y = -snowflake.size
-            snowflake.x = Math.random() * canvas.width
-          }
+        // 當雪花完全消失或超出畫面時重置
+        if (
+          snowflake.opacity <= 0 ||
+          snowflake.y > canvas.height + snowflake.size
+        ) {
+          snowflake.y = -snowflake.size
+          snowflake.x = Math.random() * canvas.width
+          snowflake.scale = 1
+          snowflake.opacity = 1
         }
 
         if (snowflake.x > canvas.width + snowflake.size) {
@@ -198,6 +219,40 @@ function Snow({
                   {t(`snow.speed_${speed}`)}
                 </button>
               ))}
+            </div>
+          </div>
+          <div className={style.controlGroup}>
+            <label>
+              {/* {t('snow.wind.title')}{' '} */}
+              {settings.wind > 0
+                ? t('snow.wind.right')
+                : settings.wind < 0
+                ? t('snow.wind.left')
+                : t('snow.wind.center')}
+              {settings.wind < -0.5
+                ? t('snow.wind.level.strong')
+                : settings.wind > 0.5
+                ? t('snow.wind.level.strong')
+                : settings.wind === 0
+                ? ''
+                : t('snow.wind.level.light')}
+            </label>
+            <span className={style.sliderValue}></span>
+            <div className={style.sliderContainer}>
+              <input
+                type="range"
+                min="-1"
+                max="1"
+                step="0.1"
+                value={settings.wind}
+                onChange={(e) =>
+                  setSettings({
+                    ...settings,
+                    wind: parseFloat(e.target.value),
+                  })
+                }
+                className={style.slider}
+              />
             </div>
           </div>
         </div>

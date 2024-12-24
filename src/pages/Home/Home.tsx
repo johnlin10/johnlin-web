@@ -68,7 +68,7 @@ function Home(): JSX.Element {
               <h2>{t('home.who_am_i.title')}</h2>
               <p>{t('home.who_am_i.p1')}</p>
 
-              <div className={style.h_scroll}>
+              {/* <div className={style.h_scroll}>
                 {_springs_intro_block.map((spring, index) => (
                   <animated.div
                     className={style.h_block}
@@ -89,7 +89,7 @@ function Home(): JSX.Element {
                     ))}
                   </animated.div>
                 ))}
-              </div>
+              </div> */}
             </div>
           </animated.div>
         </div>

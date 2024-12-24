@@ -135,7 +135,7 @@ function App(): JSX.Element {
               position="bottom"
             ></FloatLabel>
           </Link>
-          <Link
+          {/* <Link
             to="/posts"
             className={pathname.startsWith('/posts') ? 'active' : ''}
             onClick={() => {
@@ -148,7 +148,7 @@ function App(): JSX.Element {
               size="small"
               position="bottom"
             ></FloatLabel>
-          </Link>
+          </Link> */}
 
           <div className={`actions-container ${isOpenSetting ? 'active' : ''}`}>
             <button

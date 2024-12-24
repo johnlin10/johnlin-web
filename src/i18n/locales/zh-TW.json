@@ -18,7 +18,7 @@
     },
     "who_am_i": {
       "title": "嗨～我是林昌龍。",
-      "p1": "全新版面正在準備中...",
+      "p1": "內容正在準備中...",
       "personality": {
         "title": "性格",
         "contents": [
@@ -80,7 +80,22 @@
   },
   "posts": {
     "title": "文章",
-    "content": "內容籌備中..."
+    "content": {
+      "preparing": "內容籌備中...",
+      "publishedAt": "發布於"
+    },
+    "tags": {
+      "tag": "標籤",
+      "socialIssue": "社會議題",
+      "socialPhenomena": "社會現象",
+      "reflection": "反思",
+      "selfGrowth": "自我成長",
+      "education": "教育",
+      "currentEvents": "時事",
+      "life": "生活",
+      "technology": "科技",
+      "ai": "人工智慧"
+    }
   },
   "settings": {
     "title": "設定",
@@ -93,11 +108,39 @@
       "title": "語言",
       "en-US": "英文",
       "zh-TW": "中文 (台灣)"
+    },
+    "snow": {
+      "title": "雪",
+      "controls": "雪"
     }
   },
   "imageViewer": {
     "zoomIn": "放大",
     "zoomOut": "縮小",
     "reset": "重置"
+  },
+  "snow": {
+    "controls": "雪的設定",
+    "density": "密度",
+    "density_light": "輕",
+    "density_medium": "中",
+    "density_heavy": "重",
+    "speed": "速度",
+    "speed_slow": "慢",
+    "speed_medium": "中",
+    "speed_fast": "快",
+    "accumulate": "堆積",
+    "accumulate_on": "開啟",
+    "accumulate_off": "關閉",
+    "wind": {
+      "title": "風",
+      "right": "右",
+      "left": "左",
+      "center": "無風",
+      "level": {
+        "light": "弱風",
+        "strong": "強風"
+      }
+    }
   }
 }

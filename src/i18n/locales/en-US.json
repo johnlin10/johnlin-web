@@ -17,7 +17,7 @@
     ],
     "who_am_i": {
       "title": "Hi! I am John Lin.",
-      "p1": "New design is being prepared...",
+      "p1": "Content is being prepared...",
       "personality": {
         "title": "Personality",
         "contents": [
@@ -79,7 +79,22 @@
   },
   "posts": {
     "title": "Posts",
-    "content": "Content is being prepared..."
+    "content": {
+      "preparing": "Content is being prepared...",
+      "publishedAt": "Published at"
+    },
+    "tags": {
+      "tag": "Tag",
+      "socialIssue": "SocialIssue",
+      "socialPhenomena": "SocialPhenomena",
+      "reflection": "Reflection",
+      "selfGrowth": "SelfGrowth",
+      "education": "Education",
+      "currentEvents": "CurrentEvents",
+      "life": "Life",
+      "technology": "Technology",
+      "ai": "AI"
+    }
   },
   "settings": {
     "title": "Settings",
@@ -92,11 +107,39 @@
       "title": "Language",
       "en-US": "English",
       "zh-TW": "Chinese (Taiwan)"
+    },
+    "snow": {
+      "title": "Snow",
+      "controls": "Snow Controls"
     }
   },
   "imageViewer": {
     "zoomIn": "Zoom In",
     "zoomOut": "Zoom Out",
     "reset": "Reset"
+  },
+  "snow": {
+    "controls": "Snow Controls",
+    "density": "Density",
+    "density_light": "Light",
+    "density_medium": "Medium",
+    "density_heavy": "Heavy",
+    "speed": "Speed",
+    "speed_slow": "Slow",
+    "speed_medium": "Medium",
+    "speed_fast": "Fast",
+    "accumulate": "Accumulate",
+    "accumulate_on": "On",
+    "accumulate_off": "Off",
+    "wind": {
+      "title": "Wind",
+      "right": "Right",
+      "left": "Left",
+      "center": "No Wind",
+      "level": {
+        "light": " Light Wind",
+        "strong": " Strong Wind"
+      }
+    }
   }
 }
