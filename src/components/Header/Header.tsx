@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
-import { animated, useSpring } from '@react-spring/web'
+import { animated, easings, useSpring } from '@react-spring/web'
 
 interface HeaderProps {
   title: string
@@ -30,6 +30,7 @@ function Header({
     from: { opacity: 0, transform: 'translateY(-100%)' },
     to: { opacity: 1, transform: 'translateY(0)' },
     delay: 1000,
+    config: { duration: 1000, easing: easings.easeOutCubic },
   })
 
   const handleHeaderClick = (e: React.MouseEvent): void => {
@@ -60,6 +61,7 @@ function Header({
           refresh()
         }}
       >
+        <YearTransition />
         <h1>{title || t('header.title')}</h1>
       </div>
       <div
@@ -72,6 +74,54 @@ function Header({
         {right}
       </div>
     </animated.header>
+  )
+}
+
+function YearTransition() {
+  const [isHovered, setIsHovered] = useState(false)
+  const [showNextYear, setShowNextYear] = useState(false)
+
+  useEffect(() => {
+    if (!isHovered) {
+      const timer = setInterval(
+        () => {
+          setShowNextYear((prev) => !prev)
+        },
+        showNextYear ? 5000 : 5000
+      )
+      return () => clearInterval(timer)
+    }
+  }, [showNextYear, isHovered])
+
+  const currentYearOpacity = useSpring({
+    opacity: isHovered || showNextYear ? 0 : 1,
+    config: { duration: 500, delay: 500 },
+  })
+  const { opacity } = useSpring({
+    opacity: isHovered || showNextYear ? 1 : 0,
+    config: { duration: 500 },
+  })
+
+  return (
+    <div
+      className={style.yearContainer}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <animated.p className={style.currentYear} style={currentYearOpacity}>
+        2024
+      </animated.p>
+      <animated.p
+        className={style.year}
+        style={{
+          opacity,
+          position: 'absolute',
+          top: 0,
+        }}
+      >
+        2025
+      </animated.p>
+    </div>
   )
 }
 

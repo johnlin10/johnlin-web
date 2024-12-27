@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import style from './ContentBlock.module.scss'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { openViewer } from '../../../../redux/viewerSlice'
 
+import MediaThemeSutro from 'player.style/sutro/react'
 import AudioPlayer from '../AudioPlayer/AudioPlayer'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -53,6 +55,11 @@ function ContentBlock({ projectId, currentProject }) {
       className={style.projectContainer}
       style={_spring_project_container}
     >
+      <Helmet>
+        <title>
+          {currentProject?.name || t('header.project')} | {t('header.project')}
+        </title>
+      </Helmet>
       <div
         className={`${style.projectContent} ${hasVideo ? style.hasVideo : ''}`}
       >
@@ -179,14 +186,25 @@ const renderMedia = (currentProject, dispatch) => {
 
       case 'web_video':
         return (
-          <video
-            key={index}
-            controls
-            width="100%"
-            title={item.name || item.url}
-          >
-            <source src={item.url} type="video/mp4" />
-          </video>
+          <div className={style.video}>
+            <MediaThemeSutro
+              style={{
+                '--media-primary-color': '#c2c2c2',
+                '--media-secondary-color': '#474747',
+                '--media-accent-color': '#ffffff',
+                borderRadius: 'var(--border-radius-m)',
+                overflow: 'hidden',
+              }}
+            >
+              <video
+                key={index}
+                slot="media"
+                src={item.url}
+                playsInline
+                crossOrigin
+              />
+            </MediaThemeSutro>
+          </div>
         )
 
       case 'file':

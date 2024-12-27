@@ -1,16 +1,17 @@
 import './i18n/i18n'
 import { useTranslation } from 'react-i18next'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { Routes, Route, useLocation, Link } from 'react-router-dom'
 import './App.scss'
+import { Helmet } from 'react-helmet-async'
 
 // pages
 import Home from './pages/Home/Home'
-import Posts from './pages/Posts/Posts'
-import Project from './pages/Project/Project'
+// import Posts from './pages/Posts/Posts'
+// import Project from './pages/Project/Project'
 import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
-import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
+// import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
 
 // redux
 import { RootState } from './redux/store'
@@ -20,9 +21,12 @@ import { useSelector } from 'react-redux'
 import Header from './components/Header/Header'
 import FloatLabel from './components/FloatLabel/FloatLabel'
 import ImageViewer from './components/ImageViewer/ImageViewer'
-import CreatePost from './pages/Posts/ui/CreatePost/CreatePost'
-import DisplayWithEditor from './pages/Posts/components/DisplayWithEditor/DisplayWithEditor'
+// import CreatePost from './pages/Posts/ui/CreatePost/CreatePost'
+// import DisplayWithEditor from './pages/Posts/components/DisplayWithEditor/DisplayWithEditor'
+
+//
 import Snow from './components/Snow/Snow'
+import Fireworks from './components/2025NewYearFireworks/Fireworks'
 // import ProtectedRoute from './utils/ProtectedRoute'
 
 // fontawesome icons
@@ -36,10 +40,13 @@ import {
   faGear,
   faBook,
   faSnowflake,
+  faFire,
 } from '@fortawesome/free-solid-svg-icons'
 
 // theme
 type Theme = 'light' | 'dark'
+
+const Project = React.lazy(() => import('./pages/Project/Project'))
 
 function App(): JSX.Element {
   const { t, i18n } = useTranslation()
@@ -47,7 +54,8 @@ function App(): JSX.Element {
   const { pathname } = useLocation()
   const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
   const [showSnowControls, setShowSnowControls] = useState<boolean>(false)
-
+  const [showFireworksControls, setShowFireworksControls] =
+    useState<boolean>(false)
   //* Icon
   const SETTING_ICON_TRANSFORM: Record<
     'open' | 'closed',
@@ -198,6 +206,15 @@ function App(): JSX.Element {
                   position="left"
                 ></FloatLabel>
               </button>
+              <button
+                onClick={() => setShowFireworksControls(!showFireworksControls)}
+              >
+                <FontAwesomeIcon icon={faFire} />
+                <FloatLabel
+                  label={t('settings.fireworks.title')}
+                  position="left"
+                ></FloatLabel>
+              </button>
             </div>
           </div>
         </>
@@ -224,6 +241,9 @@ function App(): JSX.Element {
 
   return (
     <div className="App">
+      <Helmet>
+        <title>{t('header.title')}</title>
+      </Helmet>
       <Header
         title={getHeaderTitle()}
         center={getHeaderCenter()}
@@ -234,18 +254,24 @@ function App(): JSX.Element {
         showControls={showSnowControls}
         onCloseControls={() => setShowSnowControls(false)}
       />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/posts" element={<Posts />} />
+      <Fireworks
+        showControls={showFireworksControls}
+        onCloseControls={() => setShowFireworksControls(false)}
+      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user" element={<User />} />
+          {/* <Route path="/posts" element={<Posts />} />
         <Route path="/posts/:postId" element={<Posts />} />
         <Route path="/posts/test" element={<DisplayWithEditor />} />
-        <Route path="/posts/create" element={<CreatePost />} />
-        <Route path="/project" element={<Project />} />
-        <Route path="/project/:projectId" element={<Project />} />
-        <Route path="/create-project" element={<CreateProject />} />
-        <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
-      </Routes>
+        <Route path="/posts/create" element={<CreatePost />} /> */}
+          <Route path="/project" element={<Project />} />
+          <Route path="/project/:projectId" element={<Project />} />
+          <Route path="/create-project" element={<CreateProject />} />
+          {/* <Route path="/shortcut" element={<ShortcutUrlGenerator />} /> */}
+        </Routes>
+      </Suspense>
       {isViewerOpen && <ImageViewer />}
     </div>
   )

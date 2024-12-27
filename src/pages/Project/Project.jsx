@@ -1,5 +1,6 @@
 import List from './ui/List/List'
 import ContentBlock from './ui/ContentBlock/ContentBlock'
+import { Helmet } from 'react-helmet-async'
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -54,7 +55,12 @@ function Project() {
     //
     if (!projectId) {
       return (
-        <div>
+        <div className={style.project}>
+          <Helmet>
+            <title>
+              {t('header.project')} | {t('header.title')}
+            </title>
+          </Helmet>
           <List
             isAdmin={isAdmin}
             projects={projects}
@@ -65,11 +71,7 @@ function Project() {
     }
     if (!currentProject) {
       return (
-        <div
-          className={style.notFoundProject}
-          initial={{ opacity: 0, y: '10%' }}
-          animate={{ opacity: 1, y: 0 }}
-        >
+        <div className={style.notFoundProject}>
           <FontAwesomeIcon icon={faCircleExclamation} />
           <h1>{t('project.projectNotFound')}</h1>
         </div>

@@ -110,8 +110,10 @@
       "zh-TW": "中文 (台灣)"
     },
     "snow": {
-      "title": "雪",
-      "controls": "雪"
+      "title": "雪"
+    },
+    "fireworks": {
+      "title": "煙火"
     }
   },
   "imageViewer": {
@@ -122,6 +124,7 @@
   "snow": {
     "controls": "雪的設定",
     "density": "密度",
+    "density_off": "關閉",
     "density_light": "輕",
     "density_medium": "中",
     "density_heavy": "重",
@@ -140,6 +143,25 @@
       "level": {
         "light": "弱風",
         "strong": "強風"
+      }
+    }
+  },
+  "fireworks": {
+    "title": "煙火",
+    "frequency": {
+      "title": "頻率",
+      "level": {
+        "low": "低",
+        "medium": "中",
+        "high": "高"
+      }
+    },
+    "amount": {
+      "title": "密度",
+      "level": {
+        "few": "少",
+        "normal": "中",
+        "many": "多"
       }
     }
   }

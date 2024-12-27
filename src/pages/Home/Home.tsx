@@ -61,7 +61,8 @@ function Home(): JSX.Element {
               <animated.img
                 style={_spring_avatar}
                 src={process.env.PUBLIC_URL + '/assets/images/johnlin.jpeg'}
-                alt="who am i"
+                alt="John Lin's avatar"
+                loading="lazy"
               />
             </div>
             <div className={style.intro_content}>

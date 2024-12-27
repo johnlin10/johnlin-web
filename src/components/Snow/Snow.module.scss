@@ -78,8 +78,7 @@
       }
 
       .buttons {
-        display: flex;
-        justify-content: space-between;
+        @include flexbox(row, space-between, flex-start);
         padding: 4px;
         border: 1px solid #0000003f;
         background-color: var(--background-always-white);

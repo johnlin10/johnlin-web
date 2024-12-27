@@ -29,11 +29,28 @@
 @mixin page-container {
   @include flexbox(column, start, center);
   padding: 0;
-  padding-top: calc(var(--header-height) + var(--space));
+  padding-top: var(--header-height);
   width: 100%;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+@mixin page-container-content($maxWidth: var(--page-max-width-m)) {
+  padding: 0;
+  padding-top: var(--space);
+  padding-bottom: var(--space-2x);
+  width: 100%;
+  max-width: $maxWidth;
+  // height: 100%;
+  // overflow-y: scroll;
+
+  @include respond-to('phone') {
+    padding: 12px 24px 24px 24px;
+  }
+  @include respond-to('tablet') {
+    padding: 12px 24px 24px 24px;
+  }
 }
 
 @mixin float-label {
@@ -62,4 +79,20 @@
   &::-webkit-scrollbar-thumb {
     background-color: var(--border-color);
   }
+}
+
+@mixin border-radius($radius: 12px) {
+  border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+}
+
+@mixin transform-container($transform) {
+  transform: $transform;
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
 }

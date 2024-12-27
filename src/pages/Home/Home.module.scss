@@ -10,7 +10,8 @@
     @include flexbox(column, start, start);
     padding: 0 var(--space-2x);
     width: 100%;
-    max-width: 720px;
+    min-height: calc(100vh - var(--header-height));
+    max-width: var(--page-max-width-l);
 
     > div {
       @include flexbox(column, center, start);

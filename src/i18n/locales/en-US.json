@@ -109,8 +109,10 @@
       "zh-TW": "Chinese (Taiwan)"
     },
     "snow": {
-      "title": "Snow",
-      "controls": "Snow Controls"
+      "title": "Snow"
+    },
+    "fireworks": {
+      "title": "Fireworks"
     }
   },
   "imageViewer": {
@@ -121,6 +123,7 @@
   "snow": {
     "controls": "Snow Controls",
     "density": "Density",
+    "density_off": "Off",
     "density_light": "Light",
     "density_medium": "Medium",
     "density_heavy": "Heavy",
@@ -139,6 +142,25 @@
       "level": {
         "light": " Light Wind",
         "strong": " Strong Wind"
+      }
+    }
+  },
+  "fireworks": {
+    "title": "Fireworks",
+    "frequency": {
+      "title": "Frequency",
+      "level": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      }
+    },
+    "amount": {
+      "title": "Amount",
+      "level": {
+        "few": "Few",
+        "normal": "Normal",
+        "many": "Many"
       }
     }
   }

@@ -29,6 +29,40 @@
         margin: 0;
         font-size: 1.5rem;
       }
+
+      > p.year {
+        margin: 0;
+        margin-left: 6px;
+        margin-bottom: -6px;
+        font-size: 1rem;
+        font-weight: bolder;
+        font-style: italic;
+        background: linear-gradient(
+          to left,
+          var(--new-year-blue),
+          var(--new-year-blue),
+          var(--new-year-purple),
+          var(--new-year-purple),
+          var(--new-year-red),
+          var(--new-year-red),
+          var(--new-year-blue)
+        );
+        background-size: 300% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: gradientMove 7.5s linear infinite;
+        -webkit-animation: gradientMove 7.5s linear infinite;
+      }
+
+      @keyframes gradientMove {
+        0% {
+          background-position: 300% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
     }
 
     &.center_navigation {
@@ -148,5 +182,42 @@
         }
       }
     }
+  }
+}
+
+.yearContainer {
+  position: relative;
+  margin-right: 3px;
+  cursor: pointer;
+
+  p {
+    padding: 0 6px 0 0;
+  }
+
+  .currentYear {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    font-style: italic;
+    color: var(--text-secondary-color);
+  }
+
+  .year {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bolder;
+    font-style: italic;
+    background: linear-gradient(
+      to left,
+      var(--new-year-blue),
+      var(--new-year-purple),
+      var(--new-year-red),
+      var(--new-year-blue)
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientMove 7.5s linear infinite;
   }
 }

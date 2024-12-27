@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import style from './Snow.module.scss'
 import { useTranslation } from 'react-i18next'
 
-import Matter, { Engine, Render, Bodies, World, Runner } from 'matter-js'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faSnowflake } from '@fortawesome/free-solid-svg-icons'
 
@@ -27,12 +25,13 @@ interface Snowflake {
 }
 
 interface SnowSettings {
-  density: 'light' | 'medium' | 'heavy'
+  density: 'off' | 'light' | 'medium' | 'heavy'
   speed: 'slow' | 'medium' | 'fast'
   wind: number
 }
 
 const DENSITY_MAP = {
+  off: 0,
   light: 15,
   medium: 30,
   heavy: 70,
@@ -51,7 +50,7 @@ function Snow({
 }: SnowProps): JSX.Element {
   const { t } = useTranslation()
   const [settings, setSettings] = useState<SnowSettings>({
-    density: 'medium',
+    density: 'off',
     speed: 'medium',
     wind: -0.3,
   })
@@ -196,7 +195,7 @@ function Snow({
           <div className={style.controlGroup}>
             <label>{t('snow.density')}</label>
             <div className={style.buttons}>
-              {(['light', 'medium', 'heavy'] as const).map((density) => (
+              {(['off', 'light', 'medium', 'heavy'] as const).map((density) => (
                 <button
                   key={density}
                   className={settings.density === density ? style.active : ''}
