@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
 import styles from './Fireworks.module.scss'
 import { useTranslation } from 'react-i18next'
+import { ControlPanel, ButtonGroup, Group } from '../ControlPanel/ControlPanel'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -37,7 +38,7 @@ interface FireworkShell {
 }
 
 interface FireworksSettings {
-  frequency: 'low' | 'medium' | 'high'
+  frequency: 'low' | 'medium' | 'high' | 'veryHigh'
   amount: 'few' | 'normal' | 'many'
   isAutoLaunch: boolean
 }
@@ -46,6 +47,7 @@ const FREQUENCY_MAP = {
   low: 2500,
   medium: 1500,
   high: 500,
+  veryHigh: 100,
 }
 
 const AMOUNT_MAP = {
@@ -55,12 +57,12 @@ const AMOUNT_MAP = {
 }
 
 const COLORS = [
-  '#ff0000',
-  '#00ff00',
-  '#0000ff',
-  '#ffff00',
-  '#ff00ff',
-  '#ffffff',
+  '#e34242',
+  '#0a900a',
+  '#3e3ef6',
+  '#911be6',
+  '#cf6227',
+  '#c6ecf1',
 ]
 
 function Fireworks({ showControls, onCloseControls }: FireworksProps) {
@@ -102,15 +104,10 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
   )
 
   const createFireworkShell = useCallback((x: number, y: number) => {
-    // 調整大小範圍，讓差異更明顯
     const size = Math.random() * 0.1 + 0.2
-
-    // 根據大小動態計算目標高度
-    // 較大的煙火會飛得更高，但有一定的隨機性
-    const heightFactor = size * 1.5 // 0.4 ~ 0.7
-    const randomHeight = Math.random() * 0.5 - 0.3 // ±5% 的隨機變化
+    const heightFactor = size * 2.5
+    const randomHeight = Math.random() * 0.5 - 0.3
     const targetY = window.innerHeight * (1 - (heightFactor + randomHeight))
-
     const shell: FireworkShell = {
       x,
       y,
@@ -122,18 +119,16 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
     }
     shellsRef.current.push(shell)
   }, [])
+
   const createExplosion = useCallback(
     (x: number, y: number, size: number, color: string) => {
       const particles: FireworksParticle[] = []
-      // 較大的煙火產生更多粒子
       const particleCount = Math.floor(
         AMOUNT_MAP[settings.amount] * (size * 1.5)
       )
 
-      // 主要爆炸圖案
       for (let i = 0; i < particleCount; i++) {
         const angle = (Math.PI * 2 * i) / particleCount
-        // 較大的煙火爆炸速度更快，範圍更大
         const velocity = (2 + Math.random() * 2.5) * (size * 2)
         const randomOffset = Math.random() * 0.3 - 0.15
 
@@ -145,12 +140,10 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
           color,
           size: 1 + Math.random() * size,
           alpha: 1,
-          // 較大的煙火持續時間更長
           lifetime: 80 + size * 40 + Math.random() * 20,
         })
       }
 
-      // 添加額外的散射粒子
       const scatterCount = Math.floor(particleCount * 0.4)
       for (let i = 0; i < scatterCount; i++) {
         const angle = Math.random() * Math.PI * 2
@@ -206,13 +199,11 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
       // 更新和繪製粒子
       shellsRef.current = shellsRef.current.filter((shell) => {
         if (!shell.hasExploded) {
-          // 繪製發光核心
           ctx.beginPath()
           ctx.arc(shell.x, shell.y, shell.size * 2, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(255, 220, 180, 0.8)`
+          ctx.fillStyle = `rgba(188, 225, 230, 0.8)`
           ctx.fill()
 
-          // 繪製外部光暈
           const gradient = ctx.createRadialGradient(
             shell.x,
             shell.y,
@@ -221,7 +212,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
             shell.y,
             shell.size
           )
-          gradient.addColorStop(0, 'rgba(200, 200, 200, 1)')
+          gradient.addColorStop(0, 'rgba(188, 225, 230, 1)')
           // gradient.addColorStop(1, 'rgba(200, 200, 200, 0)')
 
           ctx.beginPath()
@@ -229,7 +220,6 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
           ctx.fillStyle = gradient
           ctx.fill()
 
-          // 繪製上升軌跡
           const trailLength = 10
           for (let i = 0; i < trailLength; i++) {
             const trailY = shell.y + i * 3
@@ -243,15 +233,14 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
               0,
               Math.PI * 2
             )
-            ctx.fillStyle = `rgba(200, 200, 200, ${alpha})`
+            ctx.fillStyle = `rgba(188, 225, 230, ${alpha})`
             ctx.fill()
           }
 
-          // 更新位置
           shell.y += shell.vy
           shell.vy += 0.2
 
-          if (shell.y <= shell.targetY) {
+          if (shell.y <= shell.targetY || shell.vy >= 0) {
             createExplosion(shell.x, shell.y, shell.size, shell.color)
             shell.hasExploded = true
             return false
@@ -261,9 +250,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
         return false
       })
 
-      // 更新和繪製爆炸粒子
       particlesRef.current = particlesRef.current.filter((particle) => {
-        // 更新位置
         particle.x += particle.vx
         particle.y += particle.vy
         particle.vy += 0.15
@@ -273,10 +260,8 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
         particle.lifetime -= 1
 
         if (particle.alpha > 0 && particle.lifetime > 0) {
-          // 使用 globalCompositeOperation 來增強發光效果
           ctx.globalCompositeOperation = 'lighter'
 
-          // 創建發光效果
           const gradient = ctx.createRadialGradient(
             particle.x,
             particle.y,
@@ -289,18 +274,12 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
             0,
             `rgba(${hexToRgb(particle.color)}, ${particle.alpha})`
           )
-          // gradient.addColorStop(
-          //   0.4,
-          //   `rgba(${hexToRgb(particle.color)}, ${particle.alpha * 0.3})`
-          // )
-          // gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
 
           ctx.beginPath()
           ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
           ctx.fillStyle = gradient
           ctx.fill()
 
-          // 重置混合模式
           ctx.globalCompositeOperation = 'source-over'
 
           return true
@@ -329,52 +308,72 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
     createFireworkShell(x, canvas.height)
   }, [createFireworkShell])
 
+  useEffect(() => {
+    const handleFireworksSettings = () => {
+      setSettings({
+        frequency: 'veryHigh',
+        amount: 'few',
+        isAutoLaunch: true,
+      })
+      setTimeout(() => {
+        setSettings({
+          frequency: 'medium',
+          amount: 'normal',
+          isAutoLaunch: true,
+        })
+      }, 60000)
+    }
+
+    window.addEventListener(
+      'countdownComplete',
+      handleFireworksSettings as EventListener
+    )
+
+    return () => {
+      window.removeEventListener(
+        'countdownComplete',
+        handleFireworksSettings as EventListener
+      )
+    }
+  }, [])
+
   return (
     <>
       <canvas ref={canvasRef} className={styles.fireworks_canvas} />
-      <div className={`${styles.controls} ${showControls ? styles.show : ''}`}>
-        <div className={styles.controlsHeader}>
-          <h3>{t('fireworks.title')}</h3>
-          <button onClick={onCloseControls}>
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </div>
-        <div className={styles.contents}>
-          <div className={styles.controlsContent}>
-            <div className={styles.controlGroup}>
-              <label>{t('fireworks.frequency.title')}</label>
-              <div className={styles.buttons}>
-                {(['low', 'medium', 'high'] as const).map((frequency) => (
-                  <button
-                    key={frequency}
-                    className={
-                      settings.frequency === frequency ? styles.active : ''
-                    }
-                    onClick={() => setSettings({ ...settings, frequency })}
-                  >
-                    {t(`fireworks.frequency.level.${frequency}`)}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <ControlPanel
+        title={t('fireworks.title')}
+        show={showControls}
+        onClose={onCloseControls}
+        position="bottom"
+      >
+        <div className={styles.fireworks_controls}>
+          <Group>
+            <ButtonGroup label={t('fireworks.frequency.title')}>
+              {(['low', 'medium', 'high'] as const).map((frequency) => (
+                <button
+                  key={frequency}
+                  className={settings.frequency === frequency ? 'active' : ''}
+                  onClick={() => setSettings({ ...settings, frequency })}
+                >
+                  {t(`fireworks.frequency.level.${frequency}`)}
+                </button>
+              ))}
+            </ButtonGroup>
 
-            <div className={styles.controlGroup}>
-              <label>{t('fireworks.amount.title')}</label>
-              <div className={styles.buttons}>
-                {(['few', 'normal', 'many'] as const).map((amount) => (
-                  <button
-                    key={amount}
-                    className={settings.amount === amount ? styles.active : ''}
-                    onClick={() => setSettings({ ...settings, amount })}
-                  >
-                    {t(`fireworks.amount.level.${amount}`)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+            <ButtonGroup label={t('fireworks.amount.title')}>
+              {(['few', 'normal', 'many'] as const).map((amount) => (
+                <button
+                  key={amount}
+                  className={settings.amount === amount ? 'active' : ''}
+                  onClick={() => setSettings({ ...settings, amount })}
+                >
+                  {t(`fireworks.amount.level.${amount}`)}
+                </button>
+              ))}
+            </ButtonGroup>
+          </Group>
 
-          <div className={styles.controlActions}>
+          <div className={styles.actions}>
             <button
               className={styles.autoButton}
               onClick={() =>
@@ -396,7 +395,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
             </button>
           </div>
         </div>
-      </div>
+      </ControlPanel>
     </>
   )
 }

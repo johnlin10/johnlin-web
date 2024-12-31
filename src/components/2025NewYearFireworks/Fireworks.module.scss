@@ -10,132 +10,33 @@
   z-index: 1000;
 }
 
-.controls {
-  z-index: 1001;
-  position: fixed;
-  @include flexbox(column, center, center);
-  gap: 12px;
-  bottom: -240px;
-  left: 50%;
-  padding: 12px;
-  width: calc(100% - 24px);
-  max-width: 480px;
-  border: 1px solid var(--border-color-alpha);
-  background: rgba(var(--background-color-rgb), 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: white;
-  @include transform-container(translateX(-50%));
-  @include border-radius(var(--border-radius-l));
+.fireworks_controls {
+  @include flexbox(row, space-between, stretch);
+  gap: var(--space);
 
-  &.show {
-    bottom: 32px;
-  }
+  // other higher elements
 
-  > .controlsHeader {
-    @include flexbox(row, space-between, center);
-    padding: 6px 9px;
-    width: 100%;
+  .actions {
+    @include flexbox(column, flex-end, center);
+    gap: var(--space);
+    width: fit-content;
 
-    > h3 {
-      color: var(--text-color);
-      font-size: 1.2rem;
-    }
+    > button {
+      height: 60px;
+      width: 60px;
+      font-size: 18px;
+      border: 1px solid var(--border-color-alpha);
+      @include border-radius(var(--border-radius));
 
-    button {
-      background: none;
-      border: none;
-      color: var(--text-secondary-color);
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        color: var(--text-always-white);
+      &.autoButton {
+        background-color: var(--background-secondary-color);
       }
-    }
-  }
 
-  > .contents {
-    @include flexbox(row, center, center);
-    gap: 12px;
-    width: 100%;
+      &.launchButton {
+        background-color: var(--new-year-red);
 
-    > .controlsContent {
-      @include flexbox(column, flex-start, center);
-      gap: 12px;
-      width: 100%;
-
-      > .controlGroup {
-        @include flexbox(column, flex-start, center);
-        width: 100%;
-
-        label {
-          display: block;
-          margin-bottom: 3px;
-          color: var(--text-color);
-          font-size: 0.9rem;
-          opacity: 0.75;
-        }
-
-        .buttons {
-          @include flexbox(row, space-between, center);
-          width: 100%;
-          border: 1px solid var(--border-color-alpha);
-          background-color: var(--background-color);
-          @include border-radius(var(--border-radius-l));
-
-          button {
-            flex: 1;
-            padding: 6px 12px;
-            color: var(--text-secondary-color);
-            border: 0 solid #ffffff3f;
-            font-size: 0.9rem;
-            cursor: pointer;
-            @include border-radius(var(--border-radius-m));
-
-            &.active {
-              background-color: var(--christmas-green);
-              color: var(--text-always-white);
-            }
-          }
-        }
-      }
-    }
-
-    > .controlActions {
-      @include flexbox(column, space-between, center);
-      gap: 12px;
-      height: 100%;
-
-      > button {
-        height: 54px;
-        width: 54px;
-        color: var(--text-color);
-        font-size: 18px;
-        cursor: pointer;
-        @include border-radius(var(--border-radius));
-
-        &.autoButton {
-          background: var(--background-secondary-color);
-
-          &:hover {
-            filter: brightness(1.1);
-          }
-        }
-
-        &.launchButton {
+        * {
           color: var(--text-always-white);
-          background: var(--new-year-red);
-
-          * {
-            color: var(--text-always-white);
-          }
         }
       }
     }

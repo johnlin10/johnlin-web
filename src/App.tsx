@@ -21,6 +21,7 @@ import { useSelector } from 'react-redux'
 import Header from './components/Header/Header'
 import FloatLabel from './components/FloatLabel/FloatLabel'
 import ImageViewer from './components/ImageViewer/ImageViewer'
+import NewYearCountdown from './components/NewYearCountdown/NewYearCountdown'
 // import CreatePost from './pages/Posts/ui/CreatePost/CreatePost'
 // import DisplayWithEditor from './pages/Posts/components/DisplayWithEditor/DisplayWithEditor'
 
@@ -53,9 +54,14 @@ function App(): JSX.Element {
   const { isViewerOpen } = useSelector((state: RootState) => state.viewer)
   const { pathname } = useLocation()
   const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
-  const [showSnowControls, setShowSnowControls] = useState<boolean>(false)
-  const [showFireworksControls, setShowFireworksControls] =
-    useState<boolean>(false)
+
+  type ControlPanel = 'snow' | 'fireworks' | null
+  const [activePanel, setActivePanel] = useState<ControlPanel>(null)
+
+  const handleControlPanel = (panel: ControlPanel): void => {
+    setActivePanel(activePanel === panel ? null : panel)
+  }
+
   //* Icon
   const SETTING_ICON_TRANSFORM: Record<
     'open' | 'closed',
@@ -103,10 +109,10 @@ function App(): JSX.Element {
 
   //* Header
   const getHeaderTitle = (): string => {
-    if (pathname === '/') return t('header.title')
+    if (pathname === '/') return ''
     if (pathname.startsWith('/posts')) return t('header.posts')
     if (pathname.startsWith('/project')) return t('header.project')
-    return t('header.title')
+    return ''
   }
   const getHeaderCenter = (): null => {
     return null
@@ -199,16 +205,15 @@ function App(): JSX.Element {
                   position="left"
                 ></FloatLabel>
               </button>
-              <button onClick={() => setShowSnowControls(!showSnowControls)}>
+              <hr />
+              <button onClick={() => handleControlPanel('snow')}>
                 <FontAwesomeIcon icon={faSnowflake} />
                 <FloatLabel
                   label={t('settings.snow.title')}
                   position="left"
                 ></FloatLabel>
               </button>
-              <button
-                onClick={() => setShowFireworksControls(!showFireworksControls)}
-              >
+              <button onClick={() => handleControlPanel('fireworks')}>
                 <FontAwesomeIcon icon={faFire} />
                 <FloatLabel
                   label={t('settings.fireworks.title')}
@@ -244,19 +249,22 @@ function App(): JSX.Element {
       <Helmet>
         <title>{t('header.title')}</title>
       </Helmet>
+
+      <NewYearCountdown />
+      <Snow
+        showControls={activePanel === 'snow'}
+        onCloseControls={() => setActivePanel(null)}
+      />
+      <Fireworks
+        showControls={activePanel === 'fireworks'}
+        onCloseControls={() => setActivePanel(null)}
+      />
+
       <Header
         title={getHeaderTitle()}
         center={getHeaderCenter()}
         right={getHeaderRight()}
         setIsOpenSetting={setIsOpenSetting}
-      />
-      <Snow
-        showControls={showSnowControls}
-        onCloseControls={() => setShowSnowControls(false)}
-      />
-      <Fireworks
-        showControls={showFireworksControls}
-        onCloseControls={() => setShowFireworksControls(false)}
       />
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>

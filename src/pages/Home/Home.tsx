@@ -2,7 +2,7 @@ import React from 'react'
 import style from './Home.module.scss'
 import Footer from '../../components/Footer/Footer'
 import { useTranslation } from 'react-i18next'
-
+import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { animated, useSpring, useSprings } from '@react-spring/web'
 
 function Home(): JSX.Element {
@@ -58,12 +58,15 @@ function Home(): JSX.Element {
         <div className={style.page_content}>
           <animated.div className={style.who_am_i} style={_spring_who_am_i}>
             <div className={style.image_content}>
-              <animated.img
-                style={_spring_avatar}
-                src={process.env.PUBLIC_URL + '/assets/images/johnlin.jpeg'}
-                alt="John Lin's avatar"
-                loading="lazy"
-              />
+              <animated.div style={_spring_avatar}>
+                <LazyLoadImage
+                  src={process.env.PUBLIC_URL + '/assets/images/johnlin.jpeg'}
+                  alt="John Lin's avatar"
+                  effect="opacity"
+                  width="100%"
+                  height="100%"
+                />
+              </animated.div>
             </div>
             <div className={style.intro_content}>
               <h2>{t('home.who_am_i.title')}</h2>

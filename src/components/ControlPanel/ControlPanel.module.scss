@@ -1,0 +1,120 @@
+@import '../../styles/_mixins.scss';
+
+.controls {
+  position: fixed;
+  z-index: 1001;
+  padding: var(--space);
+  width: calc(100% - 24px);
+  max-width: 480px;
+  border: 1px solid var(--border-color-alpha);
+  @include background-blur();
+  opacity: 0;
+  visibility: hidden;
+  @include border-radius(var(--border-radius-l));
+  box-shadow: 0 3px 24px rgba(0, 0, 0, 0.1);
+
+  &.center {
+    top: 50%;
+    left: 50%;
+    @include transform-container(translate(-50%, calc(-50% + 100px)));
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      @include transform-container(translate(-50%, -50%));
+    }
+  }
+
+  &.bottom {
+    bottom: 36px;
+    left: 50%;
+    @include transform-container(translateX(-50%) translateY(100%));
+
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      @include transform-container(translateX(-50%) translateY(0));
+    }
+  }
+
+  .controlsHeader {
+    @include flexbox(row, space-between, center);
+    padding: 0 var(--space-0-5x);
+    margin-top: var(--space-0-5x);
+    margin-bottom: var(--space);
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--text-color);
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: var(--text-secondary-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      width: 24px;
+      height: 24px;
+      @include flexbox(row, center, center);
+
+      &:hover {
+        color: var(--text-color);
+      }
+    }
+  }
+
+  // group
+  .group {
+    width: 100%;
+
+    label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+  }
+
+  // button group
+  .buttonGroup {
+    margin-bottom: 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      opacity: 0.75;
+    }
+
+    .buttons {
+      @include flexbox(row, space-between, flex-start);
+      padding: 3px;
+      border: 1px solid var(--border-color-alpha);
+      background-color: var(--background-color);
+      @include border-radius(var(--border-radius-l));
+
+      > button {
+        @include flexbox(row, center, center);
+        width: 100%;
+        padding: var(--space-0-5x) var(--space);
+        border: none;
+        font-size: 14px;
+
+        &:global(.active) {
+          // @include new-year-background();
+          color: var(--text-always-white);
+          background-color: var(--primary-color);
+        }
+      }
+    }
+  }
+}

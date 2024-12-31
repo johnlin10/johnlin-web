@@ -1,0 +1,1 @@
+.newYearCountdown{display:flex;flex-direction:row;justify-content:center;align-items:center;position:fixed;top:0;left:0;width:100%;height:100%;z-index:9000;-webkit-user-select:none;-moz-user-select:none;user-select:none;pointer-events:none}.countdownNumber{font-size:120px}

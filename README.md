@@ -17,9 +17,12 @@ This is my personal website project, designed to showcase my information, portfo
 
 - React.js
 - TypeScript (migrating from JavaScript)
+- JavaScript (for some legacy code)
 - Redux (state management)
 - SCSS (styling)
 - i18next (internationalization)
+- react-spring (animation)
+- moment.js (date and time)
 
 ### Backend
 
@@ -35,12 +38,3 @@ This is my personal website project, designed to showcase my information, portfo
 - Create React App
 - ESLint
 - Git
-
-## Future Plans
-
-- [ ] Complete migrating from JavaScript to TypeScript
-- [ ] Setup backend API service
-- [ ] Implement server-side rendering (SSR)
-- [ ] Optimize website performance
-- [ ] Expand blog functionality
-- [ ] Add more interactive features

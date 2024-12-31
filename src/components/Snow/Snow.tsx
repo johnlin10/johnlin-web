@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import style from './Snow.module.scss'
 import { useTranslation } from 'react-i18next'
+import { ControlPanel, ButtonGroup, Group } from '../ControlPanel/ControlPanel'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faSnowflake } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +11,7 @@ interface SnowProps {
   speed?: number
   wind?: number
   showControls?: boolean
-  onCloseControls?: () => void
+  onCloseControls: () => void
 }
 
 interface Snowflake {
@@ -184,78 +185,70 @@ function Snow({
   return (
     <>
       <canvas ref={canvasRef} className={style.snow} />
-      <div className={`${style.controls} ${showControls ? style.show : ''}`}>
-        <div className={style.controlsHeader}>
-          <h3>{t('snow.controls')}</h3>
-          <button onClick={onCloseControls}>
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </div>
-        <div className={style.controlsContent}>
-          <div className={style.controlGroup}>
-            <label>{t('snow.density')}</label>
-            <div className={style.buttons}>
-              {(['off', 'light', 'medium', 'heavy'] as const).map((density) => (
-                <button
-                  key={density}
-                  className={settings.density === density ? style.active : ''}
-                  onClick={() => setSettings({ ...settings, density })}
-                >
-                  {t(`snow.density_${density}`)}
-                </button>
-              ))}
-            </div>
+      <ControlPanel
+        title={t('snow.controls')}
+        show={showControls}
+        onClose={onCloseControls}
+        position="bottom"
+      >
+        <ButtonGroup label={t('snow.density')}>
+          {(['off', 'light', 'medium', 'heavy'] as const).map((density) => (
+            <button
+              key={density}
+              className={settings.density === density ? 'active' : ''}
+              onClick={() => setSettings({ ...settings, density })}
+            >
+              {t(`snow.density_${density}`)}
+            </button>
+          ))}
+        </ButtonGroup>
+        <ButtonGroup label={t('snow.speed')}>
+          {(['slow', 'medium', 'fast'] as const).map((speed) => (
+            <button
+              key={speed}
+              className={settings.speed === speed ? 'active' : ''}
+              onClick={() => setSettings({ ...settings, speed })}
+            >
+              {t(`snow.speed_${speed}`)}
+            </button>
+          ))}
+        </ButtonGroup>
+        <ButtonGroup
+          label={`${
+            settings.wind > 0
+              ? t('snow.wind.right')
+              : settings.wind < 0
+              ? t('snow.wind.left')
+              : t('snow.wind.center')
+          }
+              ${
+                settings.wind < -0.5
+                  ? t('snow.wind.level.strong')
+                  : settings.wind > 0.5
+                  ? t('snow.wind.level.strong')
+                  : settings.wind === 0
+                  ? ''
+                  : t('snow.wind.level.light')
+              }`}
+        >
+          <div className={style.sliderContainer}>
+            <input
+              type="range"
+              min="-1"
+              max="1"
+              step="0.1"
+              value={settings.wind}
+              onChange={(e) =>
+                setSettings({
+                  ...settings,
+                  wind: parseFloat(e.target.value),
+                })
+              }
+              className={style.slider}
+            />
           </div>
-          <div className={style.controlGroup}>
-            <label>{t('snow.speed')}</label>
-            <div className={style.buttons}>
-              {(['slow', 'medium', 'fast'] as const).map((speed) => (
-                <button
-                  key={speed}
-                  className={settings.speed === speed ? style.active : ''}
-                  onClick={() => setSettings({ ...settings, speed })}
-                >
-                  {t(`snow.speed_${speed}`)}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className={style.controlGroup}>
-            <label>
-              {/* {t('snow.wind.title')}{' '} */}
-              {settings.wind > 0
-                ? t('snow.wind.right')
-                : settings.wind < 0
-                ? t('snow.wind.left')
-                : t('snow.wind.center')}
-              {settings.wind < -0.5
-                ? t('snow.wind.level.strong')
-                : settings.wind > 0.5
-                ? t('snow.wind.level.strong')
-                : settings.wind === 0
-                ? ''
-                : t('snow.wind.level.light')}
-            </label>
-            <span className={style.sliderValue}></span>
-            <div className={style.sliderContainer}>
-              <input
-                type="range"
-                min="-1"
-                max="1"
-                step="0.1"
-                value={settings.wind}
-                onChange={(e) =>
-                  setSettings({
-                    ...settings,
-                    wind: parseFloat(e.target.value),
-                  })
-                }
-                className={style.slider}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+        </ButtonGroup>
+      </ControlPanel>
     </>
   )
 }

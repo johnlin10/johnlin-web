@@ -2,185 +2,199 @@
 
 .header {
   z-index: 1000;
-  @include flexbox(row, space-between, center);
+  @include flexbox(column, center, flex-start);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: min-content;
   cursor: default;
   background-color: var(--background-color);
+  @include background-blur();
   // border-bottom: 1px solid var(--border-color);
 
-  > div {
-    @include flexbox(row, center, center);
-    height: 100%;
-    min-width: 60px;
-    color: var(--text-color);
+  > div.header_nav {
+    @include flexbox(row, space-between, center);
+    width: 100%;
+    min-height: 60px;
 
-    // title
-    &.title {
+    > div {
       @include flexbox(row, center, center);
-      padding: 0 24px;
-      white-space: nowrap;
-      cursor: pointer;
-
-      > h1 {
-        margin: 0;
-        font-size: 1.5rem;
-      }
-
-      > p.year {
-        margin: 0;
-        margin-left: 6px;
-        margin-bottom: -6px;
-        font-size: 1rem;
-        font-weight: bolder;
-        font-style: italic;
-        background: linear-gradient(
-          to left,
-          var(--new-year-blue),
-          var(--new-year-blue),
-          var(--new-year-purple),
-          var(--new-year-purple),
-          var(--new-year-red),
-          var(--new-year-red),
-          var(--new-year-blue)
-        );
-        background-size: 300% 100%;
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        animation: gradientMove 7.5s linear infinite;
-        -webkit-animation: gradientMove 7.5s linear infinite;
-      }
-
-      @keyframes gradientMove {
-        0% {
-          background-position: 300% 50%;
-        }
-        100% {
-          background-position: 0% 50%;
-        }
-      }
-    }
-
-    &.center_navigation {
-      min-width: 0px;
-    }
-
-    // navigation
-    > a {
-      @include flexbox(row, center, center);
-      width: 60px;
       height: 100%;
-      font-size: 1rem;
-      @include float-label;
+      min-width: 60px;
+      color: var(--text-color);
 
-      &:global(.active) {
-        // border-bottom: 3px solid var(--link-hover-color);
+      // title
+      &.title {
+        @include flexbox(row, center, center);
+        padding: 0 24px;
+        white-space: nowrap;
+        cursor: pointer;
 
-        > svg {
-          &:global(.back) {
-            position: absolute;
-            margin-top: 2px;
-            font-size: 0.9rem;
+        > h1 {
+          margin: 0;
+          font-size: 1.5rem;
+        }
 
-            > path {
-              fill: var(--text-always-white);
-            }
-          }
-          > path {
-            fill: var(--link-hover-color);
-          }
+        > p.year {
+          margin: 0;
+          margin-left: 6px;
+          margin-bottom: -6px;
+          font-size: 1rem;
+          font-weight: bolder;
+          font-style: italic;
+          background: linear-gradient(
+            to left,
+            var(--new-year-blue),
+            var(--new-year-blue),
+            var(--new-year-purple),
+            var(--new-year-purple),
+            var(--new-year-red),
+            var(--new-year-red),
+            var(--new-year-blue)
+          );
+          background-size: 300% 100%;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation: gradientMove 7.5s linear infinite;
+          -webkit-animation: gradientMove 7.5s linear infinite;
         }
       }
 
-      > svg {
-        font-size: 1.2rem;
+      &.center_navigation {
+        min-width: 0px;
       }
-    }
 
-    &.right_action {
-      > :global(.actions-container) {
+      // navigation
+      > a {
         @include flexbox(row, center, center);
-        position: relative;
-        height: 100%;
+        width: 60px;
+        height: 60px;
+        font-size: 1rem;
+        cursor: pointer;
+        @include float-label;
 
         &:global(.active) {
-          > button {
-            border: 1px solid var(--border-color);
-            background-color: var(--background-secondary-color);
+          // border-bottom: 3px solid var(--link-hover-color);
+
+          > svg {
+            &:global(.back) {
+              position: absolute;
+              margin-top: 2px;
+              font-size: 0.9rem;
+
+              > path {
+                fill: var(--text-always-white);
+              }
+            }
+            > path {
+              fill: var(--link-hover-color);
+            }
           }
-          transform: translateX(-12px) translateY(12px);
-          -webkit-transform: translateX(-12px) translateY(12px);
-          -moz-transform: translateX(-12px) translateY(12px);
-          -ms-transform: translateX(-12px) translateY(12px);
-          -o-transform: translateX(-12px) translateY(12px);
         }
 
-        // setting button (toggle actions block)
-        > button {
-          height: 100%;
-          width: 60px;
+        > svg {
           font-size: 1.2rem;
-          background-color: var(--background-color);
-          color: var(--text-color);
-          border: none;
-          border: 0px solid var(--background-color);
-          @include float-label;
-          cursor: pointer;
-          border-radius: 24px 24px 0 0;
-          -webkit-border-radius: 24px 24px 0 0;
-          -moz-border-radius: 24px 24px 0 0;
-          -ms-border-radius: 24px 24px 0 0;
-          -o-border-radius: 24px 24px 0 0;
         }
+      }
 
-        // actions block
-        > :global(.actions) {
-          @include flexbox(column, center, center);
-          position: absolute;
-          width: 60px;
-          top: calc(var(--header-height) / 2);
-          opacity: 0;
-          background-color: var(--background-secondary-color);
-          border: 1px solid var(--background-color);
-          border-top: none;
-          pointer-events: none;
-          user-select: none;
+      &.right_action {
+        > :global(.actions-container) {
+          @include flexbox(row, center, center);
+          position: relative;
+          height: 100%;
 
           &:global(.active) {
-            opacity: 1;
-            border: 1px solid var(--border-color);
-            border-top: none;
-            pointer-events: auto;
-            user-select: auto;
-            top: calc(var(--header-height) - 1px);
+            @include transform-container(translateX(-12px) translateY(12px));
 
             > button {
-              height: 60px;
+              border: 1px solid var(--border-color);
+              background-color: var(--background-secondary-color);
             }
           }
 
+          // setting button (toggle actions block)
           > button {
-            height: 30px;
+            height: 60px;
             width: 60px;
             font-size: 1.2rem;
-            background-color: #00000000;
+            background-color: var(--background-color);
             color: var(--text-color);
             border: none;
-            cursor: pointer;
-
+            border: 0px solid var(--background-color);
             @include float-label;
+            cursor: pointer;
+            @include border-radius(24px 24px 0 0);
           }
-          border-radius: 0 0 24px 24px;
-          -webkit-border-radius: 0 0 24px 24px;
-          -moz-border-radius: 0 0 24px 24px;
-          -ms-border-radius: 0 0 24px 24px;
-          -o-border-radius: 0 0 24px 24px;
+
+          // actions block
+          > :global(.actions) {
+            @include flexbox(column, center, center);
+            position: absolute;
+            width: 60px;
+            top: calc(var(--header-height) / 2);
+            opacity: 0;
+            background-color: var(--background-secondary-color);
+            border: 1px solid var(--background-color);
+            border-top: none;
+            pointer-events: none;
+            user-select: none;
+            @include border-radius(0 0 24px 24px);
+
+            &:global(.active) {
+              top: calc(60px - 1px);
+              border: 1px solid var(--border-color);
+              border-top: none;
+              opacity: 1;
+              pointer-events: auto;
+              user-select: auto;
+
+              > button {
+                height: 60px;
+              }
+            }
+
+            hr {
+              width: 50%;
+              border: 1px solid var(--border-color);
+            }
+
+            > button {
+              height: 30px;
+              width: 60px;
+              font-size: 1.2rem;
+              background-color: #00000000;
+              color: var(--text-color);
+              border: none;
+              cursor: pointer;
+
+              @include float-label;
+            }
+          }
         }
       }
+    }
+  }
+}
+
+.subtitle {
+  @include flexbox(row, space-between, center);
+  margin-top: -12px;
+  padding: 0 24px 6px 24px;
+  width: 100%;
+  height: 30px;
+  pointer-events: none;
+
+  > p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary-color);
+
+    &.countdown {
+      font-weight: 600;
+      font-style: italic;
+      // color: var(--text-color);
     }
   }
 }
@@ -211,13 +225,24 @@
       to left,
       var(--new-year-blue),
       var(--new-year-purple),
+      var(--new-year-purple),
+      var(--new-year-red),
       var(--new-year-red),
       var(--new-year-blue)
     );
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
+    background-size: 600% 100%;
     background-clip: text;
+    -webkit-background-clip: text;
     color: transparent;
-    animation: gradientMove 7.5s linear infinite;
+    @include animation-container(gradientMove 15s linear infinite);
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 600% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
   }
 }

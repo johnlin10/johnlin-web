@@ -81,6 +81,12 @@
   }
 }
 
+@mixin background-blur($background: var(--background-color-rgb)) {
+  background: rgba($background, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
 @mixin border-radius($radius: 12px) {
   border-radius: $radius;
   -webkit-border-radius: $radius;
@@ -95,4 +101,12 @@
   -moz-transform: $transform;
   -ms-transform: $transform;
   -o-transform: $transform;
+}
+
+@mixin animation-container($animation) {
+  animation: $animation;
+  -webkit-animation: $animation;
+  -moz-animation: $animation;
+  -ms-animation: $animation;
+  -o-animation: $animation;
 }

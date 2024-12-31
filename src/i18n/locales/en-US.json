@@ -1,4 +1,8 @@
 {
+  "locale": "en-US",
+  "common": {
+    "close": "Close"
+  },
   "header": {
     "title": "John Lin",
     "home": "Home",
@@ -150,6 +154,7 @@
     "frequency": {
       "title": "Frequency",
       "level": {
+        "off": "Off",
         "low": "Low",
         "medium": "Medium",
         "high": "High"
@@ -163,5 +168,12 @@
         "many": "Many"
       }
     }
+  },
+  "time": {
+    "title": "Time",
+    "days": "D",
+    "hours": "H",
+    "minutes": "M",
+    "seconds": "S"
   }
 }

@@ -129,8 +129,8 @@
   > .createProject {
     @include flexbox(row, center, center);
     position: fixed;
-    bottom: 24px;
-    right: 24px;
+    bottom: var(--space-3x);
+    right: var(--space-2x);
     height: 60px;
     width: 60px;
     padding: 0;
@@ -139,7 +139,7 @@
     background-color: var(--background-color);
 
     @include respond-to('phone') {
-      right: 12px;
+      right: var(--space);
     }
 
     &:hover {

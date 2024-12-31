@@ -7,6 +7,7 @@
   font-style: normal;
   letter-spacing: 0.05rem;
   color: var(--text-color);
+  outline: none;
   font-family: 'Outfit', 'Noto Sans TC', -apple-system, BlinkMacSystemFont,
     'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
@@ -135,11 +136,23 @@ textarea {
 }
 
 :root {
-  --header-height: 60px;
+  --header-height: calc(60px + 18px);
 
+  --page-max-width-s: 360px;
+  --page-max-width-m: 540px;
+  --page-max-width-l: 720px;
+
+  --space-0-25x: 3px;
+  --space-0-5x: 6px;
   --space: 12px;
   --space-2x: 24px;
   --space-3x: 36px;
   --space-4x: 48px;
   --space-8x: 96px;
+
+  /* border radius */
+  --border-radius-s: 8px;
+  --border-radius: 12px;
+  --border-radius-m: 18px;
+  --border-radius-l: 24px;
 }

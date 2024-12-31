@@ -18,13 +18,14 @@ import { useSprings, animated } from '@react-spring/web'
 function List({ isAdmin, projects, setProjects }) {
   // animation
   const _spring_project_list = useSprings(
-    projects.length,
-    projects.map((_, index) => ({
-      from: { opacity: 0, transform: 'translateY(20%)' },
-      to: { opacity: 1, transform: 'translateY(0)' },
-      delay: 70 * index,
-      config: { duration: 100 },
-    }))
+    projects.filter((project) => !(project.private && !isAdmin)).length,
+    projects
+      .filter((project) => !(project.private && !isAdmin))
+      .map((_, index) => ({
+        from: { opacity: 0, transform: 'translateY(20%)' },
+        to: { opacity: 1, transform: 'translateY(0)' },
+        delay: 70 * index,
+      }))
   )
 
   const handleDelete = async (projectId) => {
@@ -58,18 +59,12 @@ function List({ isAdmin, projects, setProjects }) {
 
   return (
     <div className={style.projectList}>
-      <div
-        className={style.projectListContent}
-        initial={{ opacity: 0, y: '10%' }}
-        animate={{ opacity: 1, y: 0 }}
-      >
+      <div className={style.projectListContent}>
         <ul>
           {projects
             ?.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate())
+            .filter((project) => !(project.private && !isAdmin))
             .map((project, index) => {
-              if (project.private && !isAdmin) {
-                return null
-              }
               return (
                 <animated.li
                   key={project.id}

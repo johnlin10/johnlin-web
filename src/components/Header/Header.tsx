@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
+import moment from 'moment'
+
 import { animated, easings, useSpring } from '@react-spring/web'
 
 interface HeaderProps {
@@ -10,6 +12,18 @@ interface HeaderProps {
   center: React.ReactNode
   right: React.ReactNode
   setIsOpenSetting: (isOpen: boolean) => void
+}
+
+interface SubtitleProps {
+  content?: string
+  children?: React.ReactNode
+}
+
+interface TimeDisplay {
+  days: number
+  hours: number
+  minutes: number
+  seconds: number
 }
 
 function Header({
@@ -33,12 +47,41 @@ function Header({
     config: { duration: 1000, easing: easings.easeOutCubic },
   })
 
+  // 2025 reverse count
+  const [countdown, setCountdown] = useState<TimeDisplay>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  })
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const endDate = moment('2025-01-01 00:00:00')
+      const now = moment()
+      const diff = endDate.diff(now, 'seconds')
+
+      return {
+        days: Math.floor(diff / (60 * 60 * 24)),
+        hours: Math.floor((diff % (60 * 60 * 24)) / (60 * 60)),
+        minutes: Math.floor((diff % (60 * 60)) / 60),
+        seconds: diff % 60,
+      }
+    }
+    setCountdown(calculateTimeLeft())
+
+    const timer = setInterval(() => {
+      setCountdown(calculateTimeLeft())
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [])
+
+  // login page
   const handleHeaderClick = (e: React.MouseEvent): void => {
     e.stopPropagation()
     setClickCount((prevCount) => prevCount + 1)
     setIsOpenSetting(false)
   }
-
   useEffect(() => {
     if (clickCount === 10) {
       navigate('/user')
@@ -54,25 +97,54 @@ function Header({
       style={_spring_header}
       onClick={handleHeaderClick}
     >
-      <div
-        className={style.title}
-        onClick={(e) => {
-          e.stopPropagation()
-          refresh()
-        }}
-      >
-        <YearTransition />
-        <h1>{title || t('header.title')}</h1>
+      <div className={style.header_nav}>
+        <div
+          className={style.title}
+          onClick={(e) => {
+            e.stopPropagation()
+            refresh()
+          }}
+        >
+          <YearTransition />
+          <h1>{title || ''}</h1>
+        </div>
+        <div
+          className={style.center_navigation}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {center}
+        </div>
+        <div
+          className={style.right_action}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {right}
+        </div>
       </div>
-      <div
-        className={style.center_navigation}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {center}
-      </div>
-      <div className={style.right_action} onClick={(e) => e.stopPropagation()}>
-        {right}
-      </div>
+      <Subtitle>
+        <p className={style.countdown}>
+          {countdown.days <= 0
+            ? ''
+            : `${countdown.days}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
+                'time.days'
+              )}`}{' '}
+          {countdown.hours <= 0
+            ? ''
+            : `${countdown.hours}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
+                'time.hours'
+              )}`}{' '}
+          {countdown.minutes <= 0
+            ? ''
+            : `${countdown.minutes}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
+                'time.minutes'
+              )}`}{' '}
+          {countdown.seconds <= 0
+            ? ''
+            : `${countdown.seconds}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
+                'time.seconds'
+              )}`}
+        </p>
+      </Subtitle>
     </animated.header>
   )
 }
@@ -80,6 +152,17 @@ function Header({
 function YearTransition() {
   const [isHovered, setIsHovered] = useState(false)
   const [showNextYear, setShowNextYear] = useState(false)
+  const [isTimeUp, setIsTimeUp] = useState(false)
+
+  useEffect(() => {
+    const handleTimeUp = () => {
+      setIsTimeUp(true)
+      setShowNextYear(true)
+    }
+
+    window.addEventListener('countdownComplete', handleTimeUp)
+    return () => window.removeEventListener('countdownComplete', handleTimeUp)
+  }, [])
 
   useEffect(() => {
     if (!isHovered) {
@@ -87,19 +170,19 @@ function YearTransition() {
         () => {
           setShowNextYear((prev) => !prev)
         },
-        showNextYear ? 5000 : 5000
+        showNextYear ? 7000 : 5000
       )
       return () => clearInterval(timer)
     }
   }, [showNextYear, isHovered])
 
   const currentYearOpacity = useSpring({
-    opacity: isHovered || showNextYear ? 0 : 1,
-    config: { duration: 500, delay: 500 },
+    opacity: isHovered || isTimeUp || showNextYear ? 0 : 1,
+    config: { duration: 1000, delay: 1000 },
   })
   const { opacity } = useSpring({
-    opacity: isHovered || showNextYear ? 1 : 0,
-    config: { duration: 500 },
+    opacity: isHovered || isTimeUp || showNextYear ? 1 : 0,
+    config: { duration: 1000 },
   })
 
   return (
@@ -121,6 +204,15 @@ function YearTransition() {
       >
         2025
       </animated.p>
+    </div>
+  )
+}
+
+function Subtitle({ content, children }: SubtitleProps) {
+  return (
+    <div className={style.subtitle}>
+      {content && <p>{content}</p>}
+      {children && children}
     </div>
   )
 }
