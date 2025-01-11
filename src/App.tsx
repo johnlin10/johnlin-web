@@ -11,7 +11,7 @@ import Home from './pages/Home/Home'
 // import Project from './pages/Project/Project'
 import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
-// import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
+import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
 
 // redux
 import { RootState } from './redux/store'
@@ -250,7 +250,7 @@ function App(): JSX.Element {
         <title>{t('header.title')}</title>
       </Helmet>
 
-      <NewYearCountdown />
+      {/* <NewYearCountdown /> */}
       <Snow
         showControls={activePanel === 'snow'}
         onCloseControls={() => setActivePanel(null)}
@@ -277,7 +277,7 @@ function App(): JSX.Element {
           <Route path="/project" element={<Project />} />
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/create-project" element={<CreateProject />} />
-          {/* <Route path="/shortcut" element={<ShortcutUrlGenerator />} /> */}
+          <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
         </Routes>
       </Suspense>
       {isViewerOpen && <ImageViewer />}

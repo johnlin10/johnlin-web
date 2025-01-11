@@ -177,11 +177,11 @@ function YearTransition() {
   }, [showNextYear, isHovered])
 
   const currentYearOpacity = useSpring({
-    opacity: isHovered || isTimeUp || showNextYear ? 0 : 1,
+    opacity: 0,
     config: { duration: 1000, delay: 1000 },
   })
   const { opacity } = useSpring({
-    opacity: isHovered || isTimeUp || showNextYear ? 1 : 0,
+    opacity: 1,
     config: { duration: 1000 },
   })
 

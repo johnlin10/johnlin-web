@@ -1,7 +1,7 @@
 @import '../../styles/_mixins.scss';
 
 .header {
-  z-index: 1000;
+  z-index: 5000;
   @include flexbox(column, center, flex-start);
   position: fixed;
   top: 0;

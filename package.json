@@ -30,6 +30,7 @@
     "@types/react-i18next": "^8.1.0",
     "@types/react-router-dom": "^5.3.3",
     "firebase": "^11.0.1",
+    "firebase-functions": "^6.2.0",
     "i18next": "^23.16.4",
     "i18next-browser-languagedetector": "^8.0.0",
     "matter-js": "^0.20.0",
@@ -68,7 +69,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "deploy": "firebase deploy --only hosting",
-    "build-deploy": "npm run build && npm run deploy"
+    "build-deploy": "npm run build && npm run deploy",
+    "serve": "npm run build && firebase emulators:start"
   },
   "eslintConfig": {
     "extends": [

@@ -2,7 +2,7 @@
 
 .imageViewer {
   @include flexbox(column, center, center);
-  z-index: 2000;
+  z-index: 5500;
   position: fixed;
   top: 0;
   left: 0;

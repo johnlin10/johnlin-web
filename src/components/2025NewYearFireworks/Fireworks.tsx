@@ -73,7 +73,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
   const animationFrameRef = useRef<number>()
 
   const [settings, setSettings] = useState<FireworksSettings>({
-    frequency: 'medium',
+    frequency: 'low',
     amount: 'normal',
     isAutoLaunch: true,
   })
@@ -317,7 +317,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
       })
       setTimeout(() => {
         setSettings({
-          frequency: 'medium',
+          frequency: 'low',
           amount: 'normal',
           isAutoLaunch: true,
         })

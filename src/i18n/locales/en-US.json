@@ -124,6 +124,13 @@
     "zoomOut": "Zoom Out",
     "reset": "Reset"
   },
+  "shortcutUrlGenerator": {
+    "title": "Shortcut Url Generator",
+    "inputUrl": "Input the url you want to shorten",
+    "generate": "Generate short url",
+    "shortUrl": "Short url",
+    "originalUrl": "Original url"
+  },
   "snow": {
     "controls": "Snow Controls",
     "density": "Density",
@@ -175,5 +182,8 @@
     "hours": "H",
     "minutes": "M",
     "seconds": "S"
+  },
+  "alert": {
+    "invalidUrl": "Please enter a valid URL"
   }
 }
