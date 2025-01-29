@@ -1,0 +1,26 @@
+{
+  "title": "雪",
+  "controls": "雪的設定",
+  "density": "密度",
+  "density_off": "關閉",
+  "density_light": "輕",
+  "density_medium": "中",
+  "density_heavy": "重",
+  "speed": "速度",
+  "speed_slow": "慢",
+  "speed_medium": "中",
+  "speed_fast": "快",
+  "accumulate": "堆積",
+  "accumulate_on": "開啟",
+  "accumulate_off": "關閉",
+  "wind": {
+    "title": "風",
+    "right": "右",
+    "left": "左",
+    "center": "無風",
+    "level": {
+      "light": "弱風",
+      "strong": "強風"
+    }
+  }
+}

@@ -51,7 +51,8 @@ function Footer(): JSX.Element {
         </a>
       </div>
       <p className={style.copyright}>
-        &copy; {new Date().getFullYear()} John Lin. {t('footer.copyright')}
+        &copy; 2024-{new Date().getFullYear()} John Lin.{' '}
+        {t('copyright', { ns: 'footer' })}
       </p>
     </div>
   )

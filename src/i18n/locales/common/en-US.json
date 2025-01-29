@@ -1,0 +1,17 @@
+{
+  "locale": "en-US",
+  "switch": {
+    "open": "Open",
+    "close": "Close"
+  },
+  "time": {
+    "title": "Time",
+    "days": "D",
+    "hours": "H",
+    "minutes": "M",
+    "seconds": "S"
+  },
+  "alert": {
+    "invalidUrl": "Please enter a valid URL"
+  }
+}

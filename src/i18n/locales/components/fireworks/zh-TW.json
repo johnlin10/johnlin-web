@@ -1,0 +1,20 @@
+{
+  "title": "煙火",
+  "frequency": {
+    "title": "頻率",
+    "level": {
+      "off": "關閉",
+      "low": "低",
+      "medium": "中",
+      "high": "高"
+    }
+  },
+  "amount": {
+    "title": "密度",
+    "level": {
+      "few": "少",
+      "normal": "中",
+      "many": "多"
+    }
+  }
+}

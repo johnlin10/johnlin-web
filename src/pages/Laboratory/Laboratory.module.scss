@@ -1,0 +1,53 @@
+@import '../../styles/_mixins.scss';
+
+.laboratory_container {
+  @include page-container;
+
+  @include respond-to('phone') {
+    padding-top: 72px;
+  }
+
+  .laboratory_content {
+    @include page-container-content(var(--page-max-width-l));
+
+    .header {
+      width: 100%;
+      margin-bottom: 32px;
+
+      p {
+        color: var(--text-secondary-color);
+      }
+    }
+
+    .tools_grid {
+      @include flexbox(row, start, stretch);
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+
+      a.tool_card {
+        @include flexbox(column, start, start);
+        width: calc(50% - 6px);
+        padding: 15px 18px;
+        border: 1px solid var(--border-color);
+        @include border-radius(var(--border-radius-m));
+        text-decoration: none;
+
+        @include respond-to('phone') {
+          width: 100%;
+        }
+
+        > h2 {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-top: 12px;
+        }
+        > p {
+          font-size: 0.875rem;
+          margin: 0;
+          color: var(--text-secondary-color);
+        }
+      }
+    }
+  }
+}

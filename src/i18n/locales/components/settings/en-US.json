@@ -1,0 +1,19 @@
+{
+  "title": "Settings",
+  "theme": {
+    "title": "Theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "language": {
+    "title": "Language",
+    "en-US": "English",
+    "zh-TW": "Chinese (Taiwan)"
+  },
+  "snow": {
+    "title": "Snow"
+  },
+  "fireworks": {
+    "title": "Fireworks"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "title": "Posts",
+  "content": {
+    "preparing": "Content is being prepared...",
+    "publishedAt": "Published at"
+  },
+  "tags": {
+    "tag": "Tag",
+    "socialIssue": "SocialIssue",
+    "socialPhenomena": "SocialPhenomena",
+    "reflection": "Reflection",
+    "selfGrowth": "SelfGrowth",
+    "education": "Education",
+    "currentEvents": "CurrentEvents",
+    "life": "Life",
+    "technology": "Technology",
+    "ai": "AI"
+  }
+}

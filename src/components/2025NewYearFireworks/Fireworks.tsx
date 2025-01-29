@@ -4,12 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { ControlPanel, ButtonGroup, Group } from '../ControlPanel/ControlPanel'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faFire,
-  faPause,
-  faPlay,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons'
+import { faFire, faPause, faPlay } from '@fortawesome/free-solid-svg-icons'
 
 interface FireworksProps {
   showControls: boolean
@@ -75,7 +70,7 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
   const [settings, setSettings] = useState<FireworksSettings>({
     frequency: 'low',
     amount: 'normal',
-    isAutoLaunch: true,
+    isAutoLaunch: false,
   })
 
   const createFirework = useCallback(
@@ -308,66 +303,37 @@ function Fireworks({ showControls, onCloseControls }: FireworksProps) {
     createFireworkShell(x, canvas.height)
   }, [createFireworkShell])
 
-  useEffect(() => {
-    const handleFireworksSettings = () => {
-      setSettings({
-        frequency: 'veryHigh',
-        amount: 'few',
-        isAutoLaunch: true,
-      })
-      setTimeout(() => {
-        setSettings({
-          frequency: 'low',
-          amount: 'normal',
-          isAutoLaunch: true,
-        })
-      }, 60000)
-    }
-
-    window.addEventListener(
-      'countdownComplete',
-      handleFireworksSettings as EventListener
-    )
-
-    return () => {
-      window.removeEventListener(
-        'countdownComplete',
-        handleFireworksSettings as EventListener
-      )
-    }
-  }, [])
-
   return (
     <>
       <canvas ref={canvasRef} className={styles.fireworks_canvas} />
       <ControlPanel
-        title={t('fireworks.title')}
+        title={t('title', { ns: 'fireworks' })}
         show={showControls}
         onClose={onCloseControls}
         position="bottom"
       >
         <div className={styles.fireworks_controls}>
           <Group>
-            <ButtonGroup label={t('fireworks.frequency.title')}>
+            <ButtonGroup label={t('frequency.title', { ns: 'fireworks' })}>
               {(['low', 'medium', 'high'] as const).map((frequency) => (
                 <button
                   key={frequency}
                   className={settings.frequency === frequency ? 'active' : ''}
                   onClick={() => setSettings({ ...settings, frequency })}
                 >
-                  {t(`fireworks.frequency.level.${frequency}`)}
+                  {t(`frequency.level.${frequency}`, { ns: 'fireworks' })}
                 </button>
               ))}
             </ButtonGroup>
 
-            <ButtonGroup label={t('fireworks.amount.title')}>
+            <ButtonGroup label={t('amount.title', { ns: 'fireworks' })}>
               {(['few', 'normal', 'many'] as const).map((amount) => (
                 <button
                   key={amount}
                   className={settings.amount === amount ? 'active' : ''}
                   onClick={() => setSettings({ ...settings, amount })}
                 >
-                  {t(`fireworks.amount.level.${amount}`)}
+                  {t(`amount.level.${amount}`, { ns: 'fireworks' })}
                 </button>
               ))}
             </ButtonGroup>

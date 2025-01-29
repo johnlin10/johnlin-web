@@ -21,8 +21,8 @@ function Project() {
 
   // fetch projects from firestore
   useEffect(() => {
+    const projectsCollection = collection(db, 'projects')
     const fetchProjects = async () => {
-      const projectsCollection = collection(db, 'projects')
       const projectSnapshot = await getDocs(projectsCollection)
       const projectList = projectSnapshot.docs.map((doc) => ({
         id: doc.id,
@@ -33,15 +33,14 @@ function Project() {
     fetchProjects()
 
     // set projects realtime listener
-    const projectsCollection = collection(db, 'projects')
-    const unsubscribe = onSnapshot(projectsCollection, (snapshot) => {
-      const updatedProjects = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      setProjects(updatedProjects)
-    })
-    return () => unsubscribe()
+    // const unsubscribe = onSnapshot(projectsCollection, (snapshot) => {
+    //   const updatedProjects = snapshot.docs.map((doc) => ({
+    //     id: doc.id,
+    //     ...doc.data(),
+    //   }))
+    //   setProjects(updatedProjects)
+    // })
+    // return () => unsubscribe()
   }, [])
 
   // if have projectId, set currentProject
@@ -52,13 +51,12 @@ function Project() {
 
   //* render content
   const renderContent = () => {
-    //
     if (!projectId) {
       return (
         <div className={style.project}>
           <Helmet>
             <title>
-              {t('header.project')} | {t('header.title')}
+              {t('project', { ns: 'header' })} | {t('title', { ns: 'header' })}
             </title>
           </Helmet>
           <List
@@ -73,7 +71,7 @@ function Project() {
       return (
         <div className={style.notFoundProject}>
           <FontAwesomeIcon icon={faCircleExclamation} />
-          <h1>{t('project.projectNotFound')}</h1>
+          <h1>{t('projectNotFound', { ns: 'project' })}</h1>
         </div>
       )
     }

@@ -1,19 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import style from './ShortcutUrlGenerator.module.scss'
 import { useTranslation } from 'react-i18next'
 import { db } from '../../firebase'
 import { setDoc, doc } from 'firebase/firestore'
-import { v4 as uuidv4 } from 'uuid'
-import { isValidUrl } from '../../utils/helpers'
+import { isValidUrl, generateNanoId } from '../../utils/helpers'
 
 function ShortcutUrlGenerator() {
   const { t } = useTranslation()
   const [originalUrl, setOriginalUrl] = useState('')
   const [shortUrl, setShortUrl] = useState('')
-  const [isInvalidUrl, setIsInvalidUrl] = useState(false)
+  const [isInvalidUrl, setIsInvalidUrl] = useState(true)
 
   const generateShortUrl = async () => {
-    const shortCode = uuidv4().replace(/-/g, '').substring(0, 12)
+    const shortCode = generateNanoId()
 
     try {
       await setDoc(doc(db, 'shortUrls', shortCode), {
@@ -28,29 +27,32 @@ function ShortcutUrlGenerator() {
     }
   }
 
-  useEffect(() => {
-    if (!isValidUrl(originalUrl)) {
+  const urlInputChange = (e) => {
+    const url = e.target.value
+    setOriginalUrl(url)
+
+    if (!isValidUrl(url)) {
       setIsInvalidUrl(true)
     } else {
       setIsInvalidUrl(false)
     }
-  }, [originalUrl])
+  }
 
   return (
     <div className={style.shortcutUrlGenerator}>
-      <h2>{t('shortcutUrlGenerator.title')}</h2>
+      <h2>{t('title', { ns: 'shortcutUrlGenerator' })}</h2>
       <input
         type="text"
         value={originalUrl}
-        onChange={(e) => setOriginalUrl(e.target.value)}
-        placeholder={t('shortcutUrlGenerator.inputUrl')}
+        onChange={urlInputChange}
+        placeholder={t('inputUrl', { ns: 'shortcutUrlGenerator' })}
       />
       <button onClick={generateShortUrl} disabled={isInvalidUrl}>
-        {t('shortcutUrlGenerator.generate')}
+        {t('generate', { ns: 'shortcutUrlGenerator' })}
       </button>
       {shortUrl && (
         <p>
-          {t('shortcutUrlGenerator.shortUrl')}:{' '}
+          {t('shortUrl', { ns: 'shortcutUrlGenerator' })}:{' '}
           <a href={shortUrl} target="_blank" rel="noreferrer">
             {shortUrl}
           </a>

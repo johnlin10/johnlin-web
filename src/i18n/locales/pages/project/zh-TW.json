@@ -1,0 +1,19 @@
+{
+  "title": "專案",
+  "detail": {
+    "": "",
+    "author": "作者",
+    "anonymous": "未署名",
+    "startDate": "開始日期",
+    "endDate": "結束日期",
+    "tags": "標籤",
+    "Video Resolution": "影片解析度",
+    "Subject": "科目",
+    "Exam Time": "考試時間",
+    "Photo Resolution": "照片解析度",
+    "Shooting Time": "拍攝時間",
+    "Copyright": "版權",
+    "createdAt": "建立時間"
+  },
+  "projectNotFound": "專案不存在"
+}

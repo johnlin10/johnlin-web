@@ -40,6 +40,7 @@
     @include respond-to('desktop') {
       @include flexbox(row-reverse, start, center);
       height: min-content;
+      padding-top: 0;
       max-height: 100%;
       border: 1px solid var(--border-color);
       overflow: hidden;

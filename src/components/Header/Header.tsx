@@ -105,7 +105,7 @@ function Header({
             refresh()
           }}
         >
-          <YearTransition />
+          {/* <YearTransition /> */}
           <h1>{title || ''}</h1>
         </div>
         <div
@@ -121,30 +121,30 @@ function Header({
           {right}
         </div>
       </div>
-      <Subtitle>
+      {/* <Subtitle>
         <p className={style.countdown}>
           {countdown.days <= 0
             ? ''
-            : `${countdown.days}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
-                'time.days'
-              )}`}{' '}
+            : `${countdown.days}${
+                t('locale', { ns: 'common' }) === 'zh-TW' ? ' ' : ''
+              }${t('time.days', { ns: 'common' })}`}{' '}
           {countdown.hours <= 0
             ? ''
-            : `${countdown.hours}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
-                'time.hours'
-              )}`}{' '}
+            : `${countdown.hours}${
+                t('locale', { ns: 'common' }) === 'zh-TW' ? ' ' : ''
+              }${t('time.hours', { ns: 'common' })}`}{' '}
           {countdown.minutes <= 0
             ? ''
-            : `${countdown.minutes}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
-                'time.minutes'
-              )}`}{' '}
+            : `${countdown.minutes}${
+                t('locale', { ns: 'common' }) === 'zh-TW' ? ' ' : ''
+              }${t('time.minutes', { ns: 'common' })}`}{' '}
           {countdown.seconds <= 0
             ? ''
-            : `${countdown.seconds}${t('locale') === 'zh-TW' ? ' ' : ''}${t(
-                'time.seconds'
-              )}`}
+            : `${countdown.seconds}${
+                t('locale', { ns: 'common' }) === 'zh-TW' ? ' ' : ''
+              }${t('time.seconds', { ns: 'common' })}`}
         </p>
-      </Subtitle>
+      </Subtitle> */}
     </animated.header>
   )
 }

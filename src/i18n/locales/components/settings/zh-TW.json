@@ -1,0 +1,19 @@
+{
+  "title": "設定",
+  "theme": {
+    "title": "主題",
+    "light": "淺色",
+    "dark": "深色"
+  },
+  "language": {
+    "title": "語言",
+    "en-US": "英文",
+    "zh-TW": "中文 (台灣)"
+  },
+  "snow": {
+    "title": "雪"
+  },
+  "fireworks": {
+    "title": "煙火"
+  }
+}

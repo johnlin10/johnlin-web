@@ -1,0 +1,20 @@
+{
+  "title": "Fireworks",
+  "frequency": {
+    "title": "Frequency",
+    "level": {
+      "off": "Off",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
+  },
+  "amount": {
+    "title": "Amount",
+    "level": {
+      "few": "Few",
+      "normal": "Normal",
+      "many": "Many"
+    }
+  }
+}

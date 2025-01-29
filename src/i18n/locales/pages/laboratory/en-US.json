@@ -1,0 +1,10 @@
+{
+  "title": "Lab",
+  "description": "This is my experimental space for interesting attempts and useful tools.",
+  "tools": {
+    "shortcut": {
+      "title": "URL Shortener",
+      "description": "Convert long URLs into short ones"
+    }
+  }
+}

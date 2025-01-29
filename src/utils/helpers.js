@@ -1,3 +1,5 @@
+import { customAlphabet } from 'nanoid'
+
 /**
  * check if the url is a youtube url
  * @param {string} url
@@ -30,4 +32,16 @@ export function isValidUrl(url) {
   } catch (error) {
     return false
   }
+}
+
+/**
+ * generate a nanoid
+ * @param {number} length
+ * @returns {string}
+ */
+export function generateNanoId(length = 12) {
+  const alphabet =
+    '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const nanoid = customAlphabet(alphabet, length)
+  return nanoid()
 }

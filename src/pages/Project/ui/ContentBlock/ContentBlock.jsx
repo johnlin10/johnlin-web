@@ -73,32 +73,32 @@ function ContentBlock({ projectId, currentProject }) {
           </div>
           <div className={style.details}>
             <div className={style.detailsItem}>
-              <p>{t('project.detail.author')}</p>
+              <p>{t('detail.author', { ns: 'project' })}</p>
               <p>
                 {currentProject?.authors?.join(', ') ||
-                  t('project.detail.anonymous')}
+                  t('detail.anonymous', { ns: 'project' })}
               </p>
             </div>
             <div className={style.detailsItem}>
-              <p>{t('project.detail.startDate')}</p>
+              <p>{t('detail.startDate', { ns: 'project' })}</p>
               <p>{currentProject?.startDate || '--'}</p>
             </div>
             <div className={style.detailsItem}>
-              <p>{t('project.detail.endDate')}</p>
+              <p>{t('detail.endDate', { ns: 'project' })}</p>
               <p>{currentProject?.endDate || '--'}</p>
             </div>
             <div className={style.detailsItem}>
-              <p>{t('project.detail.tags')}</p>
+              <p>{t('detail.tags', { ns: 'project' })}</p>
               <p>{currentProject?.tags?.join(', ') || '--'}</p>
             </div>
             {currentProject?.customFields?.map((field, index) => (
               <div key={index} className={style.detailsItem}>
-                <p>{t(`project.detail.${field.key}`)}</p>
+                <p>{t(`detail.${field.key}`, { ns: 'project' })}</p>
                 <p>{field.value || '--'}</p>
               </div>
             ))}
             <div className={style.detailsItem}>
-              <p>{t('project.detail.createdAt')}</p>
+              <p>{t('detail.createdAt', { ns: 'project' })}</p>
               <p>
                 {currentProject?.createdAt?.toDate().toLocaleDateString() ||
                   '--'}

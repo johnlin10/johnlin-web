@@ -1,0 +1,26 @@
+{
+  "title": "Snow",
+  "controls": "Snow Controls",
+  "density": "Density",
+  "density_off": "Off",
+  "density_light": "Light",
+  "density_medium": "Medium",
+  "density_heavy": "Heavy",
+  "speed": "Speed",
+  "speed_slow": "Slow",
+  "speed_medium": "Medium",
+  "speed_fast": "Fast",
+  "accumulate": "Accumulate",
+  "accumulate_on": "On",
+  "accumulate_off": "Off",
+  "wind": {
+    "title": "Wind",
+    "right": "Right",
+    "left": "Left",
+    "center": "No Wind",
+    "level": {
+      "light": " Light Wind",
+      "strong": " Strong Wind"
+    }
+  }
+}

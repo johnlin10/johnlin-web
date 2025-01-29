@@ -8,9 +8,9 @@ import { Helmet } from 'react-helmet-async'
 // pages
 import Home from './pages/Home/Home'
 // import Posts from './pages/Posts/Posts'
-// import Project from './pages/Project/Project'
 import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
+import Laboratory from './pages/Laboratory/Laboratory'
 import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
 
 // redux
@@ -40,6 +40,7 @@ import {
   faCircleHalfStroke,
   faGear,
   faBook,
+  faFlask,
   faSnowflake,
   faFire,
 } from '@fortawesome/free-solid-svg-icons'
@@ -50,7 +51,8 @@ type Theme = 'light' | 'dark'
 const Project = React.lazy(() => import('./pages/Project/Project'))
 
 function App(): JSX.Element {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
+  const { t } = useTranslation()
   const { isViewerOpen } = useSelector((state: RootState) => state.viewer)
   const { pathname } = useLocation()
   const [isOpenSetting, setIsOpenSetting] = useState<boolean>(false)
@@ -110,8 +112,10 @@ function App(): JSX.Element {
   //* Header
   const getHeaderTitle = (): string => {
     if (pathname === '/') return ''
-    if (pathname.startsWith('/posts')) return t('header.posts')
-    if (pathname.startsWith('/project')) return t('header.project')
+    if (pathname.startsWith('/posts')) return t('posts', { ns: 'header' })
+    if (pathname.startsWith('/project')) return t('project', { ns: 'header' })
+    if (pathname.startsWith('/laboratory'))
+      return t('title', { ns: 'laboratory' })
     return ''
   }
   const getHeaderCenter = (): null => {
@@ -130,7 +134,7 @@ function App(): JSX.Element {
           >
             <FontAwesomeIcon icon={icons.home} />
             <FloatLabel
-              label={t('header.home')}
+              label={t('home', { ns: 'header' })}
               size="small"
               position="bottom"
             ></FloatLabel>
@@ -144,7 +148,21 @@ function App(): JSX.Element {
           >
             <FontAwesomeIcon icon={icons.project} />
             <FloatLabel
-              label={t('header.project')}
+              label={t('project', { ns: 'header' })}
+              size="small"
+              position="bottom"
+            ></FloatLabel>
+          </Link>
+          <Link
+            to="/laboratory"
+            className={pathname.startsWith('/laboratory') ? 'active' : ''}
+            onClick={() => {
+              setIsOpenSetting(false)
+            }}
+          >
+            <FontAwesomeIcon icon={faFlask} />
+            <FloatLabel
+              label={t('title', { ns: 'laboratory' })}
               size="small"
               position="bottom"
             ></FloatLabel>
@@ -158,7 +176,7 @@ function App(): JSX.Element {
           >
             <FontAwesomeIcon icon={icons.book} />
             <FloatLabel
-              label={t('header.posts')}
+              label={t('posts', { ns: 'header' })}
               size="small"
               position="bottom"
             ></FloatLabel>
@@ -176,7 +194,7 @@ function App(): JSX.Element {
                 {...SETTING_ICON_TRANSFORM[isOpenSetting ? 'open' : 'closed']}
               />
               <FloatLabel
-                label={t('header.setting')}
+                label={t('setting', { ns: 'header' })}
                 size="small"
                 position={isOpenSetting ? 'left' : 'bottom'}
                 align={isOpenSetting ? 'top' : 'right'}
@@ -186,10 +204,10 @@ function App(): JSX.Element {
               <button onClick={toggleTheme}>
                 <FontAwesomeIcon icon={icons.theme} />
                 <FloatLabel
-                  label={`${t('settings.theme.title')} - ${
+                  label={`${t('theme.title', { ns: 'settings' })} - ${
                     theme === 'light'
-                      ? t('settings.theme.light')
-                      : t('settings.theme.dark')
+                      ? t('theme.light', { ns: 'settings' })
+                      : t('theme.dark', { ns: 'settings' })
                   }`}
                   position="left"
                 ></FloatLabel>
@@ -197,10 +215,10 @@ function App(): JSX.Element {
               <button onClick={toggleLanguage}>
                 <FontAwesomeIcon icon={icons.language} />
                 <FloatLabel
-                  label={`${t('settings.language.title')} - ${
+                  label={`${t('language.title', { ns: 'settings' })} - ${
                     i18n.language === 'zh-TW'
-                      ? t('settings.language.zh-TW')
-                      : t('settings.language.en-US')
+                      ? t('language.zh-TW', { ns: 'settings' })
+                      : t('language.en-US', { ns: 'settings' })
                   }`}
                   position="left"
                 ></FloatLabel>
@@ -209,17 +227,24 @@ function App(): JSX.Element {
               <button onClick={() => handleControlPanel('snow')}>
                 <FontAwesomeIcon icon={faSnowflake} />
                 <FloatLabel
-                  label={t('settings.snow.title')}
+                  label={t('snow.title', { ns: 'settings' })}
                   position="left"
                 ></FloatLabel>
               </button>
               <button onClick={() => handleControlPanel('fireworks')}>
                 <FontAwesomeIcon icon={faFire} />
                 <FloatLabel
-                  label={t('settings.fireworks.title')}
+                  label={t('fireworks.title', { ns: 'settings' })}
                   position="left"
                 ></FloatLabel>
               </button>
+              {/* <button onClick={() => handleControlPanel('lunarNewYear')}>
+                <FontAwesomeIcon icon={faFire} />
+                <FloatLabel
+                  label={t('fireworks.title', { ns: 'settings' })}
+                  position="left"
+                ></FloatLabel>
+              </button> */}
             </div>
           </div>
         </>
@@ -247,7 +272,7 @@ function App(): JSX.Element {
   return (
     <div className="App">
       <Helmet>
-        <title>{t('header.title')}</title>
+        <title>{t('title', { ns: 'header' })}</title>
       </Helmet>
 
       {/* <NewYearCountdown /> */}
@@ -270,14 +295,15 @@ function App(): JSX.Element {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/user" element={<User />} />
-          {/* <Route path="/posts" element={<Posts />} />
-        <Route path="/posts/:postId" element={<Posts />} />
-        <Route path="/posts/test" element={<DisplayWithEditor />} />
-        <Route path="/posts/create" element={<CreatePost />} /> */}
           <Route path="/project" element={<Project />} />
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
+          <Route path="/laboratory" element={<Laboratory />} />
+          {/* <Route path="/posts" element={<Posts />} />
+        <Route path="/posts/:postId" element={<Posts />} />
+        <Route path="/posts/test" element={<DisplayWithEditor />} />
+        <Route path="/posts/create" element={<CreatePost />} /> */}
         </Routes>
       </Suspense>
       {isViewerOpen && <ImageViewer />}

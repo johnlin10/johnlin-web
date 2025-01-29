@@ -1,7 +1,6 @@
 import style from './ControlPanel.module.scss'
 import { ReactNode } from 'react'
 
-import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 

@@ -1,0 +1,7 @@
+{
+  "title": "Shortcut Url Generator",
+  "inputUrl": "Input the url you want to shorten",
+  "generate": "Generate short url",
+  "shortUrl": "Short url",
+  "originalUrl": "Original url"
+}

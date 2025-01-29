@@ -186,49 +186,49 @@ function Snow({
     <>
       <canvas ref={canvasRef} className={style.snow} />
       <ControlPanel
-        title={t('snow.controls')}
+        title={t('title', { ns: 'snow' })}
         show={showControls}
         onClose={onCloseControls}
         position="bottom"
       >
-        <ButtonGroup label={t('snow.density')}>
+        <ButtonGroup label={t('density', { ns: 'snow' })}>
           {(['off', 'light', 'medium', 'heavy'] as const).map((density) => (
             <button
               key={density}
               className={settings.density === density ? 'active' : ''}
               onClick={() => setSettings({ ...settings, density })}
             >
-              {t(`snow.density_${density}`)}
+              {t(`density_${density}`, { ns: 'snow' })}
             </button>
           ))}
         </ButtonGroup>
-        <ButtonGroup label={t('snow.speed')}>
+        <ButtonGroup label={t('speed', { ns: 'snow' })}>
           {(['slow', 'medium', 'fast'] as const).map((speed) => (
             <button
               key={speed}
               className={settings.speed === speed ? 'active' : ''}
               onClick={() => setSettings({ ...settings, speed })}
             >
-              {t(`snow.speed_${speed}`)}
+              {t(`speed_${speed}`, { ns: 'snow' })}
             </button>
           ))}
         </ButtonGroup>
         <ButtonGroup
           label={`${
             settings.wind > 0
-              ? t('snow.wind.right')
+              ? t('wind.right', { ns: 'snow' })
               : settings.wind < 0
-              ? t('snow.wind.left')
-              : t('snow.wind.center')
+              ? t('wind.left', { ns: 'snow' })
+              : t('wind.center', { ns: 'snow' })
           }
               ${
                 settings.wind < -0.5
-                  ? t('snow.wind.level.strong')
+                  ? t('wind.level.strong', { ns: 'snow' })
                   : settings.wind > 0.5
-                  ? t('snow.wind.level.strong')
+                  ? t('wind.level.strong', { ns: 'snow' })
                   : settings.wind === 0
                   ? ''
-                  : t('snow.wind.level.light')
+                  : t('wind.level.light', { ns: 'snow' })
               }`}
         >
           <div className={style.sliderContainer}>

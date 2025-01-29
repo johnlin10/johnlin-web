@@ -69,8 +69,8 @@ function Home(): JSX.Element {
               </animated.div>
             </div>
             <div className={style.intro_content}>
-              <h2>{t('home.who_am_i.title')}</h2>
-              <p>{t('home.who_am_i.p1')}</p>
+              <h2>{t('who_am_i.title', { ns: 'home' })}</h2>
+              <p>{t('who_am_i.p1', { ns: 'home' })}</p>
 
               {/* <div className={style.h_scroll}>
                 {_springs_intro_block.map((spring, index) => (
