@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import style from './Laboratory.module.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLink } from '@fortawesome/free-solid-svg-icons'
+import { faLink, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 function Laboratory(): JSX.Element {
   const { t } = useTranslation()
@@ -20,6 +20,12 @@ function Laboratory(): JSX.Element {
       description: t('tools.shortcut.description', { ns: 'laboratory' }),
       icon: faLink,
       path: '/shortcut',
+    },
+    {
+      title: t('tools.schedule.title', { ns: 'laboratory' }),
+      description: t('tools.schedule.description', { ns: 'laboratory' }),
+      icon: faCalendar,
+      path: '/schedules',
     },
   ]
 

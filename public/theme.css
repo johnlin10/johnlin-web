@@ -14,11 +14,15 @@
   --warning-background-color: #c8422a;
 
   --text-color: #131313;
+  --text-color-reverse: #e1e1e1;
   --text-secondary-color: #5f5f5f;
+  --text-tertiary-color: #999999;
   --text-always-white: #f5f5f5;
+  --text-danger-color: #e34242;
+  --text-edit-color: #3e3ef6;
 
   --link-color: #545454;
-  --link-hover-color: #1c66c7;
+  --link-hover-color: #3a72bb;
 
   /* Audio Player */
   --progress-line: #e1e1e1;
@@ -33,6 +37,25 @@
   --new-year-purple: #911be6;
 
   --fireworks-core-color: rgb(188, 225, 230);
+
+  /* Calendar */
+  --fc-button-bg-color: #3c60ac;
+  --fc-button-hover-bg-color: #446bbd;
+  --fc-button-active-bg-color: #2f4c8c;
+  --fc-button-border-color: #3c60ac;
+  --fc-button-hover-border-color: #446bbd;
+  --fc-button-active-border-color: #2f4c8c;
+  --fc-border-color: #e5e5e5;
+
+  /* Schedule */
+  --schedule-block-none: #9f9f9f;
+  --schedule-block-red: #c75959;
+  --schedule-block-green: #56a756;
+  --schedule-block-blue: #4475a9;
+  --schedule-block-yellow: #a5a53a;
+  --schedule-block-purple: #af4aaf;
+  --schedule-block-orange: #c2834c;
+  --schedule-block-pink: #ce6093;
 }
 
 [data-theme='dark'] {
@@ -51,8 +74,12 @@
   --warning-background-color: #c04d39;
 
   --text-color: #e1e1e1;
+  --text-color-reverse: #131313;
   --text-secondary-color: #999999;
+  --text-tertiary-color: #666666;
   --text-always-white: #f5f5f5;
+  --text-edit-color: #3e3ef6;
+  --text-danger-color: #e34242;
 
   --link-color: #b4b4b4;
   --link-hover-color: #3b84e4;
@@ -68,4 +95,10 @@
   --new-year-red: #e34242;
   --new-year-blue: #3939f4;
   --new-year-purple: #6a05b3;
+
+  /* Calendar */
+  --fc-button-bg-color: #314d88;
+  --fc-button-hover-bg-color: #375595;
+  --fc-button-focus-bg-color: #273e70;
+  --fc-border-color: #303030;
 }

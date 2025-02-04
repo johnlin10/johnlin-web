@@ -1,0 +1,48 @@
+{
+  "title": "日程表",
+  "form": {
+    "add_schedule": "新增日程",
+    "edit_title": "編輯日程",
+    "schedule_title": "標題",
+    "description": "描述",
+    "start_time": "開始時間",
+    "end_time": "結束時間",
+    "all_day": "全天",
+    "color": "顏色",
+    "save": "儲存",
+    "cancel": "取消",
+    "edit": {
+      "title": "編輯",
+      "add": "新增",
+      "delete": "刪除"
+    },
+    "modal": {
+      "title": "日程",
+      "edit": "編輯",
+      "delete": "刪除",
+      "time": "時間",
+      "location": "地點",
+      "description": "描述",
+      "color": "顏色"
+    },
+    "test": {
+      "test_title": "測試日程",
+      "test_description": "這是一個測試日程",
+      "test_location": "測試地點",
+      "add_test_schedule": "新增測試日程"
+    }
+  },
+  "colors": {
+    "none": "無",
+    "red": "紅",
+    "green": "綠",
+    "blue": "藍",
+    "yellow": "黃",
+    "purple": "紫",
+    "orange": "橙",
+    "pink": "粉"
+  },
+  "confirm": {
+    "delete_schedule": "確定要刪除這個日程嗎？"
+  }
+}

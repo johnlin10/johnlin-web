@@ -5,6 +5,10 @@
     "shortcut": {
       "title": "短網址產生器",
       "description": "將長網址轉換成短網址"
+    },
+    "schedule": {
+      "title": "日程表（開發中）",
+      "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程。"
     }
   }
 }

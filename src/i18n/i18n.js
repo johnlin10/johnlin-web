@@ -42,6 +42,9 @@ import shortcutUrlGeneratorZhTW from './locales/pages/shortcutUrlGenerator/zh-TW
 // laboratory
 import laboratoryEnUS from './locales/pages/laboratory/en-US.json'
 import laboratoryZhTW from './locales/pages/laboratory/zh-TW.json'
+// schedule
+import scheduleEnUS from './locales/pages/schedule/en-US.json'
+import scheduleZhTW from './locales/pages/schedule/zh-TW.json'
 
 const savedLanguage = localStorage.getItem('language') || 'en-US'
 
@@ -65,6 +68,7 @@ i18n
         posts: postsEnUS,
         shortcutUrlGenerator: shortcutUrlGeneratorEnUS,
         laboratory: laboratoryEnUS,
+        schedule: scheduleEnUS,
       },
       'zh-TW': {
         // components
@@ -81,6 +85,7 @@ i18n
         posts: postsZhTW,
         shortcutUrlGenerator: shortcutUrlGeneratorZhTW,
         laboratory: laboratoryZhTW,
+        schedule: scheduleZhTW,
       },
     },
     ns: [

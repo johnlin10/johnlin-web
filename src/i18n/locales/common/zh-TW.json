@@ -12,6 +12,16 @@
     "seconds": "秒"
   },
   "alert": {
+    "pls_login": "請先登入",
     "invalidUrl": "請輸入有效的網址"
+  },
+  "status": {
+    "loading": "載入中"
+  },
+  "button": {
+    "save": "儲存",
+    "cancel": "取消",
+    "edit": "編輯",
+    "delete": "刪除"
   }
 }

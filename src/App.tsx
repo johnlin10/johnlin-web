@@ -12,6 +12,7 @@ import User from './pages/User/User'
 import CreateProject from './pages/CreateProject/CreateProject'
 import Laboratory from './pages/Laboratory/Laboratory'
 import ShortcutUrlGenerator from './pages/ShortcutUrlGenerator/ShortcutUrlGenerator'
+import Schedules from './pages/Schedule/Schedules'
 
 // redux
 import { RootState } from './redux/store'
@@ -114,8 +115,8 @@ function App(): JSX.Element {
     if (pathname === '/') return ''
     if (pathname.startsWith('/posts')) return t('posts', { ns: 'header' })
     if (pathname.startsWith('/project')) return t('project', { ns: 'header' })
-    if (pathname.startsWith('/laboratory'))
-      return t('title', { ns: 'laboratory' })
+    if (pathname.startsWith('/lab')) return t('title', { ns: 'laboratory' })
+    if (pathname.startsWith('/schedule')) return t('title', { ns: 'schedule' })
     return ''
   }
   const getHeaderCenter = (): null => {
@@ -154,8 +155,8 @@ function App(): JSX.Element {
             ></FloatLabel>
           </Link>
           <Link
-            to="/laboratory"
-            className={pathname.startsWith('/laboratory') ? 'active' : ''}
+            to="/lab"
+            className={pathname.startsWith('/lab') ? 'active' : ''}
             onClick={() => {
               setIsOpenSetting(false)
             }}
@@ -299,7 +300,8 @@ function App(): JSX.Element {
           <Route path="/project/:projectId" element={<Project />} />
           <Route path="/create-project" element={<CreateProject />} />
           <Route path="/shortcut" element={<ShortcutUrlGenerator />} />
-          <Route path="/laboratory" element={<Laboratory />} />
+          <Route path="/lab" element={<Laboratory />} />
+          <Route path="/schedules" element={<Schedules />} />
           {/* <Route path="/posts" element={<Posts />} />
         <Route path="/posts/:postId" element={<Posts />} />
         <Route path="/posts/test" element={<DisplayWithEditor />} />

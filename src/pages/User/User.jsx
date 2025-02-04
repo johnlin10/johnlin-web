@@ -2,7 +2,7 @@ import style from './User.module.scss'
 import { useState, useEffect } from 'react'
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth'
 import { auth, db } from '../../firebase'
-import { getDoc, doc } from 'firebase/firestore'
+import { getDoc, doc, setDoc } from 'firebase/firestore'
 import useAuth from '../../hooks/useAuth'
 
 // fontawesome icons
@@ -13,9 +13,24 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 function User() {
   const { currentUser } = useAuth()
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const provider = new GoogleAuthProvider()
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider).then(async (result) => {
+      const user = result.user
+      console.log(user)
+
+      const userRef = doc(db, 'users', user.uid)
+      const userDoc = await getDoc(userRef)
+      if (!userDoc.exists()) {
+        setDoc(userRef, {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          uid: user.uid,
+          createdAt: new Date(),
+        })
+      }
+    })
   }
   const handleLogout = () => {
     signOut(auth)

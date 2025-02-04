@@ -6,10 +6,10 @@
   padding: var(--space);
   width: calc(100% - 24px);
   max-width: 480px;
-  border: 1px solid var(--border-color-alpha);
   @include background-blur();
   opacity: 0;
   visibility: hidden;
+  border: 1px solid var(--border-color-alpha);
   @include border-radius(var(--border-radius-l));
   box-shadow: 0 3px 24px rgba(0, 0, 0, 0.1);
 

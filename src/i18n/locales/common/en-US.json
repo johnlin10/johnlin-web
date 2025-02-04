@@ -12,6 +12,16 @@
     "seconds": "S"
   },
   "alert": {
+    "pls_login": "Please login",
     "invalidUrl": "Please enter a valid URL"
+  },
+  "status": {
+    "loading": "Loading"
+  },
+  "button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete"
   }
 }

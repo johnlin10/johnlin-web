@@ -135,6 +135,10 @@ textarea {
   -o-border-radius: 12px;
 }
 
+#app {
+  overflow: hidden;
+}
+
 :root {
   --header-height: calc(60px + 18px);
 
@@ -145,6 +149,7 @@ textarea {
   --space-0-25x: 3px;
   --space-0-5x: 6px;
   --space: 12px;
+  --space-1-5x: 18px;
   --space-2x: 24px;
   --space-3x: 36px;
   --space-4x: 48px;

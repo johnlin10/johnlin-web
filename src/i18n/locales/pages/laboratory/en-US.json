@@ -5,6 +5,10 @@
     "shortcut": {
       "title": "URL Shortener",
       "description": "Convert long URLs into short ones"
+    },
+    "schedule": {
+      "title": "Schedule (WIP)",
+      "description": "AI-driven schedule management tool, can automatically add schedules using text or images."
     }
   }
 }
