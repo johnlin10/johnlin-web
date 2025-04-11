@@ -38,6 +38,14 @@
 
   --fireworks-core-color: rgb(188, 225, 230);
 
+  /* Switch */
+  --switch-background-color: #e1e1e1;
+  --switch-background-color-checked: #459f3d;
+  --switch-border: #dadada;
+  --switch-border-checked: #ffffff5f;
+  --switch-slider-color: #dadada;
+  --switch-slider-color-checked: #ffffff;
+
   /* Calendar */
   --fc-button-bg-color: #3c60ac;
   --fc-button-hover-bg-color: #446bbd;
@@ -95,6 +103,14 @@
   --new-year-red: #e34242;
   --new-year-blue: #3939f4;
   --new-year-purple: #6a05b3;
+
+  /* Switch */
+  --switch-background-color: #494949;
+  --switch-background-color-checked: #1c6715;
+  --switch-border: #535353;
+  --switch-border-checked: #ffffff3f;
+  --switch-slider-color: #535353;
+  --switch-slider-color-checked: #ffffff;
 
   /* Calendar */
   --fc-button-bg-color: #314d88;

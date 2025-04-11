@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { db } from '../firebase'
 import {
   collection,
@@ -10,8 +10,8 @@ import {
   serverTimestamp,
   query,
   where,
+  orderBy,
 } from 'firebase/firestore'
-import { Link } from 'react-router-dom'
 import useAuth from './useAuth'
 import type {
   Schedule,
@@ -24,27 +24,42 @@ export default function useSchedule() {
   const [error, setError] = useState<string | null>(null)
   const [schedules, setSchedules] = useState<Schedule[]>([])
 
-  const colorMap: { [key: string]: string } = {
-    none: 'var(--schedule-block-none)',
-    red: 'var(--schedule-block-red)',
-    green: 'var(--schedule-block-green)',
-    blue: 'var(--schedule-block-blue)',
-    yellow: 'var(--schedule-block-yellow)',
-    purple: 'var(--schedule-block-purple)',
-    orange: 'var(--schedule-block-orange)',
-    pink: 'var(--schedule-block-pink)',
-  }
-  const translateColor = (color: string) => colorMap[color]
+  const colorMap = useMemo(
+    () =>
+      ({
+        none: 'var(--schedule-block-none)',
+        red: 'var(--schedule-block-red)',
+        green: 'var(--schedule-block-green)',
+        blue: 'var(--schedule-block-blue)',
+        yellow: 'var(--schedule-block-yellow)',
+        purple: 'var(--schedule-block-purple)',
+        orange: 'var(--schedule-block-orange)',
+        pink: 'var(--schedule-block-pink)',
+      } as { [key: string]: string }),
+    []
+  )
 
+  const translateColor = useCallback(
+    (color: string) => colorMap[color as keyof typeof colorMap],
+    [colorMap]
+  )
+
+  // 監聽日程表
   useEffect(() => {
     if (!currentUser) {
       setSchedules([])
       return
     }
 
+    // 取得日程表
     const schedulesRef = collection(db, `users/${currentUser.uid}/schedules`)
-    const q = query(schedulesRef, where('status', '==', 'active'))
+    const q = query(
+      schedulesRef,
+      where('status', '==', 'active'),
+      orderBy('startTime', 'asc')
+    )
 
+    // 監聽日程表
     const unsubscribe = onSnapshot(
       q,
       (snapshot) => {
@@ -53,14 +68,16 @@ export default function useSchedule() {
           return {
             id: doc.id,
             ...data,
-            // 確保日期資料被正確轉換為 Date 物件
             startTime: data.startTime?.toDate(),
             endTime: data.endTime?.toDate(),
+            createdAt: data.createdAt?.toDate(),
+            updatedAt: data.updatedAt?.toDate(),
             colorName: data.colorName || 'none',
             color: translateColor(data.colorName || 'none'),
           }
         }) as Schedule[]
         setSchedules(scheduleData)
+        setError(null)
       },
       (err) => {
         console.error('監聽日程失敗：', err)
@@ -70,14 +87,16 @@ export default function useSchedule() {
     return () => unsubscribe()
   }, [currentUser, translateColor])
 
+  // 新增日程表
   const addSchedule = useCallback(
     async (data: ScheduleFormData) => {
       if (!currentUser) {
-        setError('NoLogin')
+        setError('請先登入')
         return
       }
 
       setLoading(true)
+      setError(null)
       try {
         const scheduleRef = collection(db, `users/${currentUser.uid}/schedules`)
         const docRef = await addDoc(scheduleRef, {
@@ -89,8 +108,9 @@ export default function useSchedule() {
         })
         return docRef.id
       } catch (err) {
+        console.error('新增日程失敗：', err)
         setError('新增日程失敗')
-        console.error(err)
+        throw err
       } finally {
         setLoading(false)
       }
@@ -98,6 +118,7 @@ export default function useSchedule() {
     [currentUser]
   )
 
+  // 更新日程表
   const updateSchedule = useCallback(
     async (scheduleId: string, data: Partial<ScheduleFormData>) => {
       if (!currentUser) {
@@ -106,6 +127,7 @@ export default function useSchedule() {
       }
 
       setLoading(true)
+      setError(null)
       try {
         const scheduleRef = doc(
           db,
@@ -117,8 +139,9 @@ export default function useSchedule() {
           updatedAt: serverTimestamp(),
         })
       } catch (err) {
+        console.error('更新日程失敗：', err)
         setError('更新日程失敗')
-        console.error(err)
+        throw err
       } finally {
         setLoading(false)
       }
@@ -126,6 +149,7 @@ export default function useSchedule() {
     [currentUser]
   )
 
+  // 刪除日程表
   const deleteSchedule = useCallback(
     async (scheduleId: string) => {
       if (!currentUser) {
@@ -134,15 +158,20 @@ export default function useSchedule() {
       }
 
       setLoading(true)
+      setError(null)
       try {
         const scheduleRef = doc(
           db,
           `users/${currentUser.uid}/schedules/${scheduleId}`
         )
-        await deleteDoc(scheduleRef)
+        await updateDoc(scheduleRef, {
+          status: 'cancelled',
+          updatedAt: serverTimestamp(),
+        })
       } catch (err) {
+        console.error('刪除日程失敗：', err)
         setError('刪除日程失敗')
-        console.error(err)
+        throw err
       } finally {
         setLoading(false)
       }

@@ -32,6 +32,15 @@
       "add_test_schedule": "Add Test Schedule"
     }
   },
+  "message": {
+    "calendar_auth_needed": "Please authorize Google Calendar to use this feature."
+  },
+  "button": {
+    "authorize_google_calendar": "Authorize Google Calendar"
+  },
+  "status": {
+    "authorizing": "Authorizing..."
+  },
   "colors": {
     "none": "None",
     "red": "Red",

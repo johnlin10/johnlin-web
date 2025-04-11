@@ -1,0 +1,19 @@
+{
+  "title": "部落格",
+  "content": {
+    "preparing": "內容籌備中...",
+    "publishedAt": "發布於"
+  },
+  "tags": {
+    "tag": "標籤",
+    "socialIssue": "社會議題",
+    "socialPhenomena": "社會現象",
+    "reflection": "反思",
+    "selfGrowth": "自我成長",
+    "education": "教育",
+    "currentEvents": "時事",
+    "life": "生活",
+    "technology": "科技",
+    "ai": "人工智慧"
+  }
+}

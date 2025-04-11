@@ -1,0 +1,83 @@
+@import '../../../../styles/mixins';
+
+.shortcutUrlGenerator {
+  @include child-page;
+
+  > .container {
+    @include page-container;
+    padding-top: var(--space-4x);
+
+    > input {
+      width: 100%;
+      padding: 12px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      -o-border-radius: 12px;
+    }
+
+    > div.switchContainer {
+      @include flexbox(row, start, center);
+      width: 100%;
+      gap: 8px;
+    }
+
+    > p {
+      color: var(--text-color);
+
+      &.description {
+        margin-top: -6px;
+        padding: 0 6px;
+        width: 100%;
+        font-size: 0.8rem;
+        color: var(--text-secondary-color);
+      }
+    }
+  }
+
+  > div.panelContainer {
+    position: absolute;
+    @include flexbox(column, center, center);
+    bottom: var(--space-4x);
+    gap: var(--space);
+
+    > div.shortUrlContainer {
+      @include flexbox(row, space-between, center);
+      gap: var(--space);
+      padding: var(--space) var(--space) var(--space) var(--space-1-5x);
+      width: calc(100% - var(--space-4x));
+      border: 1px solid var(--border-color);
+      @include border-radius(18px);
+
+      > h5 {
+        min-width: fit-content;
+      }
+      > p {
+        &.shortUrl {
+          margin: 0;
+          word-break: break-all;
+        }
+      }
+    }
+
+    > button {
+      color: var(--text-color);
+      background-color: var(--background-secondary-color);
+      padding: 8px 16px;
+      border: 1px solid var(--border-color);
+
+      &:not([disabled]):hover {
+        color: var(--text-always-white);
+        background-color: var(--link-hover-color);
+      }
+
+      border-radius: 12px;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      -o-border-radius: 12px;
+    }
+  }
+}

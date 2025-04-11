@@ -1,5 +1,6 @@
 {
   "title": "日程表",
+  "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程。",
   "form": {
     "add_schedule": "新增日程",
     "edit_title": "編輯日程",
@@ -31,6 +32,15 @@
       "test_location": "測試地點",
       "add_test_schedule": "新增測試日程"
     }
+  },
+  "message": {
+    "calendar_auth_needed": "請授權 Google 日曆以使用此功能。"
+  },
+  "button": {
+    "authorize_google_calendar": "授權 Google 日曆"
+  },
+  "status": {
+    "authorizing": "授權中..."
   },
   "colors": {
     "none": "無",

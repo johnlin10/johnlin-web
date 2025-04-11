@@ -30,12 +30,12 @@ import snowZhTW from './locales/components/snow/zh-TW.json'
 // home
 import homeEnUS from './locales/pages/home/en-US.json'
 import homeZhTW from './locales/pages/home/zh-TW.json'
-// posts
-import postsEnUS from './locales/pages/posts/en-US.json'
-import postsZhTW from './locales/pages/posts/zh-TW.json'
-// project
-import projectEnUS from './locales/pages/project/en-US.json'
-import projectZhTW from './locales/pages/project/zh-TW.json'
+// blog
+import blogEnUS from './locales/pages/blog/en-US.json'
+import blogZhTW from './locales/pages/blog/zh-TW.json'
+// portfolio
+import portfolioEnUS from './locales/pages/portfolio/en-US.json'
+import portfolioZhTW from './locales/pages/portfolio/zh-TW.json'
 // shortcutUrlGenerator
 import shortcutUrlGeneratorEnUS from './locales/pages/shortcutUrlGenerator/en-US.json'
 import shortcutUrlGeneratorZhTW from './locales/pages/shortcutUrlGenerator/zh-TW.json'
@@ -64,8 +64,8 @@ i18n
         fireworks: fireworksEnUS,
         // pages
         home: homeEnUS,
-        project: projectEnUS,
-        posts: postsEnUS,
+        portfolio: portfolioEnUS,
+        blog: blogEnUS,
         shortcutUrlGenerator: shortcutUrlGeneratorEnUS,
         laboratory: laboratoryEnUS,
         schedule: scheduleEnUS,
@@ -81,8 +81,8 @@ i18n
         fireworks: fireworksZhTW,
         // pages
         home: homeZhTW,
-        project: projectZhTW,
-        posts: postsZhTW,
+        portfolio: portfolioZhTW,
+        blog: blogZhTW,
         shortcutUrlGenerator: shortcutUrlGeneratorZhTW,
         laboratory: laboratoryZhTW,
         schedule: scheduleZhTW,
@@ -99,10 +99,11 @@ i18n
       'fireworks',
       // pages
       'home',
-      'project',
-      'posts',
+      'portfolio',
+      'blog',
       'shortcutUrlGenerator',
       'laboratory',
+      'schedule',
     ],
     defaultNS: 'common',
     fallbackNS: 'common',

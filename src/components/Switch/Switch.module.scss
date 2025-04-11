@@ -1,0 +1,53 @@
+@import '../../styles/_mixins.scss';
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 26px;
+  //background-color: var(--switch-background-color);
+  border: 1px solid var(--switch-border);
+  @include border-radius(13px);
+
+  &.checked {
+    border-color: var(--switch-border-checked);
+    background-color: var(--switch-background-color-checked);
+
+    > span {
+      background-color: var(--switch-slider-color-checked);
+      @include transform-container(translateX(18px));
+      @include animation-container(slide 0.2s ease-in-out);
+      animation-delay: 0.2s;
+    }
+  }
+
+  @keyframes slide {
+    0% {
+      @include transform-container(translateX(18px));
+    }
+    30% {
+      @include transform-container(translateX(21px));
+    }
+    100% {
+      @include transform-container(translateX(18px));
+    }
+  }
+
+  > input[type='checkbox'] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  > span {
+    position: absolute;
+    cursor: pointer;
+    top: 4px;
+    left: 4px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--switch-slider-color);
+    @include border-radius(50%);
+    @include transition(0.2s cubic-bezier(0.43, 0, 0.87, 0.45));
+  }
+}

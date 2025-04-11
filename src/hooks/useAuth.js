@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -11,7 +11,14 @@ function useAuth() {
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(setUser(user))
+        // 只提取必要的用戶資訊
+        const userData = {
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+        }
+        dispatch(setUser(userData))
       } else {
         dispatch(clearUser())
       }

@@ -3,7 +3,8 @@
   "theme": {
     "title": "Theme",
     "light": "Light",
-    "dark": "Dark"
+    "dark": "Dark",
+    "auto": "Auto"
   },
   "language": {
     "title": "Language",

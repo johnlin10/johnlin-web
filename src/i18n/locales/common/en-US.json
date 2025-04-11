@@ -1,5 +1,10 @@
 {
   "locale": "en-US",
+  "website": {
+    "title": "John Lin",
+    "author": "John Lin",
+    "description": "Web designer and developer."
+  },
   "switch": {
     "open": "Open",
     "close": "Close"

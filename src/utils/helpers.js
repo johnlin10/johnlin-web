@@ -39,7 +39,7 @@ export function isValidUrl(url) {
  * @param {number} length
  * @returns {string}
  */
-export function generateNanoId(length = 12) {
+export function generateNanoId(length = 8) {
   const alphabet =
     '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
   const nanoid = customAlphabet(alphabet, length)

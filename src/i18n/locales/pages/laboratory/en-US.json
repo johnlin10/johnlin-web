@@ -8,7 +8,14 @@
     },
     "schedule": {
       "title": "Schedule (WIP)",
-      "description": "AI-driven schedule management tool, can automatically add schedules using text or images."
+      "description": "AI-driven schedule management tool, can automatically add schedules using text or images. (There is a performance issue, which may cause your device to overheat.)"
     }
-  }
+  },
+  "tags": {
+    "utilities": "Utilities",
+    "organizers": "Organizers",
+    "creators": "Creators",
+    "entertainment": "Entertainment"
+  },
+  "no_results": "No results found"
 }

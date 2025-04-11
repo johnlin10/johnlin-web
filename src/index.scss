@@ -1,7 +1,7 @@
 @import './styles/_mixins.scss';
 
 * {
-  @include hide-scrollbar;
+  @includehide-scrollbar:;
   box-sizing: border-box;
   font-weight: 400;
   font-style: normal;
@@ -11,11 +11,11 @@
   font-family: 'Outfit', 'Noto Sans TC', -apple-system, BlinkMacSystemFont,
     'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
     'Droid Sans', 'Helvetica Neue', sans-serif;
-  transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  -webkit-transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  -moz-transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  -ms-transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  -o-transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: 0.5s cubic-bezier(0.32, 1, 0.32, 1);
+  -webkit-transition: 0.5s cubic-bezier(0.32, 1, 0.32, 1);
+  -moz-transition: 0.5s cubic-bezier(0.32, 1, 0.32, 1);
+  -ms-transition: 0.5s cubic-bezier(0.32, 1, 0.32, 1);
+  -o-transition: 0.5s cubic-bezier(0.32, 1, 0.32, 1);
 }
 
 html {
@@ -101,9 +101,9 @@ div {
 }
 
 button {
-  height: 100%;
+  // height: 100%;
   width: fit-content;
-  padding: 0 12px;
+  padding: 9px 18px;
   margin: 0;
   background-color: transparent;
   border: 1px solid var(--border-color);
@@ -113,12 +113,11 @@ button {
   &:disabled {
     opacity: 0.5;
   }
-
-  border-radius: var(--space-2x);
-  -webkit-border-radius: var(--space-2x);
-  -moz-border-radius: var(--space-2x);
-  -ms-border-radius: var(--space-2x);
-  -o-border-radius: var(--space-2x);
+  border-radius: var(--space);
+  -webkit-border-radius: var(--space);
+  -moz-border-radius: var(--space);
+  -ms-border-radius: var(--space);
+  -o-border-radius: var(--space);
 }
 
 input[type='text'],

@@ -10,8 +10,15 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.currentUser = action.payload
-      state.isAdmin = action.payload?.uid === process.env.REACT_APP_ADMIN_UID
+      const { uid, email, displayName, photoURL } = action.payload
+      state.currentUser = {
+        uid,
+        email,
+        displayName,
+        photoURL,
+      }
+      // 這裡可以根據需要添加其他邏輯來判斷是否為管理員
+      state.isAdmin = uid === process.env.REACT_APP_ADMIN_UID || false
     },
     clearUser: (state) => {
       state.currentUser = null

@@ -1,0 +1,19 @@
+{
+  "title": "Portfolio",
+  "detail": {
+    "": "",
+    "author": "Author",
+    "anonymous": "Anonymous",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "tags": "Tags",
+    "Video Resolution": "Video Resolution",
+    "Photo Resolution": "Photo Resolution",
+    "Shooting Time": "Shooting Time",
+    "Copyright": "Copyright",
+    "Subject": "Subject",
+    "Exam Time": "Exam Time",
+    "createdAt": "Created At"
+  },
+  "portfolioNotFound": "Portfolio Not Found"
+}

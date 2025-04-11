@@ -49,8 +49,8 @@ function Home(): JSX.Element {
     }))
   )
   return (
-    <div className={style.home_container}>
-      <div className={style.home_content}>
+    <div className={style.home}>
+      <div className={style.container}>
         {/* <div className={style.top_content}>
           <p>{t('home.top-content.1')}</p>
           <p>{t('home.top-content.2')}</p>

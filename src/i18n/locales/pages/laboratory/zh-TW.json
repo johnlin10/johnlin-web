@@ -1,6 +1,6 @@
 {
   "title": "實驗室",
-  "description": "這裡是我的實驗空間，用來放一些有趣的嘗試和實用的工具。",
+  "description": "這裡是我的實驗空間，用來放一些有趣的嘗試和實用的工具",
   "tools": {
     "shortcut": {
       "title": "短網址產生器",
@@ -8,7 +8,14 @@
     },
     "schedule": {
       "title": "日程表（開發中）",
-      "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程。"
+      "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程（目前有性能上的問題，可能導致您的裝置異常發熱）"
     }
-  }
+  },
+  "tags": {
+    "utilities": "工具",
+    "organizers": "時間管理",
+    "creators": "創造力",
+    "entertainment": "娛樂"
+  },
+  "no_results": "找不到任何結果"
 }

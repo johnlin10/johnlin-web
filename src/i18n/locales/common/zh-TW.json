@@ -1,5 +1,10 @@
 {
   "locale": "zh-TW",
+  "website": {
+    "title": "林昌龍",
+    "author": "林昌龍",
+    "description": "網頁設計師與開發者"
+  },
   "switch": {
     "open": "開啟",
     "close": "關閉"

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import style from './Header.module.scss'
 
-import moment from 'moment'
+// import moment from 'moment'
 
 import { animated, easings, useSpring } from '@react-spring/web'
 
@@ -11,7 +11,7 @@ interface HeaderProps {
   title: string
   center: React.ReactNode
   right: React.ReactNode
-  setIsOpenSetting: (isOpen: boolean) => void
+  toggleSetting: (command?: boolean) => void
 }
 
 interface SubtitleProps {
@@ -19,22 +19,21 @@ interface SubtitleProps {
   children?: React.ReactNode
 }
 
-interface TimeDisplay {
-  days: number
-  hours: number
-  minutes: number
-  seconds: number
-}
+// interface TimeDisplay {
+//   days: number
+//   hours: number
+//   minutes: number
+//   seconds: number
+// }
 
 function Header({
   title,
   center,
   right,
-  setIsOpenSetting,
+  toggleSetting,
 }: HeaderProps): JSX.Element {
   const [clickCount, setClickCount] = useState(0)
   const navigate = useNavigate()
-  const { t } = useTranslation()
   const refresh = (): void => {
     window.location.reload()
   }
@@ -48,39 +47,39 @@ function Header({
   })
 
   // 2025 reverse count
-  const [countdown, setCountdown] = useState<TimeDisplay>({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  })
-  useEffect(() => {
-    const calculateTimeLeft = () => {
-      const endDate = moment('2025-01-01 00:00:00')
-      const now = moment()
-      const diff = endDate.diff(now, 'seconds')
+  // const [countdown, setCountdown] = useState<TimeDisplay>({
+  //   days: 0,
+  //   hours: 0,
+  //   minutes: 0,
+  //   seconds: 0,
+  // })
+  // useEffect(() => {
+  //   const calculateTimeLeft = () => {
+  //     const endDate = moment('2025-01-01 00:00:00')
+  //     const now = moment()
+  //     const diff = endDate.diff(now, 'seconds')
 
-      return {
-        days: Math.floor(diff / (60 * 60 * 24)),
-        hours: Math.floor((diff % (60 * 60 * 24)) / (60 * 60)),
-        minutes: Math.floor((diff % (60 * 60)) / 60),
-        seconds: diff % 60,
-      }
-    }
-    setCountdown(calculateTimeLeft())
+  //     return {
+  //       days: Math.floor(diff / (60 * 60 * 24)),
+  //       hours: Math.floor((diff % (60 * 60 * 24)) / (60 * 60)),
+  //       minutes: Math.floor((diff % (60 * 60)) / 60),
+  //       seconds: diff % 60,
+  //     }
+  //   }
+  //   setCountdown(calculateTimeLeft())
 
-    const timer = setInterval(() => {
-      setCountdown(calculateTimeLeft())
-    }, 1000)
+  //   const timer = setInterval(() => {
+  //     setCountdown(calculateTimeLeft())
+  //   }, 1000)
 
-    return () => clearInterval(timer)
-  }, [])
+  //   return () => clearInterval(timer)
+  // }, [])
 
   // login page
   const handleHeaderClick = (e: React.MouseEvent): void => {
     e.stopPropagation()
     setClickCount((prevCount) => prevCount + 1)
-    setIsOpenSetting(false)
+    toggleSetting(false)
   }
   useEffect(() => {
     if (clickCount === 10) {

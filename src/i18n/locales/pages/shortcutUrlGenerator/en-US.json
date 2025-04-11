@@ -1,7 +1,21 @@
 {
-  "title": "Shortcut Url Generator",
-  "inputUrl": "Input the url you want to shorten",
-  "generate": "Generate short url",
-  "shortUrl": "Short url",
-  "originalUrl": "Original url"
+  "title": "Url Shortener",
+  "description": "Convert long URLs into short ones",
+  "content": {
+    "inputUrl": "Input the url you want to shorten",
+    "generate": "Generate short url",
+    "shortUrl": "Short url",
+    "originalUrl": "Original url",
+    "customCode": "Custom code",
+    "inputCustomCode": "Input custom code",
+    "customCodeLimit": "Only English letters, numbers, and -, at least 3 characters",
+    "copied": "Copied to clipboard"
+  },
+  "error": {
+    "lengthTooShort": "This url is already short enough...",
+    "urlTooLong": "This url is too long... must be shortened!",
+    "invalidUrl": "This url is not complete...",
+    "customCodeExists": "This short code is already used",
+    "unknownError": "Unknown error"
+  }
 }
