@@ -1,0 +1,288 @@
+@import '../../../../styles/_mixins.scss';
+
+.tone_generator {
+  @include child-page;
+
+  .container {
+    @include page-container(var(--page-max-width-m));
+    padding-bottom: var(--space-2x);
+
+    .header {
+      width: 100%;
+      margin-bottom: var(--space-2x);
+
+      h1 {
+        margin-bottom: var(--space-half);
+      }
+
+      p {
+        color: var(--text-secondary-color);
+      }
+    }
+
+    .control_panel {
+      @include flexbox(column, start, center);
+      gap: var(--space-1-5x);
+      width: 100%;
+      padding: var(--space-1-5x);
+      background-color: var(--background-color);
+      @include border-radius(var(--border-radius-m));
+      border: 1px solid var(--border-color);
+
+      > .frequency_section {
+        @include flexbox(column, start, end);
+        gap: var(--space);
+        width: 100%;
+
+        > .current_frequency {
+          @include flexbox(row, center, center);
+          gap: var(--space-half);
+          padding: 0 var(--space);
+          width: fit-content;
+          border: 1px solid var(--border-color);
+          background-color: var(--background-secondary-color);
+          @include border-radius(var(--border-radius-s));
+
+          > .frequency_number {
+            min-width: 7ch;
+            text-align: right;
+            font-size: 2rem;
+            font-weight: 600;
+            background-color: transparent;
+
+            // -webkit-appearance: textfield;
+            // -moz-appearance: textfield;
+            // appearance: textfield;
+
+            // &::-webkit-inner-spin-button,
+            // &::-webkit-outer-spin-button {
+            //   -webkit-appearance: none;
+            //   margin: 0;
+            // }
+          }
+
+          > span {
+            font-size: 2rem;
+            font-weight: 600;
+          }
+        }
+
+        > .slider_container {
+          @include flexbox(row, space-between, center);
+          gap: var(--space);
+          margin: var(--space) 0;
+          width: 100%;
+
+          .slider_label {
+            font-size: 0.8rem;
+            color: var(--text-secondary-color);
+            white-space: nowrap;
+          }
+
+          > input.frequency_slider {
+            height: 12px;
+            width: 100%;
+            background: var(--border-color);
+            outline: none;
+            @include border-radius(5px);
+            appearance: none;
+            -webkit-appearance: none;
+
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 12px;
+              height: 12px;
+              background: var(--primary-color);
+              cursor: pointer;
+              @include border-radius(6px);
+            }
+
+            &::-moz-range-thumb {
+              width: 12px;
+              height: 12px;
+              background: var(--primary-color);
+              cursor: pointer;
+              @include border-radius(6px);
+            }
+          }
+        }
+
+        > .frequency_input {
+          @include flexbox(row, center, center);
+          gap: var(--space-half);
+
+          > input.frequency_number {
+            width: fit-content;
+            padding: 6px 12px;
+            margin-right: 6px;
+            text-align: center;
+            background-color: var(--background-color);
+            border: 1px solid #00000000;
+            @include border-radius(var(--border-radius-s));
+            font-size: 1rem;
+
+            &:focus {
+              outline: none;
+              border-color: var(--border-color);
+            }
+          }
+        }
+      }
+
+      .presets {
+        @include flexbox(row, start, start);
+        padding: 0 var(--space);
+        width: 100%;
+        gap: var(--space-0-5x);
+        margin: var(--space) 0;
+        overflow-x: auto;
+
+        .preset_button {
+          min-width: fit-content;
+          font-size: 0.9rem;
+          @include border-radius(var(--border-radius-s));
+
+          &:hover {
+            background-color: var(--hover-color);
+          }
+
+          &.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+          }
+        }
+      }
+
+      .wave_types {
+        @include flexbox(row, start, start);
+        gap: var(--space-0-5x);
+        margin-bottom: var(--space);
+
+        .wave_button {
+          flex: 1;
+          padding: 8px 12px;
+          background-color: var(--background-color);
+          border: 1px solid var(--border-color);
+          @include border-radius(var(--border-radius-s));
+          font-size: 0.9rem;
+          cursor: pointer;
+          @include transition(all 0.2s ease);
+
+          &:hover {
+            background-color: var(--hover-color);
+          }
+
+          &.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+          }
+        }
+      }
+
+      .volume_section {
+        @include flexbox(row, space-between, center);
+        gap: var(--space);
+        width: 100%;
+
+        .volume_label {
+          font-size: 0.9rem;
+          white-space: nowrap;
+        }
+
+        > .volume_slider_container {
+          width: 100%;
+
+          > .volume_slider {
+            margin: 0;
+            width: 100%;
+            height: 12px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: var(--border-color);
+            outline: none;
+            @include border-radius(6px);
+
+            &::-webkit-slider-thumb {
+              -webkit-appearance: none;
+              appearance: none;
+              width: 0;
+              height: 0;
+            }
+
+            &::-moz-range-thumb {
+              appearance: none;
+              width: 20px;
+              height: 20px;
+              background: var(--primary-color);
+              cursor: pointer;
+              @include border-radius(50%);
+            }
+          }
+
+          > .volume_slider_thumb {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: var(--primary-color);
+            @include border-radius(6px);
+            @include transform-container(translateY(-50%));
+            pointer-events: none;
+          }
+        }
+
+        .volume_value {
+          width: 4ch;
+          text-align: right;
+          font-size: 0.9rem;
+        }
+      }
+
+      .play_button {
+        @include flexbox(row, center, center);
+        align-self: flex-end;
+        gap: var(--space-0-5x);
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+
+        &.active {
+          background-color: var(--warning-background-color);
+          border: 1px solid var(--warning-background-color);
+
+          * {
+            color: var(--text-always-white);
+          }
+        }
+      }
+    }
+  }
+
+  @include respond-to('phone') {
+    .container {
+      .control_panel {
+        padding: var(--space);
+
+        .presets {
+          flex-direction: column;
+          align-items: stretch;
+
+          .preset_button {
+            width: 100%;
+          }
+        }
+
+        .wave_types {
+          flex-direction: column;
+
+          .wave_button {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

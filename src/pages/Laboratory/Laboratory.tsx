@@ -8,7 +8,7 @@ import { labItems } from './LaboratoryItems'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Laboratory(): JSX.Element {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['laboratory'])
 
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -40,15 +40,15 @@ function Laboratory(): JSX.Element {
   return (
     <>
       <Metadata
-        title={`${t('title', { ns: 'laboratory' })} | ${t('website.title', {
+        title={`${t('title')} | ${t('website.title', {
           ns: 'common',
         })}`}
-        description={t('description', { ns: 'laboratory' })}
+        description={t('description')}
       />
       <div className={style.laboratory}>
         <animated.div className={style.container} style={_spring_container}>
           <div className={style.header}>
-            <p>{t('description', { ns: 'laboratory' })}</p>
+            <p>{t('description')}</p>
           </div>
 
           <div className={style.tools_grid}>
@@ -63,22 +63,34 @@ function Laboratory(): JSX.Element {
                       <div className={style.tags}>
                         {lab.tags.map((tag, idx) => (
                           <span key={idx} className={style.tag}>
-                            {t(`tags.${tag}`, { ns: 'laboratory' })}
+                            {t(`tags.${tag}`)}
                           </span>
                         ))}
                       </div>
                     )}
                   </div>
                   <div className={style.tool_content}>
-                    <h2>{t(`tools.${lab.title}`, { ns: 'laboratory' })}</h2>
-                    <p>{t(`tools.${lab.description}`, { ns: 'laboratory' })}</p>
+                    <div className={style.status}>
+                      {lab.status?.isNew && (
+                        <span className={style.new}>{t('status.new')}</span>
+                      )}
+                      {lab.status?.isPopular && (
+                        <span className={style.popular}>
+                          {t('status.popular')}
+                        </span>
+                      )}
+                      {lab.status?.wip && (
+                        <span className={style.wip}>{t('status.wip')}</span>
+                      )}
+                    </div>
+
+                    <h2>{t(`tools.${lab.title}`)}</h2>
+                    <p>{t(`tools.${lab.description}`)}</p>
                   </div>
                 </Link>
               ))
             ) : (
-              <div className={style.no_results}>
-                {t('no_results', { ns: 'laboratory' })}
-              </div>
+              <div className={style.no_results}>{t('no_results')}</div>
             )}
           </div>
         </animated.div>

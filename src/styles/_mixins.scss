@@ -30,6 +30,7 @@
   @include flexbox(column, start, center);
   padding: 0;
   padding-top: var(--header-height);
+  padding-bottom: var(--space-2x);
   width: 100%;
   height: 100%;
   overflow-x: hidden;

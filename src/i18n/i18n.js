@@ -42,6 +42,15 @@ import shortcutUrlGeneratorZhTW from './locales/pages/shortcutUrlGenerator/zh-TW
 // laboratory
 import laboratoryEnUS from './locales/pages/laboratory/en-US.json'
 import laboratoryZhTW from './locales/pages/laboratory/zh-TW.json'
+// colorJudgeGame
+import colorJudgeGameEnUS from './locales/components/colorJudgeGame/en-US.json'
+import colorJudgeGameZhTW from './locales/components/colorJudgeGame/zh-TW.json'
+// textCounter
+import textCounterEnUS from './locales/pages/laboratory/items/TextCounter/en-US.json'
+import textCounterZhTW from './locales/pages/laboratory/items/TextCounter/zh-TW.json'
+// toneGenerator
+import toneGeneratorEnUS from './locales/pages/laboratory/items/ToneGenerator/en-US.json'
+import toneGeneratorZhTW from './locales/pages/laboratory/items/ToneGenerator/zh-TW.json'
 // schedule
 import scheduleEnUS from './locales/pages/schedule/en-US.json'
 import scheduleZhTW from './locales/pages/schedule/zh-TW.json'
@@ -68,6 +77,9 @@ i18n
         blog: blogEnUS,
         shortcutUrlGenerator: shortcutUrlGeneratorEnUS,
         laboratory: laboratoryEnUS,
+        colorJudgeGame: colorJudgeGameEnUS,
+        textCounter: textCounterEnUS,
+        toneGenerator: toneGeneratorEnUS,
         schedule: scheduleEnUS,
       },
       'zh-TW': {
@@ -85,6 +97,9 @@ i18n
         blog: blogZhTW,
         shortcutUrlGenerator: shortcutUrlGeneratorZhTW,
         laboratory: laboratoryZhTW,
+        colorJudgeGame: colorJudgeGameZhTW,
+        textCounter: textCounterZhTW,
+        toneGenerator: toneGeneratorZhTW,
         schedule: scheduleZhTW,
       },
     },
@@ -103,6 +118,9 @@ i18n
       'blog',
       'shortcutUrlGenerator',
       'laboratory',
+      'colorJudgeGame',
+      'textCounter',
+      'toneGenerator',
       'schedule',
     ],
     defaultNS: 'common',

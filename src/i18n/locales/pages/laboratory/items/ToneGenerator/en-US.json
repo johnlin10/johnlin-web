@@ -1,0 +1,13 @@
+{
+  "title": "Tone Generator",
+  "description": "Generate specific frequency tones for audio equipment testing.",
+  "frequency": "Frequency",
+  "volume": "Volume",
+  "presets": "Presets",
+  "waveTypes": "Wave Types",
+  "gain": "Gain",
+  "controls": {
+    "play": "Play",
+    "stop": "Stop"
+  }
+}

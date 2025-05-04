@@ -1,0 +1,13 @@
+{
+  "title": "音頻產生器",
+  "description": "產生特定頻率的音頻，用於測試音響設備",
+  "frequency": "頻率",
+  "volume": "音量",
+  "presets": "預設",
+  "waveTypes": "波形類型",
+  "gain": "增益",
+  "controls": {
+    "play": "播放",
+    "stop": "停止"
+  }
+}

@@ -2,20 +2,47 @@
 
 .header {
   z-index: 5000;
-  @include flexbox(column, center, flex-start);
+  @include flexbox(column, start, center);
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: min-content;
+  height: 60px;
+  background-color: var(--background-color-transparent);
   cursor: default;
-  background-color: var(--background-color);
-  @include background-blur();
-  // border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
 
-  > div.header_nav {
+  @include respond-to('phone') {
+    @include background-blur();
+    background-color: var(--background-color);
+  }
+  @include respond-to('tablet') {
+    height: calc(84px + 18px);
+    padding: var(--space);
+  }
+  @include respond-to('desktop') {
+    height: calc(84px + 18px);
+    padding: var(--space);
+  }
+
+  // if menu open
+  @include respond-to('tablet') {
+    --header-height: 84px;
+  }
+  @include respond-to('desktop') {
+    --header-height: 84px;
+  }
+  &.menu_open {
+    height: calc(var(--header-height) + 52px);
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    @include background-blur();
+  }
+
+  > div.container {
     @include flexbox(row, space-between, center);
     width: 100%;
+    height: 60px;
     min-height: 60px;
 
     > div {
@@ -30,12 +57,22 @@
         padding: 0 24px;
         white-space: nowrap;
         cursor: pointer;
+        @include border-radius(var(--border-radius-l));
+        // background-color: var(--background-color);
 
+        // responsive
+        @include respond-to('tablet') {
+          border: 1px solid var(--border-color-secondary);
+        }
+        @include respond-to('desktop') {
+          border: 1px solid var(--border-color-secondary);
+        }
+
+        // child elements
         > h1 {
           margin: 0;
           font-size: 1.5rem;
         }
-
         > p.year {
           margin: 0;
           margin-left: 6px;
@@ -66,40 +103,60 @@
         min-width: 0px;
       }
 
-      // navigation
-      > a {
-        @include flexbox(row, center, center);
-        width: 60px;
-        height: 60px;
-        font-size: 1rem;
-        cursor: pointer;
-        @include float-label;
+      &.right_action {
+        @include border-radius(var(--border-radius-l));
+        // background-color: var(--background-color);
 
-        &:global(.active) {
-          // border-bottom: 3px solid var(--link-hover-color);
+        // responsive
+        @include respond-to('tablet') {
+          border: 1px solid var(--border-color-secondary);
+        }
+        @include respond-to('desktop') {
+          border: 1px solid var(--border-color-secondary);
+        }
 
-          > svg {
-            &:global(.back) {
-              position: absolute;
-              margin-top: 2px;
-              font-size: 0.9rem;
+        // page links
+        > a {
+          @include flexbox(row, center, center);
+          width: 60px;
+          height: 60px;
+          font-size: 1rem;
+          cursor: pointer;
+          @include float-label;
 
+          &:global(.active) {
+            // border-bottom: 3px solid var(--link-hover-color);
+
+            > svg {
+              &:global(.back) {
+                position: absolute;
+                margin-top: 2px;
+                font-size: 0.9rem;
+
+                > path {
+                  fill: var(--text-always-white);
+                }
+              }
               > path {
-                fill: var(--text-always-white);
+                fill: var(--link-hover-color);
               }
             }
-            > path {
-              fill: var(--link-hover-color);
-            }
+          }
+
+          > svg {
+            font-size: 1.2rem;
           }
         }
 
-        > svg {
+        // menu button
+        > button {
+          @include flexbox(row, center, center);
+          margin: 0 var(--space);
           font-size: 1.2rem;
+          cursor: pointer;
         }
-      }
 
-      &.right_action {
+        // setting container
         > :global(.actions-container) {
           @include flexbox(row, center, center);
           position: relative;
@@ -119,17 +176,17 @@
             height: 60px;
             width: 60px;
             font-size: 1.2rem;
-            background-color: var(--background-color);
+            // background-color: var(--background-color);
             color: var(--text-color);
             border: none;
-            border: 0px solid var(--background-color);
+            border: 1px solid #00000000;
             @include float-label;
             cursor: pointer;
             @include border-radius(24px 24px 0 0);
           }
 
           // actions block
-          > :global(.actions) {
+          > div:global(.actions) {
             @include flexbox(column, center, center);
             position: absolute;
             width: 60px;

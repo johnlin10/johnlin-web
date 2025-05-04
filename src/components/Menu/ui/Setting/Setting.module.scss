@@ -1,0 +1,77 @@
+// HeaderSetting 樣式
+@import '../../../../styles/mixins';
+
+.setting {
+  position: relative;
+  width: 100%;
+
+  &.active {
+    z-index: 10;
+  }
+
+  > .actions {
+    @include flexbox(row, start, start);
+    padding: var(--space-0-5x);
+    gap: var(--space-0-5x);
+    opacity: 1;
+    width: 100%;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    > .theme_container {
+      @include flexbox(row, center, center);
+      gap: var(--space-0-5x);
+      padding: 0 var(--space-1-5x);
+      width: fit-content;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      @include border-radius(20px);
+      cursor: pointer;
+
+      > .theme_icon {
+        @include flexbox(row, center, center);
+      }
+
+      > .theme_text {
+        font-size: 0.9rem;
+      }
+    }
+
+    > .language_container {
+      @include flexbox(row, center, center);
+      gap: var(--space-0-5x);
+      padding: 0 var(--space-1-5x);
+      width: fit-content;
+      height: 40px;
+      border: 1px solid var(--border-color);
+      @include border-radius(20px);
+      cursor: pointer;
+
+      > .language_icon {
+        @include flexbox(row, center, center);
+      }
+      > .language_text {
+        font-size: 0.9rem;
+      }
+    }
+
+    button {
+      width: 100%;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: var(--hover-color);
+      }
+    }
+
+    hr {
+      margin: 4px 0;
+      border: none;
+      border-top: 1px solid var(--border-color);
+    }
+  }
+}

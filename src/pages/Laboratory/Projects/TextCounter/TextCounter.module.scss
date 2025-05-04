@@ -1,0 +1,66 @@
+@import '../../../../styles/_mixins.scss';
+
+.text_counter {
+  @include child-page;
+
+  .container {
+    @include page-container(var(--page-max-width-m));
+
+    > .text_input {
+      width: 100%;
+      height: 100%;
+      border-radius: var(--border-radius);
+      margin-bottom: var(--space-l);
+
+      > textarea {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        height: 240px;
+        min-height: 120px;
+        max-height: 360px;
+        padding: var(--space);
+        border-radius: var(--border-radius);
+        border: 1px solid var(--border-color);
+        font-size: 1rem;
+        resize: vertical;
+      }
+    }
+
+    > .text_counter_result {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      width: 100%;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+
+      .stat_item {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--bg-color);
+        border-radius: var(--border-radius);
+        padding: var(--space);
+        width: 100%;
+        @include border-radius(0);
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .label {
+          margin-right: var(--space);
+          font-size: 1rem;
+          font-weight: bold;
+          color: var(--text-color-secondary);
+        }
+
+        .value {
+          color: var(--accent-color);
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}

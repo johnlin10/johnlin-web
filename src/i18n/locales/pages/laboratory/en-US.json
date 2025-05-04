@@ -8,14 +8,33 @@
     },
     "schedule": {
       "title": "Schedule (WIP)",
-      "description": "AI-driven schedule management tool, can automatically add schedules using text or images. (There is a performance issue, which may cause your device to overheat.)"
+      "description": "AI-driven schedule management tool, can automatically add schedules using text or images."
+    },
+    "colorJudgeGame": {
+      "title": "Color Judge Game (WIP)",
+      "description": "A game to test your color judgment skills."
+    },
+    "textCounter": {
+      "title": "Text Counter (WIP)",
+      "description": "Count the number of characters in a text."
+    },
+    "toneGenerator": {
+      "title": "Tone Generator",
+      "description": "Generate specific frequency tones for audio equipment testing."
     }
   },
   "tags": {
     "utilities": "Utilities",
     "organizers": "Organizers",
     "creators": "Creators",
-    "entertainment": "Entertainment"
+    "entertainment": "Entertainment",
+    "games": "Games",
+    "focus": "Focus"
+  },
+  "status": {
+    "wip": "WIP",
+    "new": "New",
+    "popular": "Popular"
   },
   "no_results": "No results found"
 }

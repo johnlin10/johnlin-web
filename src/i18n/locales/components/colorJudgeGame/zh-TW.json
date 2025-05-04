@@ -1,0 +1,32 @@
+{
+  "title": "顏色判斷遊戲",
+  "description": "根據文字顏色選出正確答案，訓練你的專注力！",
+  "start": "開始遊戲",
+  "score": "分數",
+  "time_left": "剩餘時間",
+  "question_time": "題目時間",
+  "correct": "正確！",
+  "wrong": "錯誤！",
+  "play_again": "再玩一次",
+  "game_over": "遊戲結束",
+  "final_score": "最終分數",
+  "excellent": "太厲害了！你的專注力非常優秀！",
+  "great": "表現很棒！持續練習吧！",
+  "good": "不錯的表現！繼續努力！",
+  "try_harder": "再加把勁！下次一定會更好！",
+  "practice_more": "多練習才能進步！",
+  "history": "歷史紀錄",
+  "date": "日期",
+  "time_played": "遊戲時間",
+  "clear_history": "清除紀錄",
+  "color": {
+    "red": "紅色",
+    "green": "綠色",
+    "blue": "藍色",
+    "yellow": "黃色",
+    "purple": "紫色",
+    "orange": "橙色",
+    "black": "黑色",
+    "white": "白色"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "title": "Color Judge Game",
+  "description": "Pick the correct answer based on the text color. Train your focus!",
+  "start": "Start Game",
+  "score": "Score",
+  "time_left": "Time Left",
+  "question_time": "Question Time",
+  "correct": "Correct!",
+  "wrong": "Wrong!",
+  "play_again": "Play Again",
+  "game_over": "Game Over",
+  "final_score": "Final Score",
+  "excellent": "Excellent! Your focus is outstanding!",
+  "great": "Great job! Keep practicing!",
+  "good": "Good job! Keep it up!",
+  "try_harder": "Try harder! You'll do better next time!",
+  "practice_more": "Practice makes perfect!",
+  "history": "History Records",
+  "date": "Date",
+  "time_played": "Time Played",
+  "clear_history": "Clear History",
+  "color": {
+    "red": "Red",
+    "green": "Green",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "purple": "Purple",
+    "orange": "Orange",
+    "black": "Black",
+    "white": "White"
+  }
+}

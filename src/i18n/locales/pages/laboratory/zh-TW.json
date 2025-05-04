@@ -8,14 +8,34 @@
     },
     "schedule": {
       "title": "日程表（開發中）",
-      "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程（目前有性能上的問題，可能導致您的裝置異常發熱）"
+      "description": "使用人工智慧驅動的日程管理工具，可使用文字或是圖片自動添加日程。"
+    },
+    "colorJudgeGame": {
+      "title": "顏色判斷遊戲（半成品）",
+      "description": "測試你的顏色判斷能力"
+    },
+    "textCounter": {
+      "title": "文字計數器（半成品）",
+      "description": "計算文字的數量"
+    },
+    "toneGenerator": {
+      "title": "音頻產生器",
+      "description": "產生特定頻率的音頻，用於測試音響設備"
     }
   },
   "tags": {
     "utilities": "工具",
     "organizers": "時間管理",
     "creators": "創造力",
-    "entertainment": "娛樂"
+    "productivity": "生產力",
+    "entertainment": "娛樂",
+    "games": "遊戲",
+    "focus": "專注"
+  },
+  "status": {
+    "wip": "開發中",
+    "new": "新推出",
+    "popular": "熱門功能"
   },
   "no_results": "找不到任何結果"
 }

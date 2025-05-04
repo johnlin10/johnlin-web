@@ -1,0 +1,12 @@
+{
+  "title": "Text Counter",
+  "description": "Count the number of characters in a text.",
+  "placeholder": "Please enter text",
+  "totalChars": "Total Characters",
+  "chineseChars": "Chinese Characters",
+  "chinesePunctuation": "Chinese Punctuation",
+  "englishChars": "English Characters",
+  "spaces": "Spaces",
+  "numbers": "Numbers",
+  "paragraphs": "Lines"
+}

@@ -1,0 +1,288 @@
+@import '../../../../styles/mixins';
+
+.color_judge_game {
+  @include child-page;
+
+  .intro_panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    min-height: 100%;
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-blue);
+    }
+
+    .game_desc {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+  }
+
+  .start_btn {
+    font-size: 1.5rem;
+    padding: 0.75rem 2rem;
+    background: var(--color-blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.2s;
+    &:hover {
+      background: var(--color-green);
+    }
+  }
+
+  .history_panel {
+    width: 100%;
+    max-width: 650px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    @include border-radius(12px);
+
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      color: #333;
+      text-align: center;
+    }
+
+    .history_list {
+      width: 100%;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .history_header {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      background: #eee;
+      padding: 0.8rem;
+      font-weight: bold;
+
+      span {
+        text-align: center;
+      }
+    }
+
+    .history_item {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      padding: 0.8rem;
+      border-top: 1px solid #eee;
+
+      &:nth-child(odd) {
+        background: #f9f9f9;
+      }
+
+      span {
+        text-align: center;
+      }
+    }
+
+    .clear_btn {
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #e74c3c;
+        color: white;
+      }
+    }
+  }
+
+  //* Game over
+  .result_panel {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-purple);
+    }
+
+    .result_stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        span {
+          font-size: 1rem;
+          color: #666;
+          margin-bottom: 0.3rem;
+        }
+
+        strong {
+          font-size: 2.5rem;
+          color: var(--color-blue);
+        }
+      }
+    }
+
+    .result_message {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 1.5rem 0;
+      color: var(--color-green);
+    }
+  }
+
+  .question_panel {
+    @include flexbox(column, center, center);
+    width: 100%;
+    max-width: 640px;
+    height: 100%;
+
+    > .status_bar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      font-size: 1.1rem;
+      color: #333;
+      padding: 0 18px 12px 18px;
+
+      // 問題倒數計時樣式
+      .question_time_left {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--primary-color);
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 0.2rem 0.8rem;
+        border-radius: 4px;
+
+        // 時間少於 2 秒時警示效果
+        &[data-urgent='true'] {
+          color: var(--error-color);
+          animation: pulse 0.5s infinite alternate;
+        }
+      }
+    }
+
+    // question background
+    > .question_bg {
+      width: calc(100vw - 24px);
+      min-height: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-color-alpha);
+      @include border-radius(12px);
+
+      // question text
+      > span.question_text {
+        font-size: 2.5rem;
+        font-weight: bolder;
+        letter-spacing: 0.1em;
+      }
+    }
+
+    > .options_panel {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      padding: 12px 12px;
+      gap: 12px;
+
+      > .option_btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.3rem 1rem;
+        background: #fff;
+        border: 1px solid var(--border-color-alpha);
+        @include border-radius(12px);
+        cursor: pointer;
+      }
+    }
+
+    > .result_message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &.correct {
+        color: var(--color-green);
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-top: 1rem;
+        animation: pop 0.4s;
+      }
+      &.wrong {
+        color: var(--color-red);
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-top: 1rem;
+        animation: pop 0.4s;
+      }
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0.2;
+      @include transform-container(translate(-50%, -50%) scale(0.7));
+    }
+    60% {
+      opacity: 1;
+      @include transform-container(translate(-50%, -50%) scale(1.2));
+    }
+    100% {
+      opacity: 1;
+      @include transform-container(translate(-50%, -50%) scale(1));
+    }
+  }
+
+  // 警示閃爍動畫
+  @keyframes pulse {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+}
+
+// 主題色
+:root {
+  --color-red: #e74c3c;
+  --color-green: #27ae60;
+  --color-blue: #2980b9;
+  --color-yellow: #f1c40f;
+  --color-purple: #8e44ad;
+  --color-orange: #e67e22;
+  --color-black: #222;
+  --color-white: #fff;
+}

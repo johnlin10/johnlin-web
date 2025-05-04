@@ -68,7 +68,7 @@
               padding: 0.25rem 0.5rem;
               background-color: var(--background-secondary-color);
               border-radius: 4px;
-              color: var(--background-always-white);
+              color: var(--text-secondary-color);
             }
           }
         }
@@ -76,6 +76,30 @@
         > .tool_content {
           width: 100%;
           height: fit-content;
+
+          > .status {
+            @include flexbox(row, start, center);
+            gap: var(--space-0-5x);
+
+            > span {
+              font-size: 0.75rem;
+              padding: 0.25rem 0.5rem;
+              color: var(--text-always-white);
+              @include border-radius(var(--border-radius-s));
+
+              &.wip {
+                color: var(--text-secondary-color);
+                background-color: transparent;
+                border: 1px solid var(--border-color);
+              }
+              &.new {
+                background-color: var(--christmas-red);
+              }
+              &.popular {
+                background-color: var(--christmas-green);
+              }
+            }
+          }
 
           > h2 {
             font-size: 1.2rem;

@@ -15,6 +15,7 @@ import {
   faCopy,
   faClipboard,
   faCircleExclamation,
+  faBars,
 } from '@fortawesome/free-solid-svg-icons'
 
 //* 定義可用的圖標名稱類型
@@ -29,11 +30,11 @@ export type IconName =
   | 'sun'
   | 'moon'
   | 'copy'
+  | 'bars'
   | 'clipboard'
   | 'layer-group'
   | 'circle-half-stroke'
   | 'circle-exclamation'
-
 //* 圖標映射表
 const iconMap: Record<IconName, IconProp> = {
   house: faHouse,
@@ -46,6 +47,7 @@ const iconMap: Record<IconName, IconProp> = {
   sun: faSun,
   moon: faMoon,
   copy: faCopy,
+  bars: faBars,
   clipboard: faClipboard,
   'layer-group': faLayerGroup,
   'circle-half-stroke': faCircleHalfStroke,
